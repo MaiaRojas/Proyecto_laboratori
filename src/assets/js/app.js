@@ -1,14 +1,18 @@
 "use strict";
-const render = (root)=>{
+const render = (root) =>{
    root.empty();
 
-   const section = $('<section class="components"></section>');
+   const wrapper = $('<div class="wrapper"></div>');
 
    const update = function (){
     render(root);
   };
 
-   root.append(section);
+  if(state.screen == null) {
+    wrapper.append(Home(update))
+  }
+
+  root.append(wrapper);
 };
 
 const state = {
