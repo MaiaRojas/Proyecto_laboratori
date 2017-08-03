@@ -28,6 +28,7 @@
     "uglify": "^0.1.5"
   },
   "devDependencies": {
+    "express": "^4.15.3",
     "6to5ify": "^4.1.1",
     "babel-cli": "^6.24.1",
     "babel-loader": "^7.1.1",

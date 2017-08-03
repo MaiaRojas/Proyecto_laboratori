@@ -336,7 +336,7 @@ const Tardanza = (update) => {
 const Falta = (update) => {
 	const container = $('<div class="container"></div>');
 	const row = $('<div class="row"></div>');
-	const title = $('<h4 class="montserrat text-center">Cuéntale a Ale por qué no vendrás</h4>');
+	const title = $('<h4 class="montserrat text-center">'+ state.user[0].name+' Cuéntale a Ale por qué no vendrás</h4>');
 	const form = $('<div class="col s12"></div>');
 	const field = $('<div class="input-field col s12"></div>');
 	const message = $('<textarea id="message" class="materialize-textarea"></textarea>');
