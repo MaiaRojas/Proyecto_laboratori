@@ -18,6 +18,8 @@ const render = (root) =>{
     section.append(Falta( _ => render(root)));
   } else if (state.page == 6) {
     section.append(justificacion( _ => render(root)));
+  } else if (state.page == 7) {
+    section.append(mensaje( _ => render(root)));
   }
 
   root.append(section);

@@ -14,7 +14,7 @@ const justificacion = (update) => {
 		button.on('click', (e) => {
       e.preventDefault();
       console.log("mensaje enviado");
-			state.page = 3;
+			state.page = 7;
 			update();
 		});
 

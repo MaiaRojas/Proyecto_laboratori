@@ -68,7 +68,6 @@ const welcome = (update) => {
           update();
 
         } else{
-          $('#btnEnviar').addClass("modal-trigger");
           console.log("Ingresa fuera de hora");
           state.page = 6;
           update();
