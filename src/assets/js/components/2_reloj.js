@@ -2,7 +2,13 @@ const reloj = (update) => {
   $('body').css('background-color', '#f7f7f7');
   const cont_reloj =$('<section class="container cont_timer"></section>');
   const cont_title =$('<div class="welcome"></div>') ;
-  const title =$('<p>Buen día <strong>'+ state.user[0].name +'</strong></p>');
+  const title =$('<p>Buen día <strong>'+ state.user[0].NOMBRE +'</strong></p>');
+  postE.name =state.user[0].NOMBRE ;
+  postE.email =state.user[0].EMAIL;
+  postE.squad =state.user[0].SQUAD;
+  postE.type  =state.user[0].TIPO;
+  cont_title.append(title);
+  cont_reloj.append(cont_title);
 
   const cont_timer =$('<div class="cont_clock"></div>');
   const cont_day =$('<div class="day"></div>');
@@ -18,11 +24,11 @@ const reloj = (update) => {
   cont_title.append(title);
   cont_reloj.append(cont_title, cont_timer);
 
-  var punt1 = "1320";
-  var punt2 = "1430";
-  var punt3 = "1450";
+  var punt1 = "1724";
+  var punt2 = "1726";
+  var punt3 = "1728";
 
-  function harold(standIn) {
+  function rules(standIn) {
      if (standIn < 10) {
        standIn = '0' + standIn
      }
@@ -37,9 +43,9 @@ const reloj = (update) => {
      dia     = time.getDate(),
      mes     = time.getMonth()+1,
      year    = time.getFullYear();
-     console.log(harold(dia) + "/" + harold(mes) + "/" + year);
-      document.querySelectorAll('.day')[0].innerHTML = harold(dia) + "/" + harold(mes) + "/" + year;
-      document.querySelectorAll('.clock')[0].innerHTML = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
+     console.log(rules(dia) + "/" + rules(mes) + "/" + year);
+      document.querySelectorAll('.day')[0].innerHTML = rules(dia) + "/" + rules(mes) + "/" + year;
+      document.querySelectorAll('.clock')[0].innerHTML = rules(hours) + ":" + rules(minutes) + ":" + rules(seconds);
  };
 
  var interval = setInterval(clock, 1000);
@@ -52,18 +58,28 @@ const reloj = (update) => {
    var hours = actual.getHours();
    var minutes = actual.getMinutes();
    var seconds = actual.getSeconds();
-   var check = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
-   // console.log(harold(hours) + ":" + harold(minutes) + ":" + harold(seconds));
+   var check = rules(hours) + ":" + rules(minutes) + ":" + rules(seconds);
+   // console.log(rules(hours) + ":" + rules(minutes) + ":" + rules(seconds));
    console.log(punt1.slice(0, 2));
    state.time = check;
-   if( (hours >= punt1.slice(0, 2) && hours <= punt2.slice(0, 2)) && (minutes >= punt1.slice(2, 4) && minutes <= punt2.slice(2, 4))){
+
+   postE.fecha  =state.time ;
+
+   if( hours >= punt1.slice(0, 2) && hours <= punt2.slice(0, 2) && minutes >= punt1.slice(2, 4) && minutes <= punt2.slice(2, 4)){
        state.cat ="P";
+       postE.state  =state.cat ;
        state.page = 2;
+
+       PostregisterHora(update ,postE.name,postE.email,postE.squad,postE.type,postE.fecha ,postE.state);
+
        update();
    } else if ((hours >= punt2.slice(0, 2) && hours <= punt3.slice(0, 2)) && (minutes >= punt2.slice(2, 4) && minutes <= punt3.slice(2, 4)))
     { console.log("tarde");
       state.cat ="T";
+      postE.state  =state.cat ;
       state.page = 3;
+
+      PostregisterHora(update ,postE.name,postE.email,postE.squad,postE.type,postE.fecha ,postE.state);
       update();
     }
 
@@ -78,4 +94,4 @@ const reloj = (update) => {
   });
 
   return cont_reloj;
-}
+};

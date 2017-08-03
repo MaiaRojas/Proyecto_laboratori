@@ -48,7 +48,7 @@ const welcome = (update) => {
     btn_enviar.on('click',(e) =>{
       // e.preventDefault();
 
-        var punt_r1 ="1440";
+        var punt_r1 ="1730";
         var actual = new Date();
         var hours = actual.getHours();
         console.log(hours)

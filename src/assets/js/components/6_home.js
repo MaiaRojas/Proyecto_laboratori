@@ -4,7 +4,7 @@ const Home = (update) => {
     const col1 = $('<div class="col s12"></div>');
     const col2 = $('<div class="col s12 bg-white"></div>');
     const col3 = $('<div class="col s12"></div>');
-    const welcome = $('<p>Buen día '+ state.user[0].name +', <br>esta es la agenda de hoy</p>');
+    const welcome = $('<p>Buen día '+ state.user[0].NOMBRE +', <br>esta es la agenda de hoy</p>');
 	const salir = $('<a href="#" class="active">Salir</a>');
     const event = ["Hackathon", "Company Pitch - Rimac", "Hackathon, Coffee time", "Company Pitch - Everis", "Hackathon", "Hackathon, Coffee time", "Company Pitch - BBVA", "Hackathon, Coffee time", " Expo"];
     const schedule = ["00:01", "10:10", "10:20", "13:00", "13:10", "15:00", "16:40", "16:50", "18:00"];

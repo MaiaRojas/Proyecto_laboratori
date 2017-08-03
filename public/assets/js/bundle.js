@@ -40,59 +40,25 @@ const state = {
   cat:null,
 };
 
+const postE = {
+  name: null,
+  email: null,
+  squad :null,
+  type:null,
+  fecha:null,
+  state: null,
+};
+
 $( _ => {
+    getJSON("https://sheetsu.com/apis/v1.0/15e4cdf9e644",(err,json)=> {
+        if (err) { return alert(err.message);}
+        console.log(json);
+        state.data = json;
 
-  getJSON('/user.json', (err, json) => {
-
-      if (err) { return alert(err.message);}
-
-      state.data = json;
-      const root = $('.root');
-      render(root);
+        const root = $('.root');
+        render(root);
     });
 });
-
-'use strict';
-
-const filterByEmail= (stations,query) => {
-
-  const select =stations.filter (function(index) {
-    return (index.email.toLowerCase().indexOf(query.toLowerCase())!=-1);
-  })
-  
-  return select;
-}
-
-'use strict';
-
-const getJSON = (url, cb) => {
-
-  const xhr = new XMLHttpRequest();
-
-  xhr.addEventListener('load', () => {
-
-    if (xhr.status !== 200) {
-      return cb(new Error('Error loading JSON from ' + url + '(' + xhr.status + ')'));
-    }
-
-    cb(null, xhr.response);
-
-  });
-
-  xhr.open('GET', url);
-  xhr.responseType = 'json';
-  xhr.send();
-
-};
-
-const Verificar = (valor ) => {
-  if(valor =="1234"){
-    $('#btnEnviar').removeClass("disabled");
-  } else {
-    console.log("La contraseña no coincide");
-    $('#btnEnviar').addClass("disabled");
-  }
-};
 
 const header = (update) => {
 
@@ -151,7 +117,7 @@ const welcome = (update) => {
     btn_enviar.on('click',(e) =>{
       // e.preventDefault();
 
-        var punt_r1 ="1440";
+        var punt_r1 ="1730";
         var actual = new Date();
         var hours = actual.getHours();
         console.log(hours)
@@ -179,7 +145,13 @@ const reloj = (update) => {
   $('body').css('background-color', '#f7f7f7');
   const cont_reloj =$('<section class="container cont_timer"></section>');
   const cont_title =$('<div class="welcome"></div>') ;
-  const title =$('<p>Buen día <strong>'+ state.user[0].name +'</strong></p>');
+  const title =$('<p>Buen día <strong>'+ state.user[0].NOMBRE +'</strong></p>');
+  postE.name =state.user[0].NOMBRE ;
+  postE.email =state.user[0].EMAIL;
+  postE.squad =state.user[0].SQUAD;
+  postE.type  =state.user[0].TIPO;
+  cont_title.append(title);
+  cont_reloj.append(cont_title);
 
   const cont_timer =$('<div class="cont_clock"></div>');
   const cont_day =$('<div class="day"></div>');
@@ -195,11 +167,11 @@ const reloj = (update) => {
   cont_title.append(title);
   cont_reloj.append(cont_title, cont_timer);
 
-  var punt1 = "1320";
-  var punt2 = "1430";
-  var punt3 = "1450";
+  var punt1 = "1724";
+  var punt2 = "1726";
+  var punt3 = "1728";
 
-  function harold(standIn) {
+  function rules(standIn) {
      if (standIn < 10) {
        standIn = '0' + standIn
      }
@@ -214,9 +186,9 @@ const reloj = (update) => {
      dia     = time.getDate(),
      mes     = time.getMonth()+1,
      year    = time.getFullYear();
-     console.log(harold(dia) + "/" + harold(mes) + "/" + year);
-      document.querySelectorAll('.day')[0].innerHTML = harold(dia) + "/" + harold(mes) + "/" + year;
-      document.querySelectorAll('.clock')[0].innerHTML = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
+     console.log(rules(dia) + "/" + rules(mes) + "/" + year);
+      document.querySelectorAll('.day')[0].innerHTML = rules(dia) + "/" + rules(mes) + "/" + year;
+      document.querySelectorAll('.clock')[0].innerHTML = rules(hours) + ":" + rules(minutes) + ":" + rules(seconds);
  };
 
  var interval = setInterval(clock, 1000);
@@ -229,18 +201,28 @@ const reloj = (update) => {
    var hours = actual.getHours();
    var minutes = actual.getMinutes();
    var seconds = actual.getSeconds();
-   var check = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
-   // console.log(harold(hours) + ":" + harold(minutes) + ":" + harold(seconds));
+   var check = rules(hours) + ":" + rules(minutes) + ":" + rules(seconds);
+   // console.log(rules(hours) + ":" + rules(minutes) + ":" + rules(seconds));
    console.log(punt1.slice(0, 2));
    state.time = check;
-   if( (hours >= punt1.slice(0, 2) && hours <= punt2.slice(0, 2)) && (minutes >= punt1.slice(2, 4) && minutes <= punt2.slice(2, 4))){
+
+   postE.fecha  =state.time ;
+
+   if( hours >= punt1.slice(0, 2) && hours <= punt2.slice(0, 2) && minutes >= punt1.slice(2, 4) && minutes <= punt2.slice(2, 4)){
        state.cat ="P";
+       postE.state  =state.cat ;
        state.page = 2;
+
+       PostregisterHora(update ,postE.name,postE.email,postE.squad,postE.type,postE.fecha ,postE.state);
+
        update();
    } else if ((hours >= punt2.slice(0, 2) && hours <= punt3.slice(0, 2)) && (minutes >= punt2.slice(2, 4) && minutes <= punt3.slice(2, 4)))
     { console.log("tarde");
       state.cat ="T";
+      postE.state  =state.cat ;
       state.page = 3;
+
+      PostregisterHora(update ,postE.name,postE.email,postE.squad,postE.type,postE.fecha ,postE.state);
       update();
     }
 
@@ -255,7 +237,7 @@ const reloj = (update) => {
   });
 
   return cont_reloj;
-}
+};
 
 const asistOk = (update) => {
   console.log(state.time);
@@ -263,7 +245,7 @@ const asistOk = (update) => {
   const container_OK =$('<section class="container center-align"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;
   const cont_title =$('<div class="title_asis"></div>') ;
-  const title =$('<p class="negrita">'+state.user[0].name+' tu asistencia fue registrada a las :</p>');
+  const title =$('<p class="negrita">'+state.user[0].NOMBRE+' tu asistencia fue registrada a las :</p>');
   const hora = $('<p>'+ state.time +'</p>');
   cont_title.append(title);
   cont_title.append(hora);
@@ -301,7 +283,7 @@ const Tardanza = (update) => {
 
 	const container = $('<div class="container"></div>');
 	const row = $('<div class="row"></div>');
-	const title = $('<h4 class="montserrat text-center">'+ state.user[0].name +', ¿Cuál es el motivo de tu tardanza?</h4>');
+	const title = $('<h4 class="montserrat text-center">'+ state.user[0].NOMBRE +', ¿Cuál es el motivo de tu tardanza?</h4>');
 	const form = $('<div class="col s12"></div>');
 	const p1 = $('<p></p>');
 	const p2 = $('<p></p>');
@@ -330,12 +312,10 @@ const Tardanza = (update) => {
 	});
 
 	button.on('click', (e) => {
-		state.page = 2;
+		state.page = 7;
 		update();
 	});
-
 	return container
-
 }
 
 'use strict';
@@ -370,7 +350,7 @@ const Home = (update) => {
     const col1 = $('<div class="col s12"></div>');
     const col2 = $('<div class="col s12 bg-white"></div>');
     const col3 = $('<div class="col s12"></div>');
-    const welcome = $('<p>Buen día '+ state.user[0].name +', <br>esta es la agenda de hoy</p>');
+    const welcome = $('<p>Buen día '+ state.user[0].NOMBRE +', <br>esta es la agenda de hoy</p>');
 	const salir = $('<a href="#" class="active">Salir</a>');
     const event = ["Hackathon", "Company Pitch - Rimac", "Hackathon, Coffee time", "Company Pitch - Everis", "Hackathon", "Hackathon, Coffee time", "Company Pitch - BBVA", "Hackathon, Coffee time", " Expo"];
     const schedule = ["00:01", "10:10", "10:20", "13:00", "13:10", "15:00", "16:40", "16:50", "18:00"];
@@ -397,11 +377,37 @@ const Home = (update) => {
     return container
 }
 
+const justificacion = (update) => {
+    $('body').css('background-color', '#f7f7f7');
+    const body_modal= $('<div class="container cont_just"></div>');
+    const cont_modal= $('<div class="row"></div>');
+    const cont_div = $('<div class="col s12"></div>');
+    const cont_div2 = $('<div class="col s12"></div>');
+    const msj  = $('<p class="spacing">'+ state.user[0].NOMBRE +', aún no has registrado tu asistencia.<br><br>Por favor, cuéntanos por qué.</p>') ;
+    const message = $('<textarea id="message" class="materialize-textarea"></textarea>');
+    const cont_btn = $('<div class="col s12 send_fuera_hora"></div>');
+    const button = $('<a class="btn col s12 montserrat">Enviar</a>');
+    cont_btn.append(button);
+    cont_div2.append(msj, message, cont_btn);
+    cont_div.append(cont_div2);
+    cont_modal.append(cont_div);
+    body_modal.append(cont_modal);
+
+		button.on('click', (e) => {
+      e.preventDefault();
+      console.log("mensaje enviado");
+			state.page = 7;
+			update();
+		});
+
+    return body_modal;
+};
+
 const mensaje = (update) => {
   const container_msm =$('<section class="container center-align"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;
   const cont_title =$('<div class="title_asis"></div>') ;
-  const title =$('<p class="negrita">'+state.user[0].name+', tu mensaje ha sido enviado con éxito</p>');
+  const title =$('<p class="negrita">'+ state.user[0].NOMBRE +', tu mensaje ha sido enviado con éxito</p>');
   cont_title.append(title);
   cont_asisOK.append(cont_title);
   const cont_check =$('<div class="cont_asist col s6 push-s3"></div>');
@@ -426,32 +432,6 @@ const mensaje = (update) => {
   container_msm.append(cont_asisOK);
   return container_msm ;
 }
-
-const justificacion = (update) => {
-    $('body').css('background-color', '#f7f7f7');
-    const body_modal= $('<div class="container cont_just"></div>');
-    const cont_modal= $('<div class="row"></div>');
-    const cont_div = $('<div class="col s12"></div>');
-    const cont_div2 = $('<div class="col s12"></div>');
-    const msj  = $('<p class="spacing">'+ state.user[0].name +', aún no has registrado tu asistencia.<br><br>Por favor, cuéntanos por qué.</p>') ;
-    const message = $('<textarea id="message" class="materialize-textarea"></textarea>');
-    const cont_btn = $('<div class="col s12 send_fuera_hora"></div>');
-    const button = $('<a class="btn col s12 montserrat">Enviar</a>');
-    cont_btn.append(button);
-    cont_div2.append(msj, message, cont_btn);
-    cont_div.append(cont_div2);
-    cont_modal.append(cont_div);
-    body_modal.append(cont_modal);
-
-		button.on('click', (e) => {
-      e.preventDefault();
-      console.log("mensaje enviado");
-			state.page = 7;
-			update();
-		});
-
-    return body_modal;
-};
 
 'use strict';
 
@@ -502,3 +482,58 @@ const HomeTeacher = (update) => {
     container.append(row);
     return container
 }
+'use strict';
+
+const filterByEmail= (stations,query) => {
+  console.log(stations);
+  const select =stations.filter (function(index) {
+    return (index.EMAIL.toLowerCase().indexOf(query.toLowerCase())!=-1);
+  })
+  console.log(select);
+  return select;
+}
+
+'use strict';
+
+const getJSON = (url, cb) => {
+
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener('load', () => {
+
+    if (xhr.status !== 200) {
+      return cb(new Error('Error loading JSON from ' + url + '(' + xhr.status + ')'));
+    }
+
+    cb(null, xhr.response);
+
+  });
+
+  xhr.open('GET', url);
+  xhr.responseType = 'json';
+  xhr.send();
+
+};
+
+'use strict';
+const PostregisterHora =(update ,postEname,postEemail,postEsquad,postEtype,postEfecha ,postEstate)=>{
+  var name = postEname;
+  var email = postEemail;
+  var squad = postEsquad;
+  var type = postEtype;
+  var fecha = postEfecha;
+  var state = postEstate;
+
+  $.post("https://sheetsu.com/apis/v1.0/15e4cdf9e644", {"NOMBRE":name,"EMAIL":email,"SQUAD":squad,"TIPO":type,"FECHA":fecha,"ESTADO":state}, function(result){
+      console.log("Enviando Data");
+  });
+};
+
+const Verificar = (valor ) => {
+  if(valor =="1234"){
+    $('#btnEnviar').removeClass("disabled");
+  } else {
+    console.log("La contraseña no coincide");
+    $('#btnEnviar').addClass("disabled");
+  }
+};

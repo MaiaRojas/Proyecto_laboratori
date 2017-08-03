@@ -40,14 +40,22 @@ const state = {
   cat:null,
 };
 
+const postE = {
+  name: null,
+  email: null,
+  squad :null,
+  type:null,
+  fecha:null,
+  state: null,
+};
+
 $( _ => {
+    getJSON("https://sheetsu.com/apis/v1.0/15e4cdf9e644",(err,json)=> {
+        if (err) { return alert(err.message);}
+        console.log(json);
+        state.data = json;
 
-  getJSON('/user.json', (err, json) => {
-
-      if (err) { return alert(err.message);}
-
-      state.data = json;
-      const root = $('.root');
-      render(root);
+        const root = $('.root');
+        render(root);
     });
 });
