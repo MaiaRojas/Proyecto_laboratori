@@ -2,7 +2,7 @@ const mensaje = (update) => {
   const container_msm =$('<section class="container center-align"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;
   const cont_title =$('<div class="title_asis"></div>') ;
-  const title =$('<p class="negrita">'+state.user[0].name+' Tu mensaje ha sido enviado correctamente</p>');
+  const title =$('<p class="negrita">'+state.user[0].name+', tu mensaje ha sido enviado con éxito</p>');
   cont_title.append(title);
   cont_asisOK.append(cont_title);
   const cont_check =$('<div class="cont_asist col s6 push-s3"></div>');
@@ -14,7 +14,7 @@ const mensaje = (update) => {
   cont_check.append(cont_radio);
 
   const div_enlaces =$('<div class="cont_btn col s10 push-s1"></div>');
-  const btn_home =$('<button type="button"  id="btn_present" name="button" class="primary">IR AL HOME</button>');
+  const btn_home =$('<button type="button"  id="btn_present" name="button" class="primary Montserrat">IR AL HOME</button>');
 
   div_enlaces.append(btn_home)
   cont_asisOK.append(div_enlaces);

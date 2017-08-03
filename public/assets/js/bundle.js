@@ -53,8 +53,8 @@ $( _ => {
 
 const header = (update) => {
 
-  const cont_header =$('<header><div class="container"><div class="row">'+
-                       '<img src="assets/img/logo.svg" alt="logo" class="col s10 push-s1  "></div></div></header>');
+  const cont_header =$('<header><div class="container"><div class="row"><div class="logo-center">'+
+                       '<img src="assets/img/logo.svg" alt="logo" class="col s8 pull-s2"></div></div></div></header>');
   return cont_header ;
 }
 
@@ -62,11 +62,8 @@ const header = (update) => {
 const welcome = (update) => {
     const cont_welcome =$('<section class="container center-align cont_welcome"></section>');
     const title =$('<h5 class="center">Bienvenido al capitán <br>Ingresa a tu cuenta </h5>');
-    cont_welcome.append(title);
-    const cont_form = $('<div class="container"></div>');
-    cont_welcome.append(cont_form);
     const form =$('<form  class="row" id="new_user"></form>');
-    cont_form.append(form);
+    cont_welcome.append(title, form);
     const forminput =$('<div class="col s10 push-s1"></div>');
     form.append(forminput);
     const var_user =$('<div class="left-align"></div>');
@@ -83,7 +80,7 @@ const welcome = (update) => {
     var_pas.append(input_pas);
 
     const div_lost =$ ('<div></div>');
-    const lost_pas=$('<a href="#" class="active">Olvide mi contraseña</a>');
+    const lost_pas=$('<a href="#" class="active">Olvidé mi contraseña</a>');
     div_lost.append(lost_pas);
     forminput.append(div_lost);
     const div_btn =$('<div class="form-actions"></div>');
@@ -115,7 +112,7 @@ const welcome = (update) => {
     btn_enviar.on('click',(e) =>{
       e.preventDefault();
 
-        var punt_r1 ="0937";
+        var punt_r1 ="1210";
         var actual = new Date();
         var hours = actual.getHours();
         var minutes = actual.getMinutes();
@@ -139,10 +136,10 @@ const welcome = (update) => {
 }
 
 const reloj = (update) => {
-
+  $('body').css('background-color', '#f7f7f7');
   const cont_reloj =$('<section class="container cont_timer"></section>');
   const cont_title =$('<div class="welcome"></div>') ;
-  const title =$('<p>Bienvenida <strong>'+ state.user[0].name +'</strong></p>');
+  const title =$('<p>Buen día <strong>'+ state.user[0].name +'</strong></p>');
   cont_title.append(title);
   cont_reloj.append(cont_title);
 
@@ -162,9 +159,9 @@ const reloj = (update) => {
   div_register.append(enlace);
   cont_timer.append(div_register);
 
-  var punt1 = "0929";
-  var punt2 = "0932";
-  var punt3 = "0934";
+  var punt1 = "1200";
+  var punt2 = "1220";
+  var punt3 = "1230";
 
   function harold(standIn) {
      if (standIn < 10) {
@@ -189,7 +186,7 @@ const reloj = (update) => {
  var interval = setInterval(clock, 1000);
 
  btn_present.on('click', (e) =>{
-    e.preventDefault();
+    // e.preventDefault();
    clearInterval(interval);
 
    var actual = new Date();
@@ -230,7 +227,7 @@ const asistOk = (update) => {
   const container_OK =$('<section class="container center-align"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;
   const cont_title =$('<div class="title_asis"></div>') ;
-  const title =$('<p class="negrita">'+state.user[0].name+' Tu asistencia fue registrada a las :</p>');
+  const title =$('<p class="negrita">'+state.user[0].name+' tu asistencia fue registrada a las :</p>');
   const hora = $('<p>'+ state.time +'</p>');
   cont_title.append(title);
   cont_title.append(hora);
@@ -308,12 +305,14 @@ const Tardanza = (update) => {
 'use strict';
 
 const Falta = (update) => {
+	$('body').css('background-color', '#f7f7f7');
 	const container = $('<div class="container"></div>');
 	const row = $('<div class="row"></div>');
 	const title = $('<h4 class="montserrat text-center">Cuéntale a Ale por qué no vendrás</h4>');
 	const form = $('<div class="col s12"></div>');
 	const field = $('<div class="input-field col s12"></div>');
-	const message = $('<textarea id="message" class="materialize-textarea"></textarea>');
+	let message = $('<textarea id="message" class="materialize-textarea"></textarea>');
+	message.css('background', 'white');
 	const button = $('<a class="waves-effect waves-light btn col s12 montserrat">Enviar</a>');
 
 	field.append(message);
@@ -335,10 +334,8 @@ const Home = (update) => {
     const col1 = $('<div class="col s12"></div>');
     const col2 = $('<div class="col s12 bg-white"></div>');
     const col3 = $('<div class="col s12"></div>');
-    const welcome = $('<p>Buen día '+ state.user[0].name  +'</p>');
-		const salir = $('<a href="#" class="active">Salir</a>');
-    const title = $('<p class="title text-center">Agenda</p>');
-    let date = $('<div class="date-home text-center"></div>');
+    const welcome = $('<p>Buen día '+ state.user[0].name +', <br>esta es la agenda de hoy</p>');
+	const salir = $('<a href="#" class="active">Salir</a>');
     const event = ["Hackathon", "Company Pitch - Rimac", "Hackathon, Coffee time", "Company Pitch - Everis", "Hackathon", "Hackathon, Coffee time", "Company Pitch - BBVA", "Hackathon, Coffee time", " Expo"];
     const schedule = ["00:01", "10:10", "10:20", "13:00", "13:10", "15:00", "16:40", "16:50", "18:00"];
 
@@ -348,25 +345,11 @@ const Home = (update) => {
         const li = $('<li><span class="schedule-home">'+schedule[i]+'</span>'+ " | " + event[i] +'</li>');
         ul.append(li);
     }
-
-    function rules(param) {
-        if (param < 10) {
-            param = '0' + param
-        }
-        return param;
-    }
-
-    var time = new Date();
-    var day = time.getDate();
-    var month = time.getMonth() +1;
-    var year = time.getFullYear();
-
-    date.text("(" + rules(day) + "/" + rules(month) + "/" + rules(year) + ")");
-
-    col2.append(title,date,col3);
-    col1.append(welcome ,salir);
-    col3.append(ul);
-    row.append(col1, col2);
+   
+    col2.append(ul);
+    col1.append(welcome);
+    col3.append(salir);
+    row.append(col1, col2, col3);
     container.append(row);
 
 		salir.on('click', (e) => {
@@ -382,7 +365,7 @@ const mensaje = (update) => {
   const container_msm =$('<section class="container center-align"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;
   const cont_title =$('<div class="title_asis"></div>') ;
-  const title =$('<p class="negrita">'+state.user[0].name+' Tu mensaje ha sido enviado correctamente</p>');
+  const title =$('<p class="negrita">'+state.user[0].name+', tu mensaje ha sido enviado con éxito</p>');
   cont_title.append(title);
   cont_asisOK.append(cont_title);
   const cont_check =$('<div class="cont_asist col s6 push-s3"></div>');
@@ -394,7 +377,7 @@ const mensaje = (update) => {
   cont_check.append(cont_radio);
 
   const div_enlaces =$('<div class="cont_btn col s10 push-s1"></div>');
-  const btn_home =$('<button type="button"  id="btn_present" name="button" class="primary">IR AL HOME</button>');
+  const btn_home =$('<button type="button"  id="btn_present" name="button" class="primary Montserrat">IR AL HOME</button>');
 
   div_enlaces.append(btn_home)
   cont_asisOK.append(div_enlaces);
@@ -409,16 +392,19 @@ const mensaje = (update) => {
 }
 
 const justificacion = (update) => {
-
-    const body_modal=$('<div class="container cont_just"></div>');
-    const cont_modal=$('<div class="row"></div>');
-    const cont_div =$('<div class="col s10 push-s1"></div>');
-    const title_name=$('<h4>Maia</h4>') ;
-    const msj  = $('<p>Aún no has registrado tu asistencia.<br>Por favor cuéntanos  por qué.</p>') ;
+    $('body').css('background-color', '#f7f7f7');
+    const body_modal= $('<div class="container cont_just"></div>');
+    const cont_modal= $('<div class="row"></div>');
+    const cont_div = $('<div class="col s12"></div>');
+    const cont_div2 = $('<div class="col s12"></div>');
+    const msj  = $('<p class="spacing">'+ state.user[0].name +', aún no has registrado tu asistencia.<br><br>Por favor, cuéntanos por qué.</p>') ;
     const message = $('<textarea id="message" class="materialize-textarea"></textarea>');
-    cont_modal.append(title_name , msj , message);
-  	const button = $('<a class="btn col s12 montserrat">Enviar</a>');
-    cont_modal.append(button);
+    const cont_btn = $('<div class="col s12 send_fuera_hora"></div>');
+    const button = $('<a class="btn col s12 montserrat">Enviar</a>');
+    cont_btn.append(button);
+    cont_div2.append(msj, message, cont_btn);
+    cont_div.append(cont_div2);
+    cont_modal.append(cont_div);
     body_modal.append(cont_modal);
 
 		button.on('click', (e) => {

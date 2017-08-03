@@ -4,10 +4,8 @@ const Home = (update) => {
     const col1 = $('<div class="col s12"></div>');
     const col2 = $('<div class="col s12 bg-white"></div>');
     const col3 = $('<div class="col s12"></div>');
-    const welcome = $('<p>Buen día '+ state.user[0].name  +'</p>');
-		const salir = $('<a href="#" class="active">Salir</a>');
-    const title = $('<p class="title text-center">Agenda</p>');
-    let date = $('<div class="date-home text-center"></div>');
+    const welcome = $('<p>Buen día '+ state.user[0].name +', <br>esta es la agenda de hoy</p>');
+	const salir = $('<a href="#" class="active">Salir</a>');
     const event = ["Hackathon", "Company Pitch - Rimac", "Hackathon, Coffee time", "Company Pitch - Everis", "Hackathon", "Hackathon, Coffee time", "Company Pitch - BBVA", "Hackathon, Coffee time", " Expo"];
     const schedule = ["00:01", "10:10", "10:20", "13:00", "13:10", "15:00", "16:40", "16:50", "18:00"];
 
@@ -17,25 +15,11 @@ const Home = (update) => {
         const li = $('<li><span class="schedule-home">'+schedule[i]+'</span>'+ " | " + event[i] +'</li>');
         ul.append(li);
     }
-
-    function rules(param) {
-        if (param < 10) {
-            param = '0' + param
-        }
-        return param;
-    }
-
-    var time = new Date();
-    var day = time.getDate();
-    var month = time.getMonth() +1;
-    var year = time.getFullYear();
-
-    date.text("(" + rules(day) + "/" + rules(month) + "/" + rules(year) + ")");
-
-    col2.append(title,date,col3);
-    col1.append(welcome ,salir);
-    col3.append(ul);
-    row.append(col1, col2);
+   
+    col2.append(ul);
+    col1.append(welcome);
+    col3.append(salir);
+    row.append(col1, col2, col3);
     container.append(row);
 
 		salir.on('click', (e) => {

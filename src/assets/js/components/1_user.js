@@ -2,11 +2,8 @@
 const welcome = (update) => {
     const cont_welcome =$('<section class="container center-align cont_welcome"></section>');
     const title =$('<h5 class="center">Bienvenido al capitán <br>Ingresa a tu cuenta </h5>');
-    cont_welcome.append(title);
-    const cont_form = $('<div class="container"></div>');
-    cont_welcome.append(cont_form);
     const form =$('<form  class="row" id="new_user"></form>');
-    cont_form.append(form);
+    cont_welcome.append(title, form);
     const forminput =$('<div class="col s10 push-s1"></div>');
     form.append(forminput);
     const var_user =$('<div class="left-align"></div>');
@@ -23,7 +20,7 @@ const welcome = (update) => {
     var_pas.append(input_pas);
 
     const div_lost =$ ('<div></div>');
-    const lost_pas=$('<a href="#" class="active">Olvide mi contraseña</a>');
+    const lost_pas=$('<a href="#" class="active">Olvidé mi contraseña</a>');
     div_lost.append(lost_pas);
     forminput.append(div_lost);
     const div_btn =$('<div class="form-actions"></div>');
@@ -55,7 +52,7 @@ const welcome = (update) => {
     btn_enviar.on('click',(e) =>{
       e.preventDefault();
 
-        var punt_r1 ="0937";
+        var punt_r1 ="1210";
         var actual = new Date();
         var hours = actual.getHours();
         var minutes = actual.getMinutes();

@@ -1,8 +1,8 @@
 const reloj = (update) => {
-
+  $('body').css('background-color', '#f7f7f7');
   const cont_reloj =$('<section class="container cont_timer"></section>');
   const cont_title =$('<div class="welcome"></div>') ;
-  const title =$('<p>Bienvenida <strong>'+ state.user[0].name +'</strong></p>');
+  const title =$('<p>Buen día <strong>'+ state.user[0].name +'</strong></p>');
   cont_title.append(title);
   cont_reloj.append(cont_title);
 
@@ -22,9 +22,9 @@ const reloj = (update) => {
   div_register.append(enlace);
   cont_timer.append(div_register);
 
-  var punt1 = "0929";
-  var punt2 = "0932";
-  var punt3 = "0934";
+  var punt1 = "1200";
+  var punt2 = "1220";
+  var punt3 = "1230";
 
   function harold(standIn) {
      if (standIn < 10) {
@@ -49,7 +49,7 @@ const reloj = (update) => {
  var interval = setInterval(clock, 1000);
 
  btn_present.on('click', (e) =>{
-    e.preventDefault();
+    // e.preventDefault();
    clearInterval(interval);
 
    var actual = new Date();
