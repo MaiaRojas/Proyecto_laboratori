@@ -6,6 +6,7 @@ const render = (root) =>{
 
    if (state.page == null) {
     section.append(welcome( _ => render(root)));
+   /* section.append(HomeTeacher( _ => render(root)));*/
   } else if (state.page == 1) {
     section.append(reloj( _ => render(root)));
   } else if (state.page == 2) {
@@ -50,6 +51,48 @@ $( _ => {
       render(root);
     });
 });
+
+'use strict';
+
+const filterByEmail= (stations,query) => {
+
+  const select =stations.filter (function(index) {
+    return (index.email.toLowerCase().indexOf(query.toLowerCase())!=-1);
+  })
+  
+  return select;
+}
+
+'use strict';
+
+const getJSON = (url, cb) => {
+
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener('load', () => {
+
+    if (xhr.status !== 200) {
+      return cb(new Error('Error loading JSON from ' + url + '(' + xhr.status + ')'));
+    }
+
+    cb(null, xhr.response);
+
+  });
+
+  xhr.open('GET', url);
+  xhr.responseType = 'json';
+  xhr.send();
+
+};
+
+const Verificar = (valor ) => {
+  if(valor =="1234"){
+    $('#btnEnviar').removeClass("disabled");
+  } else {
+    console.log("La contraseña no coincide");
+    $('#btnEnviar').addClass("disabled");
+  }
+};
 
 const header = (update) => {
 
@@ -412,42 +455,49 @@ const justificacion = (update) => {
 
 'use strict';
 
-const filterByEmail= (stations,query) => {
+$(document).ready(function() {
+	$('ul.collapsible').collapsible();
+	accordion : true
+})
 
-  const select =stations.filter (function(index) {
-    return (index.email.toLowerCase().indexOf(query.toLowerCase())!=-1);
-  })
-  
-  return select;
+const HomeTeacher = (update) => {
+
+	$('body').css('background-color', '#f7f7f7');
+	const container = $('<div class="container"></div>');
+    const row = $('<div class="row"></div>');
+    const col = $('<div class="col s12"></div>');
+    const title = $('<p>Buen día <br>La asistencia de hoy</p>');
+    const asistencia = $('<div class="asistencia"></div>');
+    const ul = $('<ul class="collapsible" data-collapsible="accordion"></ul>');
+
+    //Iteración simulada
+
+    const squads = ["Laboratoria", "Developers"];
+
+    for(var i = 0; i < squads.length; i++){
+
+    	const li = $('<li></li>');
+    	const header = $('<div class="collapsible-header"></div>');
+    	const body = $('<div class="collapsible-body"></div>');
+    	const prueba = $('<p>Prueba</p>');
+    	const squadTitle = $('<p>'+squads[i]+'</p>');
+    	const squadBar = $('<div class="col s6 progress"><div class="determinate" style="width: 60%"></div></div>');
+
+    	const squadsContainer = $('<div class="squads-container"></div>');
+    	const col2 = $('<div class="col s12"></div>');
+
+    	const presentes = $('<div class="col s4 text-center"><p>4<br>Presente</p></div>');
+    	const tardanzas = $('<div class="col s4 text-center"><p>2<br>Tarde</p></div>');
+    	const ausentes = $('<div class="col s4 text-center"><p>2<br>Ausente</p></div>');
+
+    	header.append(squadTitle, squadBar);
+    	body.append(prueba);
+    	li.append(header, body);
+    	ul.append(li);
+   	}
+
+    col.append(title, ul);
+    row.append(col);
+    container.append(row);
+    return container
 }
-
-'use strict';
-
-const getJSON = (url, cb) => {
-
-  const xhr = new XMLHttpRequest();
-
-  xhr.addEventListener('load', () => {
-
-    if (xhr.status !== 200) {
-      return cb(new Error('Error loading JSON from ' + url + '(' + xhr.status + ')'));
-    }
-
-    cb(null, xhr.response);
-
-  });
-
-  xhr.open('GET', url);
-  xhr.responseType = 'json';
-  xhr.send();
-
-};
-
-const Verificar = (valor ) => {
-  if(valor =="1234"){
-    $('#btnEnviar').removeClass("disabled");
-  } else {
-    console.log("La contraseña no coincide");
-    $('#btnEnviar').addClass("disabled");
-  }
-};

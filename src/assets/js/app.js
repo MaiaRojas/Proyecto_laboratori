@@ -6,6 +6,7 @@ const render = (root) =>{
 
    if (state.page == null) {
     section.append(welcome( _ => render(root)));
+   /* section.append(HomeTeacher( _ => render(root)));*/
   } else if (state.page == 1) {
     section.append(reloj( _ => render(root)));
   } else if (state.page == 2) {
