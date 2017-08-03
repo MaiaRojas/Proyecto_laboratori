@@ -4,7 +4,7 @@ const Tardanza = (update) => {
 
 	const container = $('<div class="container"></div>');
 	const row = $('<div class="row"></div>');
-	const title = $('<h4 class="montserrat text-center">Maia, ¿cuál es el motivo de tu tardanza?</h4>');
+	const title = $('<h4 class="montserrat text-center">'+ state.user[0].name +', ¿Cuál es el motivo de tu tardanza?</h4>');
 	const form = $('<div class="col s12"></div>');
 	const p1 = $('<p></p>');
 	const p2 = $('<p></p>');
@@ -33,10 +33,8 @@ const Tardanza = (update) => {
 	});
 
 	button.on('click', (e) => {
-		state.page = 2;
+		state.page = 7;
 		update();
 	});
-
 	return container
-
 }
