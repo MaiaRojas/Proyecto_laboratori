@@ -55,11 +55,12 @@ const welcome = (update) => {
     btn_enviar.on('click',(e) =>{
       e.preventDefault();
 
-        var punt_r1 ="1650";
+        var punt_r1 ="1730";
         var actual = new Date();
         var hours = actual.getHours();
         var minutes = actual.getMinutes();
         state.user = filtrados;
+
         if( hours <= punt_r1.slice(0, 2) && minutes < punt_r1.slice(2, 4) ){
 
           console.log("Ingresa normal");

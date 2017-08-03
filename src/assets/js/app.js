@@ -36,7 +36,16 @@ const state = {
   password: null,
   page: null,
   time:null,
+  cat:null,
+};
 
+const postE = {
+  name: null,
+  email: null,
+  squad :null,
+  type:null,
+  fecha:null,
+  state: null,
 };
 
 $( _ => {

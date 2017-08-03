@@ -3,6 +3,10 @@ const reloj = (update) => {
   const cont_reloj =$('<section class="container cont_timer"></section>');
   const cont_title =$('<div class="welcome"></div>') ;
   const title =$('<p>Bienvenida <strong>'+ state.user[0].NOMBRE +'</strong></p>');
+  postE.name =state.user[0].NOMBRE ;
+  postE.email =state.user[0].EMAIL;
+  postE.squad =state.user[0].SQUAD;
+  postE.type  =state.user[0].TIPO;
   cont_title.append(title);
   cont_reloj.append(cont_title);
 
@@ -22,9 +26,9 @@ const reloj = (update) => {
   div_register.append(enlace);
   cont_timer.append(div_register);
 
-  var punt1 = "1641";
-  var punt2 = "1643";
-  var punt3 = "1645";
+  var punt1 = "1724";
+  var punt2 = "1726";
+  var punt3 = "1728";
 
   function harold(standIn) {
      if (standIn < 10) {
@@ -60,14 +64,23 @@ const reloj = (update) => {
    console.log(harold(hours) + ":" + harold(minutes) + ":" + harold(seconds));
    console.log(punt1.slice(0, 2));
    state.time = check;
+   postE.fecha  =state.time ;
+
    if( hours >= punt1.slice(0, 2) && hours <= punt2.slice(0, 2) && minutes >= punt1.slice(2, 4) && minutes <= punt2.slice(2, 4)){
        state.cat ="P";
+       postE.state  =state.cat ;
        state.page = 2;
+
+       PostregisterHora(update ,postE.name,postE.email,postE.squad,postE.type,postE.fecha ,postE.state);
+
        update();
    } else if (hours >= punt2.slice(0, 2) && hours <= punt3.slice(0, 2) && minutes >= punt2.slice(2, 4) && minutes <= punt3.slice(2, 4))
     { console.log("tarde");
       state.cat ="T";
+      postE.state  =state.cat ;
       state.page = 3;
+
+      PostregisterHora(update ,postE.name,postE.email,postE.squad,postE.type,postE.fecha ,postE.state);
       update();
     }
 

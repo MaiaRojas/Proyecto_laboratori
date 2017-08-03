@@ -36,7 +36,16 @@ const state = {
   password: null,
   page: null,
   time:null,
+  cat:null,
+};
 
+const postE = {
+  name: null,
+  email: null,
+  squad :null,
+  type:null,
+  fecha:null,
+  state: null,
 };
 
 $( _ => {
@@ -49,6 +58,62 @@ $( _ => {
         render(root);
     });
 });
+
+'use strict';
+
+const filterByEmail= (stations,query) => {
+  console.log(stations);
+  const select =stations.filter (function(index) {
+    return (index.EMAIL.toLowerCase().indexOf(query.toLowerCase())!=-1);
+  })
+  console.log(select);
+  return select;
+}
+
+'use strict';
+
+const getJSON = (url, cb) => {
+
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener('load', () => {
+
+    if (xhr.status !== 200) {
+      return cb(new Error('Error loading JSON from ' + url + '(' + xhr.status + ')'));
+    }
+
+    cb(null, xhr.response);
+
+  });
+
+  xhr.open('GET', url);
+  xhr.responseType = 'json';
+  xhr.send();
+
+};
+
+'use strict';
+const PostregisterHora =(update ,postEname,postEemail,postEsquad,postEtype,postEfecha ,postEstate)=>{
+  var name = postEname;
+  var email = postEemail;
+  var squad = postEsquad;
+  var type = postEtype;
+  var fecha = postEfecha;
+  var state = postEstate;
+
+  $.post("https://sheetsu.com/apis/v1.0/15e4cdf9e644", {"NOMBRE":name,"EMAIL":email,"SQUAD":squad,"TIPO":type,"FECHA":fecha,"ESTADO":state}, function(result){
+      console.log("Enviando Data");
+  });
+};
+
+const Verificar = (valor ) => {
+  if(valor =="1234"){
+    $('#btnEnviar').removeClass("disabled");
+  } else {
+    console.log("La contraseña no coincide");
+    $('#btnEnviar').addClass("disabled");
+  }
+};
 
 const header = (update) => {
 
@@ -114,11 +179,12 @@ const welcome = (update) => {
     btn_enviar.on('click',(e) =>{
       e.preventDefault();
 
-        var punt_r1 ="1650";
+        var punt_r1 ="1730";
         var actual = new Date();
         var hours = actual.getHours();
         var minutes = actual.getMinutes();
         state.user = filtrados;
+
         if( hours <= punt_r1.slice(0, 2) && minutes < punt_r1.slice(2, 4) ){
 
           console.log("Ingresa normal");
@@ -142,6 +208,10 @@ const reloj = (update) => {
   const cont_reloj =$('<section class="container cont_timer"></section>');
   const cont_title =$('<div class="welcome"></div>') ;
   const title =$('<p>Bienvenida <strong>'+ state.user[0].NOMBRE +'</strong></p>');
+  postE.name =state.user[0].NOMBRE ;
+  postE.email =state.user[0].EMAIL;
+  postE.squad =state.user[0].SQUAD;
+  postE.type  =state.user[0].TIPO;
   cont_title.append(title);
   cont_reloj.append(cont_title);
 
@@ -161,9 +231,9 @@ const reloj = (update) => {
   div_register.append(enlace);
   cont_timer.append(div_register);
 
-  var punt1 = "1641";
-  var punt2 = "1643";
-  var punt3 = "1645";
+  var punt1 = "1724";
+  var punt2 = "1726";
+  var punt3 = "1728";
 
   function harold(standIn) {
      if (standIn < 10) {
@@ -199,14 +269,23 @@ const reloj = (update) => {
    console.log(harold(hours) + ":" + harold(minutes) + ":" + harold(seconds));
    console.log(punt1.slice(0, 2));
    state.time = check;
+   postE.fecha  =state.time ;
+
    if( hours >= punt1.slice(0, 2) && hours <= punt2.slice(0, 2) && minutes >= punt1.slice(2, 4) && minutes <= punt2.slice(2, 4)){
        state.cat ="P";
+       postE.state  =state.cat ;
        state.page = 2;
+
+       PostregisterHora(update ,postE.name,postE.email,postE.squad,postE.type,postE.fecha ,postE.state);
+
        update();
    } else if (hours >= punt2.slice(0, 2) && hours <= punt3.slice(0, 2) && minutes >= punt2.slice(2, 4) && minutes <= punt3.slice(2, 4))
     { console.log("tarde");
       state.cat ="T";
+      postE.state  =state.cat ;
       state.page = 3;
+
+      PostregisterHora(update ,postE.name,postE.email,postE.squad,postE.type,postE.fecha ,postE.state);
       update();
     }
 
@@ -427,45 +506,3 @@ const mensaje = (update) => {
   container_msm.append(cont_asisOK);
   return container_msm ;
 }
-
-'use strict';
-
-const filterByEmail= (stations,query) => {
-  console.log(stations);
-  const select =stations.filter (function(index) {
-    return (index.EMAIL.toLowerCase().indexOf(query.toLowerCase())!=-1);
-  })
-  console.log(select);
-  return select;
-}
-
-'use strict';
-
-const getJSON = (url, cb) => {
-
-  const xhr = new XMLHttpRequest();
-
-  xhr.addEventListener('load', () => {
-
-    if (xhr.status !== 200) {
-      return cb(new Error('Error loading JSON from ' + url + '(' + xhr.status + ')'));
-    }
-
-    cb(null, xhr.response);
-
-  });
-
-  xhr.open('GET', url);
-  xhr.responseType = 'json';
-  xhr.send();
-
-};
-
-const Verificar = (valor ) => {
-  if(valor =="1234"){
-    $('#btnEnviar').removeClass("disabled");
-  } else {
-    console.log("La contraseña no coincide");
-    $('#btnEnviar').addClass("disabled");
-  }
-};
