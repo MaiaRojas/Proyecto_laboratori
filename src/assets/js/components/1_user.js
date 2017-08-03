@@ -27,7 +27,7 @@ const welcome = (update) => {
     div_lost.append(lost_pas);
     forminput.append(div_lost);
     const div_btn =$('<div class="form-actions"></div>');
-    const btn_enviar =$('<button id="btnEnviar" class="btn  primary disabled">Ingresar</button>');
+    const btn_enviar = $('<button id="btnEnviar" class="btn primary disabled" href="#modal1">Ingresar</button>');
     forminput.append(div_btn);
     div_btn.append(btn_enviar);
 
@@ -44,7 +44,7 @@ const welcome = (update) => {
     });
 
     input_pas.on('keyup',(e) => {
-      if(input_pas.val() =="1234"){
+      if(input_pas.val() == "1234"){
         btn_enviar.removeClass("disabled");
       } else {
         console.log("La contraseña no coincide");
@@ -52,11 +52,28 @@ const welcome = (update) => {
       }
     });
 
+    cont_welcome.append(out_sign(update));
+
+
     btn_enviar.on('click',(e) =>{
-      event.preventDefault();
-      state.user = filtrados;
-      state.page=1;
-      update();
+      e.preventDefault();
+
+        var punt_r1 ="0915";
+        var actual = new Date();
+        var hours = actual.getHours();
+        var minutes = actual.getMinutes();
+
+        if( hours <= punt_r1.slice(0, 2) && minutes < punt_r1.slice(2, 4) ){
+
+          console.log("Ingresa normal");
+          state.user = filtrados;
+          state.page=1;
+          update();
+
+        } else{
+          $('#btnEnviar').addClass("modal-trigger");
+          console.log("Ingresa fuera de hora");
+        };
    });
 
 

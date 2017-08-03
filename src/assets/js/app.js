@@ -44,6 +44,5 @@ $( _ => {
       state.data = json;
       const root = $('.root');
       render(root);
-
     });
 });

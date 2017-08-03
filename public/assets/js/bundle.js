@@ -44,7 +44,6 @@ $( _ => {
       state.data = json;
       const root = $('.root');
       render(root);
-
     });
 });
 
@@ -84,7 +83,7 @@ const welcome = (update) => {
     div_lost.append(lost_pas);
     forminput.append(div_lost);
     const div_btn =$('<div class="form-actions"></div>');
-    const btn_enviar =$('<button id="btnEnviar" class="btn  primary disabled">Ingresar</button>');
+    const btn_enviar = $('<button id="btnEnviar" class="btn primary disabled" href="#modal1">Ingresar</button>');
     forminput.append(div_btn);
     div_btn.append(btn_enviar);
 
@@ -101,7 +100,7 @@ const welcome = (update) => {
     });
 
     input_pas.on('keyup',(e) => {
-      if(input_pas.val() =="1234"){
+      if(input_pas.val() == "1234"){
         btn_enviar.removeClass("disabled");
       } else {
         console.log("La contraseña no coincide");
@@ -109,11 +108,28 @@ const welcome = (update) => {
       }
     });
 
+    cont_welcome.append(out_sign(update));
+
+
     btn_enviar.on('click',(e) =>{
-      event.preventDefault();
-      state.user = filtrados;
-      state.page=1;
-      update();
+      e.preventDefault();
+
+        var punt_r1 ="0915";
+        var actual = new Date();
+        var hours = actual.getHours();
+        var minutes = actual.getMinutes();
+
+        if( hours <= punt_r1.slice(0, 2) && minutes < punt_r1.slice(2, 4) ){
+
+          console.log("Ingresa normal");
+          state.user = filtrados;
+          state.page=1;
+          update();
+
+        } else{
+          $('#btnEnviar').addClass("modal-trigger");
+          console.log("Ingresa fuera de hora");
+        };
    });
 
 
@@ -143,60 +159,59 @@ const reloj = (update) => {
   div_register.append(enlace);
   cont_timer.append(div_register);
 
-  var punt1 = "0426";
-  var punt2 = "0428";
-  var punt3 = "0440";
+  var punt1 = "0910";
+  var punt2 = "0915";
+  var punt3 = "0920";
+
   function harold(standIn) {
-      if (standIn < 10) {
-        standIn = '0' + standIn
-      }
-      return standIn;
-  }
-  function clock() {
-    var time = new Date(),
-      hours   = time.getHours(),
-      minutes = time.getMinutes(),
-      seconds = time.getSeconds(),
-      dia     = time.getDate(),
-      mes     = time.getMonth(),
-      year    = time.getFullYear();
-      console.log(harold(dia) + "/" + harold(mes) + "/" + year);
-        //  cont_day.text(harold(dia) + "/" + harold(mes) + "/" + year);
-        //  cont_clock.text(harold(hours) + ":" + harold(minutes) + ":" + harold(seconds));
-        document.querySelectorAll('.day')[0].innerHTML = harold(dia) + "/" + harold(mes) + "/" + year;
-        document.querySelectorAll('.clock')[0].innerHTML = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
-  };
-  var interval = setInterval(clock, 1000);
-
-  btn_present.on('click', (e) =>{
-
-    clearInterval(interval);
-
-    event.preventDefault();
-    var actual = new Date();
-    var hours = actual.getHours();
-    var minutes = actual.getMinutes();
-    var seconds = actual.getSeconds();
-    var check = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
-    console.log(harold(hours) + ":" + harold(minutes) + ":" + harold(seconds));
-    console.log(punt1.slice(0, 2));
-    state.time = check;
-    if( hours >= punt1.slice(0, 2) && hours <= punt2.slice(0, 2) && minutes >= punt1.slice(2, 4) && minutes <= punt2.slice(2, 4)){
-        state.cat ="P";
-
-        state.page = 2;
-        update();
-    } else if (hours >= punt2.slice(0, 2) && hours <= punt3.slice(0, 2) && minutes >= punt2.slice(2, 4) && minutes <= punt3.slice(2, 4))
-     { console.log("tarde");
-       state.cat ="T";
-       state.page = 3;
-       update();
+     if (standIn < 10) {
+       standIn = '0' + standIn
      }
+     return standIn;
+ }
 
-  });
+ function clock() {
+   var time = new Date(),
+     hours   = time.getHours(),
+     minutes = time.getMinutes(),
+     seconds = time.getSeconds(),
+     dia     = time.getDate(),
+     mes     = time.getMonth()+1,
+     year    = time.getFullYear();
+     console.log(harold(dia) + "/" + harold(mes) + "/" + year);
+      document.querySelectorAll('.day')[0].innerHTML = harold(dia) + "/" + harold(mes) + "/" + year;
+      document.querySelectorAll('.clock')[0].innerHTML = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
+ };
+
+ var interval = setInterval(clock, 1000);
+
+ btn_present.on('click', (e) =>{
+    e.preventDefault();
+   clearInterval(interval);
+
+   var actual = new Date();
+   var hours = actual.getHours();
+   var minutes = actual.getMinutes();
+   var seconds = actual.getSeconds();
+   var check = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
+   console.log(harold(hours) + ":" + harold(minutes) + ":" + harold(seconds));
+   console.log(punt1.slice(0, 2));
+   state.time = check;
+   if( hours >= punt1.slice(0, 2) && hours <= punt2.slice(0, 2) && minutes >= punt1.slice(2, 4) && minutes <= punt2.slice(2, 4)){
+       state.cat ="P";
+       state.page = 2;
+       update();
+   } else if (hours >= punt2.slice(0, 2) && hours <= punt3.slice(0, 2) && minutes >= punt2.slice(2, 4) && minutes <= punt3.slice(2, 4))
+    { console.log("tarde");
+      state.cat ="T";
+      state.page = 3;
+      update();
+    }
+
+ });
 
   enlace.on('click', (e) =>{
-    event.preventDefault();
+    e.preventDefault();
     clearInterval(interval);
       state.cat ="A";
       state.page = 5;
@@ -234,9 +249,9 @@ const asistOk = (update) => {
   div_register.append(enlace);
   div_enlaces.append(div_register);
   cont_asisOK.append(div_enlaces);
-  btn_home.on('click', (e) =>{
-    event.preventDefault();
 
+  btn_home.on('click', (e) =>{
+    e.preventDefault();
      state.page = 4;
      update();
   });
@@ -250,7 +265,7 @@ const Tardanza = (update) => {
 
 	const container = $('<div class="container"></div>');
 	const row = $('<div class="row"></div>');
-	const title = $('<h4 class="montserrat text-center">Maia, ¿cuál es el motivo de tu tardanza?</h4>');
+	const title = $('<h4 class="montserrat text-center">'+ state.user[0].name +', ¿Cuál es el motivo de tu tardanza?</h4>');
 	const form = $('<div class="col s12"></div>');
 	const p1 = $('<p></p>');
 	const p2 = $('<p></p>');
@@ -311,48 +326,88 @@ const Falta = (update) => {
 	return container
 }
 
-'use strict';
-
 const Home = (update) => {
-	const container = $('<div class="container"></div>');
-	const row = $('<div class="row"></div>');
-	const col1 = $('<div class="col s12"></div>');
-	const col2 = $('<div class="col s12 text-center bg-white"></div>');
-	const welcome = $('<p>Buen día Maia</p>');
-	const title = $('<p class="title">Agenda</p>');
-	let date = $('<div class="date-home"></div>');
+    const container = $('<div class="container"></div>');
+    const row = $('<div class="row"></div>');
+    const col1 = $('<div class="col s12"></div>');
+    const col2 = $('<div class="col s12 bg-white"></div>');
+    const col3 = $('<div class="col s12"></div>');
+    const welcome = $('<p>Buen día '+ state.user[0].name  +'</p>');
+		const salir = $('<a href="#" class="active">Salir</a>');
+    const title = $('<p class="title text-center">Agenda</p>');
+    let date = $('<div class="date-home text-center"></div>');
+    const event = ["Hackathon", "Company Pitch - Rimac", "Hackathon, Coffee time", "Company Pitch - Everis", "Hackathon", "Hackathon, Coffee time", "Company Pitch - BBVA", "Hackathon, Coffee time", " Expo"];
+    const schedule = ["00:01", "10:10", "10:20", "13:00", "13:10", "15:00", "16:40", "16:50", "18:00"];
 
-	function rules(param) {
-		if (param < 10) {
-			param = '0' + param
-		}
+    let ul = $('<ul class="diary"></ul>');
 
-		return param;
-	}
+    for(var i = 0; i < schedule.length; i++){
+        const li = $('<li><span class="schedule-home">'+schedule[i]+'</span>'+ " | " + event[i] +'</li>');
+        ul.append(li);
+    }
 
-	var time = new Date();
-	var day = time.getDay();
-	var month = time.getMonth();
-	var year = time.getFullYear();
+    function rules(param) {
+        if (param < 10) {
+            param = '0' + param
+        }
 
-	date.text("(" + rules(day) + "/" + rules(month) + "/" + rules(year) + ")");
+        return param;
+    }
 
+    var time = new Date();
+    var day = time.getDate();
+    var month = time.getMonth() +1;
+    var year = time.getFullYear();
 
-	col2.append(title,date);
-	col1.append(welcome);
-	row.append(col1, col2);
-	container.append(row);
+    date.text("(" + rules(day) + "/" + rules(month) + "/" + rules(year) + ")");
 
-	return container
+    col2.append(title,date,col3);
+    col1.append(welcome ,salir);
+    col3.append(ul);
+    row.append(col1, col2);
+    container.append(row);
+
+		salir.on('click', (e) => {
+			e.preventDefault();
+			state.page = null;
+			update();
+		});
+
+    return container
 }
+
+const out_sign = (update) => {
+
+    const body_modal=$('<div id="modal1" class="modal"></div>');
+
+    const cont_modal=$('<div class="modal-content"></div>');
+    const title_name=$('<h4>Maia</h4>') ;
+    const msj  = $('<p>Aún no has registrado tu asistencia.<br>Por favor cuéntanos  por qué.</p>') ;
+    const message = $('<textarea id="message" class="materialize-textarea"></textarea>');
+    cont_modal.append(title_name,msj,message);
+  	const button = $('<a class="btn col s12 montserrat">Enviar</a>');
+    cont_modal.append(button);
+    body_modal.append(cont_modal);
+    // <div class="modal-footer">
+    //   <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    // </div>
+
+		button.on('click', (e) => {
+			e.preventDefault();
+			state.page = 4;
+			update();
+		});
+    return body_modal;
+};
+
 'use strict';
 
 const filterByEmail= (stations,query) => {
 
   const select =stations.filter (function(index) {
-    return (index.email.indexOf(query)!=-1);
+    return (index.email.toLowerCase().indexOf(query.toLowerCase())!=-1);
   })
-  console.log(select);
+  
   return select;
 }
 

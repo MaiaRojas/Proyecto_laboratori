@@ -26,9 +26,9 @@ const asistOk = (update) => {
   div_register.append(enlace);
   div_enlaces.append(div_register);
   cont_asisOK.append(div_enlaces);
-  btn_home.on('click', (e) =>{
-    event.preventDefault();
 
+  btn_home.on('click', (e) =>{
+    e.preventDefault();
      state.page = 4;
      update();
   });
