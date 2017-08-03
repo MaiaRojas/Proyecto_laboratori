@@ -1,14 +1,17 @@
 "use strict";
 const render = (root)=>{
    root.empty();
-   const section = $('<section class="components">Maia Imprime </section>');
+   const section = $('<div></div>');
+   section.append(header( _ => render(root)));
+   section.append(welcome( _ => render(root)));
    root.append(section);
 };
 
 const state = {
    user: null,
    email: null,
-   password:null,
+   password: null,
+   screen: null
 };
 
 const update = function (){
@@ -19,8 +22,6 @@ $( _ => {
 
   $.getJSON('../../user.json',function(data){
     state.user = data;
-
-
 
     console.log(state.user);
   })
