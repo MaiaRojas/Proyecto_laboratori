@@ -15,9 +15,9 @@ const welcome = (update) => {
     forminput.append(var_user);
     var_user.append(label_user);
     var_user.append(input_user);
-    const var_pas =$('<div class="form-group"></div>');
-    const label_pas =$('<label class="" for="user_password">Contraseña</label>');
-    const input_pas =$('<input class="" autofocus="autofocus" placeholder="Contraseña" type="password"  id="user_password">');
+    const var_pas = $('<div class="form-group"></div>');
+    const label_pas = $('<label class="" for="user_password">Contraseña</label>');
+    const input_pas = $('<input class="" autofocus="autofocus" placeholder="Contraseña" type="password"  id="user_password">');
     forminput.append(var_pas);
     var_pas.append(label_pas);
     var_pas.append(input_pas);

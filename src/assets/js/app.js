@@ -4,9 +4,10 @@ const render = (root)=>{
    const section = $('<div></div>');
    section.append(header( _ => render(root)));
    section.append(welcome( _ => render(root)));
+
    root.append(section);
 };
-console.log("Ya sale");
+
 const state = {
   data: null,
    user: null,
