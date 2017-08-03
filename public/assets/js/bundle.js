@@ -6,9 +6,10 @@ const render = (root)=>{
 
    if (state.page == null) {
     section.append(welcome( _ => render(root)));
-
   } else if (state.page == 1) {
     section.append(reloj( _ => render(root)));
+  } else if (state.page == 2) {
+    section.append(asistOk( _ => render(root)));
   }
 
    root.append(section);
@@ -23,7 +24,9 @@ const state = {
   user: null,
   email: null,
   password: null,
-  page: null
+  page: null,
+  time:null,
+
 };
 
 $( _ => {
@@ -39,18 +42,55 @@ $( _ => {
     });
 });
 
+const asistOk = (update) => {
+  console.log(state.time);
+  const container_OK =$('<section class="container center-align"></section>');
+  const cont_asisOK =$('<div class="row"></div>') ;
+  const cont_title =$('<div class="title_asis"></div>') ;
+  const title =$('<p class="negrita">'+state.user[0].name+'Tu Asistencia fue registrada a las :</p>');
+  const hora = $('<p>'+ state.time +'</p>');
+  cont_title.append(title);
+  cont_title.append(hora);
+  cont_asisOK.append(cont_title);
+  const cont_check =$('<div class="cont_asist col s6 push-s3"></div>');
+  const cont_radio =$('<div class="radio-check"></div>');
+  const cont_img =$('<i class="large material-icons">check</i>');
+
+  cont_asisOK.append(cont_check);
+  cont_radio.append(cont_img);
+  cont_check.append(cont_radio);
+
+  const div_enlaces =$('<div class="cont_btn col s10 push-s1"></div>');
+  const btn_home =$('<button type="button"  class="verde" id="btn_present" name="button" class="primary">IR AL HOME</button>');
+  const div_register =$ ('<div class="enlace"></div>');
+  const enlace =$('<a href="#" class="active">Ver asistencias</a>');
+
+  div_enlaces.append(btn_home)
+  div_register.append(enlace);
+  div_enlaces.append(div_register);
+  cont_asisOK.append(div_enlaces);
+  btn_home.on('click', (e) =>{
+    event.preventDefault();
+
+     state.page = 3;
+     update();
+  });
+  container_OK.append(cont_asisOK);
+  return container_OK ;
+}
+
 const header = (update) => {
 
   const cont_header =$('<header><div class="container"><div class="row">'+
-                       '<img src="assets/img/logo.svg" alt="logo" class="col s10 push-s1"></div></div></header>');
+                       '<img src="assets/img/logo.svg" alt="logo" class="col s10 push-s1  "></div></div></header>');
   return cont_header ;
 }
 
 const reloj = (update) => {
-  console.log("panatalla 3 entraaaaa");
+
   const cont_reloj =$('<section class="container cont_timer"></section>');
   const cont_title =$('<div class="welcome"></div>') ;
-  const title =$('<p>Bienvenida Maia </p>');
+  const title =$('<p>Bienvenida <strong>'+state.user[0].name+'</strong></p>');
   cont_title.append(title);
   cont_reloj.append(cont_title);
   const cont_timer =$('<div class="cont_clock"></div>');
@@ -64,10 +104,10 @@ const reloj = (update) => {
   cont_timer.append(btn_present);
   cont_reloj.append(cont_timer);
 
-  const div_register =$ ('<div></div>');
+  const div_register =$ ('<div class="enlace"></div>');
   const enlace =$('<a href="#" class="active">Registrar ausencia</a>');
   div_register.append(enlace);
-  cont_reloj.append(div_register);
+  cont_timer.append(div_register);
 
   console.log(new Date());
 
@@ -97,16 +137,22 @@ const reloj = (update) => {
   setInterval(clock, 1000);
 
   btn_present.on('click', (e) =>{
+    event.preventDefault();
     var actual = new Date();
     var hours = actual.getHours();
     var minutes = actual.getMinutes();
     var seconds = actual.getSeconds();
+    var check = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
     console.log(harold(hours) + ":" + harold(minutes) + ":" + harold(seconds));
     console.log(punt1.slice(0, 2));
     if( hours >= punt1.slice(0, 2) && hours <= punt2.slice(0, 2) && minutes >= punt1.slice(2, 4) && minutes <= punt2.slice(2, 4)){
         console.log("puntual");
     } else if (hours >= punt2.slice(0, 2) && hours <= punt3.slice(0, 2) && minutes >= punt2.slice(2, 4) && minutes <= punt3.slice(2, 4))
      { console.log("tarde");}
+
+     state.time = check;
+     state.page = 2;
+     update();
   });
 
   return cont_reloj;

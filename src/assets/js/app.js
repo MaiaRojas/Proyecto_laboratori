@@ -6,9 +6,10 @@ const render = (root)=>{
 
    if (state.page == null) {
     section.append(welcome( _ => render(root)));
-
   } else if (state.page == 1) {
     section.append(reloj( _ => render(root)));
+  } else if (state.page == 2) {
+    section.append(asistOk( _ => render(root)));
   }
 
    root.append(section);
@@ -23,7 +24,9 @@ const state = {
   user: null,
   email: null,
   password: null,
-  page: null
+  page: null,
+  time:null,
+
 };
 
 $( _ => {

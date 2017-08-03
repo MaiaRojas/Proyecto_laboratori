@@ -1,8 +1,8 @@
 const reloj = (update) => {
-  console.log("panatalla 3 entraaaaa");
+
   const cont_reloj =$('<section class="container cont_timer"></section>');
   const cont_title =$('<div class="welcome"></div>') ;
-  const title =$('<p>Bienvenida Maia </p>');
+  const title =$('<p>Bienvenida <strong>'+state.user[0].name+'</strong></p>');
   cont_title.append(title);
   cont_reloj.append(cont_title);
   const cont_timer =$('<div class="cont_clock"></div>');
@@ -16,10 +16,10 @@ const reloj = (update) => {
   cont_timer.append(btn_present);
   cont_reloj.append(cont_timer);
 
-  const div_register =$ ('<div></div>');
+  const div_register =$ ('<div class="enlace"></div>');
   const enlace =$('<a href="#" class="active">Registrar ausencia</a>');
   div_register.append(enlace);
-  cont_reloj.append(div_register);
+  cont_timer.append(div_register);
 
   console.log(new Date());
 
@@ -49,16 +49,22 @@ const reloj = (update) => {
   setInterval(clock, 1000);
 
   btn_present.on('click', (e) =>{
+    event.preventDefault();
     var actual = new Date();
     var hours = actual.getHours();
     var minutes = actual.getMinutes();
     var seconds = actual.getSeconds();
+    var check = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
     console.log(harold(hours) + ":" + harold(minutes) + ":" + harold(seconds));
     console.log(punt1.slice(0, 2));
     if( hours >= punt1.slice(0, 2) && hours <= punt2.slice(0, 2) && minutes >= punt1.slice(2, 4) && minutes <= punt2.slice(2, 4)){
         console.log("puntual");
     } else if (hours >= punt2.slice(0, 2) && hours <= punt3.slice(0, 2) && minutes >= punt2.slice(2, 4) && minutes <= punt3.slice(2, 4))
      { console.log("tarde");}
+
+     state.time = check;
+     state.page = 2;
+     update();
   });
 
   return cont_reloj;

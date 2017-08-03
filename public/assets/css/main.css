@@ -2939,10 +2939,37 @@ body {
   background-color: #F7F7F7;
 }
 
+.cont_timer div.cont_clock {
+  background-color: white;
+  text-align: center;
+  padding: 5%;
+}
+
+.cont_timer div.cont_clock .enlace {
+  margin: 5%;
+}
+
 .verde {
   background-color: #7ED321;
 }
 
 header {
   background-color: white;
+}
+
+.negrita {
+  font-weight: 700;
+}
+
+.cont_asist div.radio-check {
+  height: 130px;
+  border-radius: 50%;
+  background-color: #E1E1E1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cont_asist div.cont_btn {
+  margin: 10%;
 }

@@ -53,11 +53,34 @@ body{
 }
 .cont_timer{
   background-color: $gray-lighter;
+  div.cont_clock{
+    background-color: white;
+    text-align: center;
+    padding: 5%;
+    .enlace{
+      margin: 5%;
+    }
+  }
 }
 .verde{
   background-color: $green;
 }
 header {
    background-color: white;
-
+}
+.negrita{
+    font-weight: 700;
+}
+.cont_asist{
+  div.radio-check{
+    height: 130px;
+    border-radius: 50%;
+    background-color: #E1E1E1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  div.cont_btn{
+    margin: 10%;
+  }
 }
