@@ -25,3 +25,39 @@
 //Custom CSS related to a single page
 @import "containers/dashboard.scss";
 // @import "containers/profile.scss";
+body{
+  background-color: $gray-lighter;
+}
+.cont_welcome{
+  background-color: white;
+  h4,a{
+    font-family: $default-font-family;
+
+  }
+  label{
+    color: $black-darker;
+  }
+  .in_lab{
+    background-color: #F7F7F7 !important;
+    border: 1px solid #9e9e9e !important;
+    font-family: $default-font-family;
+    font-size: 1.2rem !important;
+    &::placeholder{
+      font-family: $default-font-family;
+    }
+    &:focus{
+      // border: 1px solid #9e9e9e !important;
+      box-shadow: none !important;
+    }
+  }
+}
+.cont_timer{
+  background-color: $gray-lighter;
+}
+.verde{
+  background-color: $green;
+}
+header {
+   background-color: white;
+
+}

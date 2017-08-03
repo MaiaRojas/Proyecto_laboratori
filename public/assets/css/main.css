@@ -2903,3 +2903,46 @@ article .color-container {
   padding: 14px;
   border-radius: 2px;
 }
+
+body {
+  background-color: #F7F7F7;
+}
+
+.cont_welcome {
+  background-color: white;
+}
+
+.cont_welcome h4, .cont_welcome a {
+  font-family: "museo-sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.cont_welcome label {
+  color: #242424;
+}
+
+.cont_welcome .in_lab {
+  background-color: #F7F7F7 !important;
+  border: 1px solid #9e9e9e !important;
+  font-family: "museo-sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.2rem !important;
+}
+
+.cont_welcome .in_lab::placeholder {
+  font-family: "museo-sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.cont_welcome .in_lab:focus {
+  box-shadow: none !important;
+}
+
+.cont_timer {
+  background-color: #F7F7F7;
+}
+
+.verde {
+  background-color: #7ED321;
+}
+
+header {
+  background-color: white;
+}

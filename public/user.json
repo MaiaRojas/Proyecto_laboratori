@@ -1,59 +1,70 @@
-{
-	"T": {
-		"alejandra@laboratoria.la": {
-			"password": "1234",
-			"name": "Alejandra"
-		}
+[{
+		"password": "1234",
+		"name": "Alejandra",
+		"type": "T",
+		"email": "alejandra@laboratoria.la"
 	},
-	"S": {
-		"mariana@laboratoria.la": {
-			"password": "1234",
-			"name": "Mariana",
-			"squad": "Laboratoria",
-			"status": null,
-			"message": null
-		},
-		"giancarlo@laboratoria.la": {
-			"password": "1234",
-			"name": "Giancarlo",
-			"squad": "Laboratoria",
-			"status": null,
-			"message": null
-		},
-		"kathryn@laboratoria.la": {
-			"password": "1234",
-			"name": "Kathryn",
-			"squad": "Laboratoria",
-			"status": null,
-			"message": null
-		},
-		"erika@laboratoria.la": {
-			"password": "1234",
-			"name": "Erika",
-			"squad": "Developers",
-			"status": null,
-			"message": null
-		},
-		"lourdes@laboratoria.la": {
-			"password": "1234",
-			"name": "Lourdes",
-			"squad": "Developers",
-			"status": null,
-			"message": null
-		},
-		"maia@laboratoria.la": {
-			"password": "1234",
-			"name": "Maia",
-			"squad": "Developers",
-			"status": null,
-			"message": null
-		},
-		"mitchell@laboratoria.la": {
-			"password": "1234",
-			"name": "Mitchell",
-			"squad": "Developers",
-			"status": null,
-			"message": null
-		}
+	{
+		"password": "1234",
+		"name": "Mariana",
+		"squad": "Laboratoria",
+		"status": null,
+		"message": null,
+		"type": "E",
+		"email": "mariana@laboratoria.la"
+	},
+	{
+		"password": "1234",
+		"name": "Giancarlo",
+		"squad": "Laboratoria",
+		"status": null,
+		"message": null,
+		"type": "E",
+		"email": "giancarlo@laboratoria.la"
+	},
+	{
+		"password": "1234",
+		"name": "Kathryn",
+		"squad": "Laboratoria",
+		"status": null,
+		"message": null,
+		"type": "E",
+		"email": "kathryn@laboratoria.la"
+	},
+	{
+		"password": "1234",
+		"name": "Erika",
+		"squad": "Developers",
+		"status": null,
+		"message": null,
+		"type": "E",
+		"email": "erika@laboratoria.la"
+	},
+	{
+		"password": "1234",
+		"name": "Lourdes",
+		"squad": "Developers",
+		"status": null,
+		"message": null,
+		"type": "E",
+		"email": "lourdes@laboratoria.la"
+	},
+	{
+		"password": "1234",
+		"name": "Maia",
+		"squad": "Developers",
+		"status": null,
+		"message": null,
+		"type": "E",
+		"email": "maia@laboratoria.la"
+	},
+	{
+		"password": "1234",
+		"name": "Mitchell",
+		"squad": "Developers",
+		"status": null,
+		"message": null,
+		"type": "E",
+		"email": "mitchell@laboratoria.la"
 	}
-}
+]
