@@ -82,4 +82,4 @@ const reloj = (update) => {
   });
 
   return cont_reloj;
-}
+};

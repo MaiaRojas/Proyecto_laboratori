@@ -204,7 +204,7 @@ const reloj = (update) => {
   });
 
   return cont_reloj;
-}
+};
 
 const asistOk = (update) => {
   console.log(state.time);
