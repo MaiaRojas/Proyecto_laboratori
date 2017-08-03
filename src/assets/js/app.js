@@ -1,6 +1,7 @@
 "use strict";
 const render = (root)=>{
    root.empty();
+
    const section = $('<div></div>');
    section.append(header( _ => render(root)));
    section.append(welcome( _ => render(root)));
@@ -8,23 +9,24 @@ const render = (root)=>{
 };
 
 const state = {
+  data: null,
    user: null,
    email: null,
    password: null,
    screen: null
 };
 
-const update = function (){
- render(root);
-};
-
 $( _ => {
 
-  $.getJSON('../../user.json',function(data){
-    state.user = data;
+  getJSON('/user.json', (err, json) => {
 
-    console.log(state.user);
-  })
-  const root = $('.root');
-  render(root);
+      if (err) { return alert(err.message);}
+
+      state.data = json;
+      console.log(state.data)
+
+      const root = $('#root');
+      render(root);
+
+    });
 });

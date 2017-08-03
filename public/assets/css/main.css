@@ -139,6 +139,7 @@ form div {
     font-size: 16px;
     font-weight: 100;
     line-height: 145%; }
+<<<<<<< HEAD
   form div input[type=password], form div textarea {
     font-family: "museo-sanse", Helvetica, Arial;
     background-color: #F7F7F7;
@@ -151,6 +152,8 @@ form div {
     font-size: 16px;
     font-weight: 100;
     line-height: 145%; }
+=======
+>>>>>>> 85f28476854de2dd31d23adc0e5f509da43cb128
   form div input[type=checkbox] {
     height: 15px;
     width: 20px; }
@@ -510,7 +513,11 @@ img.img-profile {
   -webkit-align-items: center;
   align-items: center; }
 
+<<<<<<< HEAD
 /*
+=======
+/* 
+>>>>>>> 85f28476854de2dd31d23adc0e5f509da43cb128
 	background-color
 */
 .bg-yellow-lighter {
