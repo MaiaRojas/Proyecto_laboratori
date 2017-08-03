@@ -2,7 +2,7 @@ const mensaje = (update) => {
   const container_msm =$('<section class="container center-align"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;
   const cont_title =$('<div class="title_asis"></div>') ;
-  const title =$('<p class="negrita">'+state.user[0].name+' Tu mensaje ha sido enviado correctamente</p>');
+  const title =$('<p class="negrita">'+ state.user[0].NOMBRE +' Tu mensaje ha sido enviado correctamente</p>');
   cont_title.append(title);
   cont_asisOK.append(cont_title);
   const cont_check =$('<div class="cont_asist col s6 push-s3"></div>');

@@ -114,7 +114,7 @@ const welcome = (update) => {
     btn_enviar.on('click',(e) =>{
       e.preventDefault();
 
-        var punt_r1 ="0937";
+        var punt_r1 ="1650";
         var actual = new Date();
         var hours = actual.getHours();
         var minutes = actual.getMinutes();
@@ -141,7 +141,7 @@ const reloj = (update) => {
 
   const cont_reloj =$('<section class="container cont_timer"></section>');
   const cont_title =$('<div class="welcome"></div>') ;
-  const title =$('<p>Bienvenida <strong>'+ state.user[0].name +'</strong></p>');
+  const title =$('<p>Bienvenida <strong>'+ state.user[0].NOMBRE +'</strong></p>');
   cont_title.append(title);
   cont_reloj.append(cont_title);
 
@@ -161,9 +161,9 @@ const reloj = (update) => {
   div_register.append(enlace);
   cont_timer.append(div_register);
 
-  var punt1 = "0929";
-  var punt2 = "0932";
-  var punt3 = "0934";
+  var punt1 = "1641";
+  var punt2 = "1643";
+  var punt3 = "1645";
 
   function harold(standIn) {
      if (standIn < 10) {
@@ -267,7 +267,7 @@ const Tardanza = (update) => {
 
 	const container = $('<div class="container"></div>');
 	const row = $('<div class="row"></div>');
-	const title = $('<h4 class="montserrat text-center">'+ state.user[0].name +', ¿Cuál es el motivo de tu tardanza?</h4>');
+	const title = $('<h4 class="montserrat text-center">'+ state.user[0].NOMBRE +', ¿Cuál es el motivo de tu tardanza?</h4>');
 	const form = $('<div class="col s12"></div>');
 	const p1 = $('<p></p>');
 	const p2 = $('<p></p>');
@@ -332,7 +332,7 @@ const Home = (update) => {
     const col1 = $('<div class="col s12"></div>');
     const col2 = $('<div class="col s12 bg-white"></div>');
     const col3 = $('<div class="col s12"></div>');
-    const welcome = $('<p>Buen día '+ state.user[0].name  +'</p>');
+    const welcome = $('<p>Buen día '+ state.user[0].NOMBRE  +'</p>');
 		const salir = $('<a href="#" class="active">Salir</a>');
     const title = $('<p class="title text-center">Agenda</p>');
     let date = $('<div class="date-home text-center"></div>');
@@ -402,7 +402,7 @@ const mensaje = (update) => {
   const container_msm =$('<section class="container center-align"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;
   const cont_title =$('<div class="title_asis"></div>') ;
-  const title =$('<p class="negrita">'+state.user[0].name+' Tu mensaje ha sido enviado correctamente</p>');
+  const title =$('<p class="negrita">'+ state.user[0].NOMBRE +' Tu mensaje ha sido enviado correctamente</p>');
   cont_title.append(title);
   cont_asisOK.append(cont_title);
   const cont_check =$('<div class="cont_asist col s6 push-s3"></div>');

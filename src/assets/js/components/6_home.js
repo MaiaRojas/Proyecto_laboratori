@@ -4,7 +4,7 @@ const Home = (update) => {
     const col1 = $('<div class="col s12"></div>');
     const col2 = $('<div class="col s12 bg-white"></div>');
     const col3 = $('<div class="col s12"></div>');
-    const welcome = $('<p>Buen día '+ state.user[0].name  +'</p>');
+    const welcome = $('<p>Buen día '+ state.user[0].NOMBRE  +'</p>');
 		const salir = $('<a href="#" class="active">Salir</a>');
     const title = $('<p class="title text-center">Agenda</p>');
     let date = $('<div class="date-home text-center"></div>');
