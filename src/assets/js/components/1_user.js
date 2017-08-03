@@ -55,7 +55,7 @@ const welcome = (update) => {
     btn_enviar.on('click',(e) =>{
       e.preventDefault();
 
-        var punt_r1 ="1730";
+        var punt_r1 ="1755";
         var actual = new Date();
         var hours = actual.getHours();
         var minutes = actual.getMinutes();

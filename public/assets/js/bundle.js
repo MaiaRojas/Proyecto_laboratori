@@ -59,62 +59,6 @@ $( _ => {
     });
 });
 
-'use strict';
-
-const filterByEmail= (stations,query) => {
-  console.log(stations);
-  const select =stations.filter (function(index) {
-    return (index.EMAIL.toLowerCase().indexOf(query.toLowerCase())!=-1);
-  })
-  console.log(select);
-  return select;
-}
-
-'use strict';
-
-const getJSON = (url, cb) => {
-
-  const xhr = new XMLHttpRequest();
-
-  xhr.addEventListener('load', () => {
-
-    if (xhr.status !== 200) {
-      return cb(new Error('Error loading JSON from ' + url + '(' + xhr.status + ')'));
-    }
-
-    cb(null, xhr.response);
-
-  });
-
-  xhr.open('GET', url);
-  xhr.responseType = 'json';
-  xhr.send();
-
-};
-
-'use strict';
-const PostregisterHora =(update ,postEname,postEemail,postEsquad,postEtype,postEfecha ,postEstate)=>{
-  var name = postEname;
-  var email = postEemail;
-  var squad = postEsquad;
-  var type = postEtype;
-  var fecha = postEfecha;
-  var state = postEstate;
-
-  $.post("https://sheetsu.com/apis/v1.0/15e4cdf9e644", {"NOMBRE":name,"EMAIL":email,"SQUAD":squad,"TIPO":type,"FECHA":fecha,"ESTADO":state}, function(result){
-      console.log("Enviando Data");
-  });
-};
-
-const Verificar = (valor ) => {
-  if(valor =="1234"){
-    $('#btnEnviar').removeClass("disabled");
-  } else {
-    console.log("La contraseña no coincide");
-    $('#btnEnviar').addClass("disabled");
-  }
-};
-
 const header = (update) => {
 
   const cont_header =$('<header><div class="container"><div class="row">'+
@@ -179,7 +123,7 @@ const welcome = (update) => {
     btn_enviar.on('click',(e) =>{
       e.preventDefault();
 
-        var punt_r1 ="1730";
+        var punt_r1 ="1755";
         var actual = new Date();
         var hours = actual.getHours();
         var minutes = actual.getMinutes();
@@ -231,9 +175,9 @@ const reloj = (update) => {
   div_register.append(enlace);
   cont_timer.append(div_register);
 
-  var punt1 = "1724";
-  var punt2 = "1726";
-  var punt3 = "1728";
+  var punt1 = "1747";
+  var punt2 = "1749";
+  var punt3 = "1751";
 
   function harold(standIn) {
      if (standIn < 10) {
@@ -250,7 +194,7 @@ const reloj = (update) => {
      dia     = time.getDate(),
      mes     = time.getMonth()+1,
      year    = time.getFullYear();
-     console.log(harold(dia) + "/" + harold(mes) + "/" + year);
+    //  var fecha =harold(dia) + "/" + harold(mes) + "/" + year;
       document.querySelectorAll('.day')[0].innerHTML = harold(dia) + "/" + harold(mes) + "/" + year;
       document.querySelectorAll('.clock')[0].innerHTML = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
  };
@@ -265,18 +209,24 @@ const reloj = (update) => {
    var hours = actual.getHours();
    var minutes = actual.getMinutes();
    var seconds = actual.getSeconds();
+   var dia     = actual.getDate();
+   var mes     = actual.getMonth()+1;
+   var year    = actual.getFullYear();
+
    var check = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
+   var fecha = harold(dia) + "/" + harold(mes) + "/" + year;
    console.log(harold(hours) + ":" + harold(minutes) + ":" + harold(seconds));
    console.log(punt1.slice(0, 2));
    state.time = check;
-   postE.fecha  =state.time ;
+   postE.fecha  =check +" "+fecha ;
+
 
    if( hours >= punt1.slice(0, 2) && hours <= punt2.slice(0, 2) && minutes >= punt1.slice(2, 4) && minutes <= punt2.slice(2, 4)){
        state.cat ="P";
        postE.state  =state.cat ;
        state.page = 2;
 
-       PostregisterHora(update ,postE.name,postE.email,postE.squad,postE.type,postE.fecha ,postE.state);
+       PostregisterHora(update ,postE.name,postE.email,postE.squad,postE.type,postE.fecha,postE.state);
 
        update();
    } else if (hours >= punt2.slice(0, 2) && hours <= punt3.slice(0, 2) && minutes >= punt2.slice(2, 4) && minutes <= punt3.slice(2, 4))
@@ -285,7 +235,7 @@ const reloj = (update) => {
       postE.state  =state.cat ;
       state.page = 3;
 
-      PostregisterHora(update ,postE.name,postE.email,postE.squad,postE.type,postE.fecha ,postE.state);
+      PostregisterHora(update ,postE.name,postE.email,postE.squad,postE.type,postE.fecha,postE.state);
       update();
     }
 
@@ -506,3 +456,97 @@ const mensaje = (update) => {
   container_msm.append(cont_asisOK);
   return container_msm ;
 }
+
+const AlePantalla = (update) => {
+  console.log(state.time);
+
+  const container_OK =$('<section class="container center-align"></section>');
+  const cont_asisOK =$('<div class="row"></div>') ;
+  const cont_title =$('<div class="title_asis"></div>') ;
+  const title =$('<p class="negrita">'+state.user[0].name+' Tu asistencia fue registrada a las :</p>');
+  const hora = $('<p>'+ state.time +'</p>');
+  cont_title.append(title);
+  cont_title.append(hora);
+  cont_asisOK.append(cont_title);
+  const cont_check =$('<div class="cont_asist col s6 push-s3"></div>');
+  const cont_radio =$('<div class="radio-check"></div>');
+  const cont_img =$('<i class="large material-icons">check</i>');
+
+  cont_asisOK.append(cont_check);
+  cont_radio.append(cont_img);
+  cont_check.append(cont_radio);
+
+  const div_enlaces =$('<div class="cont_btn col s10 push-s1"></div>');
+  const btn_home =$('<button type="button"  id="btn_present" name="button" class="primary">IR AL HOME</button>');
+  const div_register =$ ('<div class="enlace"></div>');
+  const enlace =$('<a href="#" class="active">Ver asistencias</a>');
+
+  div_enlaces.append(btn_home)
+  div_register.append(enlace);
+  div_enlaces.append(div_register);
+  cont_asisOK.append(div_enlaces);
+
+  btn_home.on('click', (e) =>{
+    e.preventDefault();
+     state.page = 4;
+     update();
+  });
+  container_OK.append(cont_asisOK);
+  return container_OK ;
+}
+
+'use strict';
+
+const filterByEmail= (stations,query) => {
+  console.log(stations);
+  const select =stations.filter (function(index) {
+    return (index.EMAIL.toLowerCase().indexOf(query.toLowerCase())!=-1);
+  })
+  console.log(select);
+  return select;
+}
+
+'use strict';
+
+const getJSON = (url, cb) => {
+
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener('load', () => {
+
+    if (xhr.status !== 200) {
+      return cb(new Error('Error loading JSON from ' + url + '(' + xhr.status + ')'));
+    }
+
+    cb(null, xhr.response);
+
+  });
+
+  xhr.open('GET', url);
+  xhr.responseType = 'json';
+  xhr.send();
+
+};
+
+'use strict';
+const PostregisterHora =(update ,postEname,postEemail,postEsquad,postEtype,postEfecha ,postEstate)=>{
+  var name = postEname;
+  var email = postEemail;
+  var squad = postEsquad;
+  var type = postEtype;
+  var fecha = postEfecha;
+  var state = postEstate;
+
+  $.post("https://sheetsu.com/apis/v1.0/15e4cdf9e644", {"NOMBRE":name,"EMAIL":email,"SQUAD":squad,"TIPO":type,"FECHA":fecha,"ESTADO":state}, function(result){
+      console.log("Enviando Data");
+  });
+};
+
+const Verificar = (valor ) => {
+  if(valor =="1234"){
+    $('#btnEnviar').removeClass("disabled");
+  } else {
+    console.log("La contraseña no coincide");
+    $('#btnEnviar').addClass("disabled");
+  }
+};

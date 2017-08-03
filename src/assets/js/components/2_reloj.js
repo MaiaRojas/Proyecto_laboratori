@@ -26,9 +26,9 @@ const reloj = (update) => {
   div_register.append(enlace);
   cont_timer.append(div_register);
 
-  var punt1 = "1724";
-  var punt2 = "1726";
-  var punt3 = "1728";
+  var punt1 = "1747";
+  var punt2 = "1749";
+  var punt3 = "1751";
 
   function harold(standIn) {
      if (standIn < 10) {
@@ -45,7 +45,7 @@ const reloj = (update) => {
      dia     = time.getDate(),
      mes     = time.getMonth()+1,
      year    = time.getFullYear();
-     console.log(harold(dia) + "/" + harold(mes) + "/" + year);
+    //  var fecha =harold(dia) + "/" + harold(mes) + "/" + year;
       document.querySelectorAll('.day')[0].innerHTML = harold(dia) + "/" + harold(mes) + "/" + year;
       document.querySelectorAll('.clock')[0].innerHTML = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
  };
@@ -60,18 +60,24 @@ const reloj = (update) => {
    var hours = actual.getHours();
    var minutes = actual.getMinutes();
    var seconds = actual.getSeconds();
+   var dia     = actual.getDate();
+   var mes     = actual.getMonth()+1;
+   var year    = actual.getFullYear();
+
    var check = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
+   var fecha = harold(dia) + "/" + harold(mes) + "/" + year;
    console.log(harold(hours) + ":" + harold(minutes) + ":" + harold(seconds));
    console.log(punt1.slice(0, 2));
    state.time = check;
-   postE.fecha  =state.time ;
+   postE.fecha  =check +" "+fecha ;
+
 
    if( hours >= punt1.slice(0, 2) && hours <= punt2.slice(0, 2) && minutes >= punt1.slice(2, 4) && minutes <= punt2.slice(2, 4)){
        state.cat ="P";
        postE.state  =state.cat ;
        state.page = 2;
 
-       PostregisterHora(update ,postE.name,postE.email,postE.squad,postE.type,postE.fecha ,postE.state);
+       PostregisterHora(update ,postE.name,postE.email,postE.squad,postE.type,postE.fecha,postE.state);
 
        update();
    } else if (hours >= punt2.slice(0, 2) && hours <= punt3.slice(0, 2) && minutes >= punt2.slice(2, 4) && minutes <= punt3.slice(2, 4))
@@ -80,7 +86,7 @@ const reloj = (update) => {
       postE.state  =state.cat ;
       state.page = 3;
 
-      PostregisterHora(update ,postE.name,postE.email,postE.squad,postE.type,postE.fecha ,postE.state);
+      PostregisterHora(update ,postE.name,postE.email,postE.squad,postE.type,postE.fecha,postE.state);
       update();
     }
 
