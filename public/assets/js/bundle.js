@@ -40,7 +40,7 @@ const state = {
 };
 
 $( _ => {
-    getJSON("https://spreadsheets.google.com/feeds/list/1Ga1oS3yWJse3NY3-osB04Fta_q5kQdtR-ErUB__Fpa0/od6/public/values?alt=json",(err,json)=> {
+    getJSON("http://spreadsheets.google.com/feeds/list/1g9WAYhIOSlW3tqpFj1DO-JPeCHrz7Xk59iP6cEIzZxY/od6/public/values?alt=json",(err,json)=> {
         if (err) { return alert(err.message);}
 
         state.data = json;
@@ -49,6 +49,48 @@ $( _ => {
         render(root);
     });
 });
+
+'use strict';
+
+const filterByEmail= (stations,query) => {
+
+  const select =stations.filter (function(index) {
+    return (index.email.toLowerCase().indexOf(query.toLowerCase())!=-1);
+  })
+
+  return select;
+}
+
+'use strict';
+
+const getJSON = (url, cb) => {
+
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener('load', () => {
+
+    if (xhr.status !== 200) {
+      return cb(new Error('Error loading JSON from ' + url + '(' + xhr.status + ')'));
+    }
+
+    cb(null, xhr.response);
+
+  });
+
+  xhr.open('GET', url);
+  xhr.responseType = 'json';
+  xhr.send();
+
+};
+
+const Verificar = (valor ) => {
+  if(valor =="1234"){
+    $('#btnEnviar').removeClass("disabled");
+  } else {
+    console.log("La contraseña no coincide");
+    $('#btnEnviar').addClass("disabled");
+  }
+};
 
 const header = (update) => {
 
@@ -94,18 +136,9 @@ const welcome = (update) => {
 
     input_user.on('keyup',(e) => {
       if(input_user.val() !=""){
-
-        filtrados = filterByEmail(state.data.feed.entry ,input_user.val());
-        console.log(filtrados);
+        filtrados = filterByEmail(state.data ,input_user.val());
         btn_enviar.removeClass("disabled");
         Verificar(input_pas.val());
-
-        // if (){
-        //
-        // }else {
-        //
-        // }
-        //
       } else {
         console.log("Aun no se ha ingresado el usuario");
         btn_enviar.addClass("disabled");
@@ -124,14 +157,15 @@ const welcome = (update) => {
     btn_enviar.on('click',(e) =>{
       e.preventDefault();
 
-        var punt_r1 ="1440";
+        var punt_r1 ="0937";
         var actual = new Date();
         var hours = actual.getHours();
-        console.log(hours);
         var minutes = actual.getMinutes();
         state.user = filtrados;
-        if( hours <= punt_r1.slice(0,2) && minutes < punt_r1.slice(2, 4) ){
+        if( hours <= punt_r1.slice(0, 2) && minutes < punt_r1.slice(2, 4) ){
+
           console.log("Ingresa normal");
+
           state.page=1;
           update();
 
@@ -436,46 +470,3 @@ const mensaje = (update) => {
   container_msm.append(cont_asisOK);
   return container_msm ;
 }
-
-'use strict';
-
-const filterByEmail= (stations,query) => {
-
-
-  const select =stations.filter (function(index) {
-    return (index.gsx$email.$t.toLowerCase().indexOf(query.toLowerCase())!=-1);
-  })
-  console.log(select);
-  return select;
-}
-
-'use strict';
-
-const getJSON = (url, cb) => {
-
-  const xhr = new XMLHttpRequest();
-
-  xhr.addEventListener('load', () => {
-
-    if (xhr.status !== 200) {
-      return cb(new Error('Error loading JSON from ' + url + '(' + xhr.status + ')'));
-    }
-
-    cb(null, xhr.response);
-
-  });
-
-  xhr.open('GET', url);
-  xhr.responseType = 'json';
-  xhr.send();
-
-};
-
-const Verificar = (valor ) => {
-  if(valor =="1234"){
-    $('#btnEnviar').removeClass("disabled");
-  } else {
-    console.log("La contraseña no coincide");
-    $('#btnEnviar').addClass("disabled");
-  }
-};

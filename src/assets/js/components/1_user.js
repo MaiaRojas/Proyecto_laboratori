@@ -32,21 +32,11 @@ const welcome = (update) => {
     div_btn.append(btn_enviar);
 
     var filtrados=null;
-
     input_user.on('keyup',(e) => {
       if(input_user.val() !=""){
-
-        filtrados = filterByEmail(state.data.feed.entry ,input_user.val());
-        console.log(filtrados);
+        filtrados = filterByEmail(state.data ,input_user.val());
         btn_enviar.removeClass("disabled");
         Verificar(input_pas.val());
-
-        // if (){
-        //
-        // }else {
-        //
-        // }
-        //
       } else {
         console.log("Aun no se ha ingresado el usuario");
         btn_enviar.addClass("disabled");
@@ -65,14 +55,15 @@ const welcome = (update) => {
     btn_enviar.on('click',(e) =>{
       e.preventDefault();
 
-        var punt_r1 ="1440";
+        var punt_r1 ="0937";
         var actual = new Date();
         var hours = actual.getHours();
-        console.log(hours);
         var minutes = actual.getMinutes();
         state.user = filtrados;
-        if( hours <= punt_r1.slice(0,2) && minutes < punt_r1.slice(2, 4) ){
+        if( hours <= punt_r1.slice(0, 2) && minutes < punt_r1.slice(2, 4) ){
+
           console.log("Ingresa normal");
+
           state.page=1;
           update();
 
