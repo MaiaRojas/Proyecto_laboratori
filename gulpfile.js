@@ -52,14 +52,9 @@ gulp.task('img', () => {
 gulp.task('sass', () => {
     gulp.src(sources.rootSass)
     .pipe(sass({
-<<<<<<< HEAD
-        outputStyle:"uncompressed"
-    }).on("error",sass.logError)).pipe(gulp.dest(config.dist+paths.assets+"css"));
-=======
         outputStyle:"expanded"
     }).on("error",sass.logError))
     .pipe(gulp.dest(config.dist + paths.assets + "css"));
->>>>>>> 85f28476854de2dd31d23adc0e5f509da43cb128
 });
 
 gulp.task('js', () => {

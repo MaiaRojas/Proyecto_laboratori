@@ -1,26 +1,12 @@
 "use strict";
 const render = (root)=>{
    root.empty();
-<<<<<<< HEAD
-   var section = $("<div></div>");
-   section.append(header(function (_) {
-      return render(root);
-   }));
-   section.append(welcome(function (_) {
-      return render(root);
-   }));
-=======
-
-   const section = $('<section class="components"></section>');
-
-   const update = function (){
-    render(root);
-  };
-
->>>>>>> 85f28476854de2dd31d23adc0e5f509da43cb128
+   const section = $('<div></div>');
+   section.append(header( _ => render(root)));
+   section.append(welcome( _ => render(root)));
    root.append(section);
 };
-
+console.log("Ya sale");
 const state = {
   data: null,
    user: null,
@@ -38,68 +24,54 @@ $( _ => {
       state.data = json;
       console.log(state.data)
 
-      const root = $('#root');
+      const root = $('.root');
       render(root);
 
     });
-
-/*    $.getJSON('/user.json', function(data) {
-      console.log(data);
-    })*/
-
-<<<<<<< HEAD
-$(function (_) {
-   $.getJSON("user.json", function (data) {
-      state.user = data;
-
-      console.log(state.user);
-   });
-   var root = $(".root");
-   render(root);
 });
-"use strict";
 
-var header = function (update) {
-  var cont_header = $("<header><div class=\"container\"><div class=\"row\">" + "<img src=\"assets/img/logo.svg\" alt=\"logo\"></div></div></header>");
-  return cont_header;
-};
-"use strict";
+const header = (update) => {
 
-var welcome = function (update) {
-    var cont_welcome = $("<section class=\"container\"></section>");
-    var title = $("<h4 class=\"center\">Bienvenido al capitán <br>Ingresa a tu cuenta </h4>");
+  const cont_header =$('<header><div class="container"><div class="row">'+
+                       '<img src="assets/img/logo.svg" alt="logo"></div></div></header>');
+  return cont_header ;
+}
+
+
+const welcome = (update) => {
+    const cont_welcome =$('<section class="container"></section>');
+    const title =$('<h4 class="center">Bienvenido al capitán <br>Ingresa a tu cuenta </h4>');
     cont_welcome.append(title);
-    var cont_form = $("<div class=\"container\"></div>");
+    const cont_form = $('<div class="container"></div>');
     cont_welcome.append(cont_form);
-    var form = $("<form  class=\"\" id=\"new_user\"></form>");
+    const form =$('<form  class="" id="new_user"></form>');
     cont_form.append(form);
-    var forminput = $("<div class=\"form-inputs\"></div>");
+    const forminput =$('<div class="form-inputs"></div>');
     form.append(forminput);
-    var var_user = $("<div class=\"form-group\"></div>");
-    var label_user = $("<label class=\"\" for=\"user_code\">Usuario</label>");
-    var input_user = $("<input class=\"\" autofocus=\"autofocus\" placeholder=\"Código Laboratoria\" type=\"text\"  id=\"user_code\">");
+    const var_user =$('<div class="form-group"></div>');
+    const label_user =$('<label class="" for="user_code">Usuario</label>');
+    const input_user =$('<input class="" autofocus="autofocus" placeholder="Código Laboratoria" type="text"  id="user_code">');
     forminput.append(var_user);
     var_user.append(label_user);
     var_user.append(input_user);
-    var var_pas = $("<div class=\"form-group\"></div>");
-    var label_pas = $("<label class=\"\" for=\"user_password\">Contraseña</label>");
-    var input_pas = $("<input class=\"\" autofocus=\"autofocus\" placeholder=\"Contraseña\" type=\"password\"  id=\"user_password\">");
+    const var_pas =$('<div class="form-group"></div>');
+    const label_pas =$('<label class="" for="user_password">Contraseña</label>');
+    const input_pas =$('<input class="" autofocus="autofocus" placeholder="Contraseña" type="password"  id="user_password">');
     forminput.append(var_pas);
     var_pas.append(label_pas);
     var_pas.append(input_pas);
 
-    var div_lost = $("<div></div>");
-    var lost_pas = $("<a href=\"#\" class=\"active\">Olvide mi contraseña</a>");
+    const div_lost =$ ('<div></div>');
+    const lost_pas=$('<a href="#" class="active">Olvide mi contraseña</a>');
     div_lost.append(lost_pas);
     forminput.append(div_lost);
-    var div_btn = $("<div class=\"form-actions\"></div>");
-    var btn_enviar = $("<input type=\"submit\" name=\"commit\" value=\"Ingresar\" class=\"btn primary\">");
+    const div_btn =$('<div class="form-actions"></div>');
+    const btn_enviar =$('<input type="submit" name="commit" value="Ingresar" class="btn primary">');
     forminput.append(div_btn);
     div_btn.append(btn_enviar);
 
-    return cont_welcome;
-=======
-});
+  return cont_welcome;
+}
 
 'use strict';
 
@@ -121,5 +93,4 @@ const getJSON = (url, cb) => {
   xhr.responseType = 'json';
   xhr.send();
 
->>>>>>> 85f28476854de2dd31d23adc0e5f509da43cb128
 };

@@ -1,13 +1,12 @@
 "use strict";
 const render = (root)=>{
    root.empty();
-
    const section = $('<div></div>');
    section.append(header( _ => render(root)));
    section.append(welcome( _ => render(root)));
    root.append(section);
 };
-
+console.log("Ya sale");
 const state = {
   data: null,
    user: null,
@@ -25,7 +24,7 @@ $( _ => {
       state.data = json;
       console.log(state.data)
 
-      const root = $('#root');
+      const root = $('.root');
       render(root);
 
     });
