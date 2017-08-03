@@ -40,57 +40,15 @@ const state = {
 };
 
 $( _ => {
-    getJSON("http://spreadsheets.google.com/feeds/list/1g9WAYhIOSlW3tqpFj1DO-JPeCHrz7Xk59iP6cEIzZxY/od6/public/values?alt=json",(err,json)=> {
+    getJSON("https://sheetsu.com/apis/v1.0/15e4cdf9e644",(err,json)=> {
         if (err) { return alert(err.message);}
-
+        console.log(json);
         state.data = json;
-        console.log(state.data);
+
         const root = $('.root');
         render(root);
     });
 });
-
-'use strict';
-
-const filterByEmail= (stations,query) => {
-
-  const select =stations.filter (function(index) {
-    return (index.email.toLowerCase().indexOf(query.toLowerCase())!=-1);
-  })
-
-  return select;
-}
-
-'use strict';
-
-const getJSON = (url, cb) => {
-
-  const xhr = new XMLHttpRequest();
-
-  xhr.addEventListener('load', () => {
-
-    if (xhr.status !== 200) {
-      return cb(new Error('Error loading JSON from ' + url + '(' + xhr.status + ')'));
-    }
-
-    cb(null, xhr.response);
-
-  });
-
-  xhr.open('GET', url);
-  xhr.responseType = 'json';
-  xhr.send();
-
-};
-
-const Verificar = (valor ) => {
-  if(valor =="1234"){
-    $('#btnEnviar').removeClass("disabled");
-  } else {
-    console.log("La contraseña no coincide");
-    $('#btnEnviar').addClass("disabled");
-  }
-};
 
 const header = (update) => {
 
@@ -133,7 +91,6 @@ const welcome = (update) => {
     div_btn.append(btn_enviar);
 
     var filtrados=null;
-
     input_user.on('keyup',(e) => {
       if(input_user.val() !=""){
         filtrados = filterByEmail(state.data ,input_user.val());
@@ -470,3 +427,45 @@ const mensaje = (update) => {
   container_msm.append(cont_asisOK);
   return container_msm ;
 }
+
+'use strict';
+
+const filterByEmail= (stations,query) => {
+  console.log(stations);
+  const select =stations.filter (function(index) {
+    return (index.EMAIL.toLowerCase().indexOf(query.toLowerCase())!=-1);
+  })
+  console.log(select);
+  return select;
+}
+
+'use strict';
+
+const getJSON = (url, cb) => {
+
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener('load', () => {
+
+    if (xhr.status !== 200) {
+      return cb(new Error('Error loading JSON from ' + url + '(' + xhr.status + ')'));
+    }
+
+    cb(null, xhr.response);
+
+  });
+
+  xhr.open('GET', url);
+  xhr.responseType = 'json';
+  xhr.send();
+
+};
+
+const Verificar = (valor ) => {
+  if(valor =="1234"){
+    $('#btnEnviar').removeClass("disabled");
+  } else {
+    console.log("La contraseña no coincide");
+    $('#btnEnviar').addClass("disabled");
+  }
+};

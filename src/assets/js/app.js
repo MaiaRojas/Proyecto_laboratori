@@ -40,10 +40,11 @@ const state = {
 };
 
 $( _ => {
-    getJSON("http://spreadsheets.google.com/feeds/list/1g9WAYhIOSlW3tqpFj1DO-JPeCHrz7Xk59iP6cEIzZxY/od6/public/values?alt=json",(err,json)=> {
+    getJSON("https://sheetsu.com/apis/v1.0/15e4cdf9e644",(err,json)=> {
         if (err) { return alert(err.message);}
-
+        console.log(json);
         state.data = json;
+
         const root = $('.root');
         render(root);
     });
