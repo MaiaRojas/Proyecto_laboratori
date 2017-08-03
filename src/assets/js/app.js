@@ -44,6 +44,7 @@ $( _ => {
         if (err) { return alert(err.message);}
 
         state.data = json;
+        console.log(state.data);
         const root = $('.root');
         render(root);
     });

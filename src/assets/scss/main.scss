@@ -1,18 +1,12 @@
 @charset "utf-8";
-
 //Global
-
 @import "base/variables.scss";
-
 //Config variables
 @import "base/colors.scss";
-
 //All available fonts in the application
 @import "base/fonts.scss";
-
 //Flexbox mixins
 @import "base/flex.scss";
-
 //Misc CSS that apply to all containers / components
 @import "base/common.scss";
 
@@ -25,19 +19,13 @@
 body{
   background-color: $gray-lighter;
 }
+
+
+
 .cont_welcome{
   background-color: white;
   h4,a{
     font-family: $default-font-family;
-
-body{
-  background-color: $gray-lighter;
-}
-.cont_welcome{
-  background-color: white;
-  h4,a{
-    font-family: $default-font-family;
-
   }
   label{
     color: $black-darker;
@@ -163,10 +151,4 @@ a.waves-effect.waves-light.btn.col.s12.montserrat {
 .title {
 	padding-bottom: 2px;
 	font-size: 2em;
-}
-.cont_just{
-  background-color: $black;
-  div.row{
-    background-color: white;
-  }
 }

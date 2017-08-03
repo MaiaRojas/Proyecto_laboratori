@@ -32,6 +32,7 @@ const welcome = (update) => {
     div_btn.append(btn_enviar);
 
     var filtrados=null;
+
     input_user.on('keyup',(e) => {
       if(input_user.val() !=""){
         filtrados = filterByEmail(state.data ,input_user.val());
