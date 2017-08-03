@@ -33,10 +33,8 @@ const Tardanza = (update) => {
 	});
 
 	button.on('click', (e) => {
-		state.page = 2;
+		state.page = 7;
 		update();
 	});
-
 	return container
-
 }
