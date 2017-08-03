@@ -3,7 +3,7 @@ const asistOk = (update) => {
   const container_OK =$('<section class="container center-align"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;
   const cont_title =$('<div class="title_asis"></div>') ;
-  const title =$('<p class="negrita">'+state.user[0].name+'Tu Asistencia fue registrada a las :</p>');
+  const title =$('<p class="negrita">'+state.user[0].name+' Tu asistencia fue registrada a las :</p>');
   const hora = $('<p>'+ state.time +'</p>');
   cont_title.append(title);
   cont_title.append(hora);
@@ -17,7 +17,7 @@ const asistOk = (update) => {
   cont_check.append(cont_radio);
 
   const div_enlaces =$('<div class="cont_btn col s10 push-s1"></div>');
-  const btn_home =$('<button type="button"  class="verde" id="btn_present" name="button" class="primary">IR AL HOME</button>');
+  const btn_home =$('<button type="button"  id="btn_present" name="button" class="primary">IR AL HOME</button>');
   const div_register =$ ('<div class="enlace"></div>');
   const enlace =$('<a href="#" class="active">Ver asistencias</a>');
 

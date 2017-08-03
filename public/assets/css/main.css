@@ -2970,6 +2970,10 @@ header {
   align-items: center;
 }
 
-.cont_asist div.cont_btn {
+.cont_asist div.radio-check i {
+  color: #7ED321;
+}
+
+div.cont_btn {
   margin: 10%;
 }
