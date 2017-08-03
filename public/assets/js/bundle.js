@@ -45,28 +45,6 @@ $( _ => {
 
 'use strict';
 
-const getJSON = (url, cb) => {
-
-  const xhr = new XMLHttpRequest();
-
-  xhr.addEventListener('load', () => {
-
-    if (xhr.status !== 200) {
-      return cb(new Error('Error loading JSON from ' + url + '(' + xhr.status + ')'));
-    }
-
-    cb(null, xhr.response);
-    
-  });
-
-  xhr.open('GET', url);
-  xhr.responseType = 'json';
-  xhr.send();
-
-};
-
-'use strict';
-
 const Falta = (update) => {
 	const container = $('<div class="container"></div>');
 	const row = $('<div class="row"></div>');
@@ -116,8 +94,8 @@ const Home = (update) => {
 	}
 
 	var time = new Date();
-	var day = time.getDay();
-	var month = time.getMonth();
+	var day = time.getDate();
+	var month = time.getMonth() + 1;
 	var year = time.getFullYear();
 
 	date.text("(" + rules(day) + "/" + rules(month) + "/" + rules(year) + ")");
@@ -171,3 +149,24 @@ const Tardanza = (update) => {
 	return container
 
 }
+'use strict';
+
+const getJSON = (url, cb) => {
+
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener('load', () => {
+
+    if (xhr.status !== 200) {
+      return cb(new Error('Error loading JSON from ' + url + '(' + xhr.status + ')'));
+    }
+
+    cb(null, xhr.response);
+    
+  });
+
+  xhr.open('GET', url);
+  xhr.responseType = 'json';
+  xhr.send();
+
+};

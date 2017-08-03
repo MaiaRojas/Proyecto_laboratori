@@ -27,8 +27,8 @@ const Home = (update) => {
 	}
 
 	var time = new Date();
-	var day = time.getDay();
-	var month = time.getMonth();
+	var day = time.getDate();
+	var month = time.getMonth() + 1;
 	var year = time.getFullYear();
 
 	date.text("(" + rules(day) + "/" + rules(month) + "/" + rules(year) + ")");
