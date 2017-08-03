@@ -5,6 +5,7 @@ const reloj = (update) => {
   const title =$('<p>Bienvenida <strong>'+ state.user[0].name +'</strong></p>');
   cont_title.append(title);
   cont_reloj.append(cont_title);
+
   const cont_timer =$('<div class="cont_clock"></div>');
   const cont_day =$('<div class="day"></div>');
 
@@ -21,9 +22,9 @@ const reloj = (update) => {
   div_register.append(enlace);
   cont_timer.append(div_register);
 
-  var punt1 = "0910";
-  var punt2 = "0915";
-  var punt3 = "0920";
+  var punt1 = "0929";
+  var punt2 = "0932";
+  var punt3 = "0934";
 
   function harold(standIn) {
      if (standIn < 10) {

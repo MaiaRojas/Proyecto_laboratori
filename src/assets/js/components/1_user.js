@@ -52,27 +52,26 @@ const welcome = (update) => {
       }
     });
 
-    cont_welcome.append(out_sign(update));
-
-
     btn_enviar.on('click',(e) =>{
       e.preventDefault();
 
-        var punt_r1 ="0915";
+        var punt_r1 ="0937";
         var actual = new Date();
         var hours = actual.getHours();
         var minutes = actual.getMinutes();
-
+        state.user = filtrados;
         if( hours <= punt_r1.slice(0, 2) && minutes < punt_r1.slice(2, 4) ){
 
           console.log("Ingresa normal");
-          state.user = filtrados;
+
           state.page=1;
           update();
 
         } else{
           $('#btnEnviar').addClass("modal-trigger");
           console.log("Ingresa fuera de hora");
+          state.page = 6;
+          update();
         };
    });
 

@@ -16,12 +16,14 @@ const render = (root) =>{
     section.append(Home( _ => render(root)));
   } else if (state.page == 5) {
     section.append(Falta( _ => render(root)));
+  } else if (state.page == 6) {
+    section.append(justificacion( _ => render(root)));
   }
 
   root.append(section);
 };
 
-const update = function (){s
+const update = function (){
   render(root);
 };
 
@@ -108,27 +110,26 @@ const welcome = (update) => {
       }
     });
 
-    cont_welcome.append(out_sign(update));
-
-
     btn_enviar.on('click',(e) =>{
       e.preventDefault();
 
-        var punt_r1 ="0915";
+        var punt_r1 ="0937";
         var actual = new Date();
         var hours = actual.getHours();
         var minutes = actual.getMinutes();
-
+        state.user = filtrados;
         if( hours <= punt_r1.slice(0, 2) && minutes < punt_r1.slice(2, 4) ){
 
           console.log("Ingresa normal");
-          state.user = filtrados;
+
           state.page=1;
           update();
 
         } else{
           $('#btnEnviar').addClass("modal-trigger");
           console.log("Ingresa fuera de hora");
+          state.page = 6;
+          update();
         };
    });
 
@@ -143,6 +144,7 @@ const reloj = (update) => {
   const title =$('<p>Bienvenida <strong>'+ state.user[0].name +'</strong></p>');
   cont_title.append(title);
   cont_reloj.append(cont_title);
+
   const cont_timer =$('<div class="cont_clock"></div>');
   const cont_day =$('<div class="day"></div>');
 
@@ -159,9 +161,9 @@ const reloj = (update) => {
   div_register.append(enlace);
   cont_timer.append(div_register);
 
-  var punt1 = "0910";
-  var punt2 = "0915";
-  var punt3 = "0920";
+  var punt1 = "0929";
+  var punt2 = "0932";
+  var punt3 = "0934";
 
   function harold(standIn) {
      if (standIn < 10) {
@@ -350,7 +352,6 @@ const Home = (update) => {
         if (param < 10) {
             param = '0' + param
         }
-
         return param;
     }
 
@@ -376,27 +377,26 @@ const Home = (update) => {
     return container
 }
 
-const out_sign = (update) => {
+const justificacion = (update) => {
 
-    const body_modal=$('<div id="modal1" class="modal"></div>');
-
-    const cont_modal=$('<div class="modal-content"></div>');
+    const body_modal=$('<div class="container cont_just"></div>');
+    const cont_modal=$('<div class="row"></div>');
+    const cont_div =$('<div class="col s10 push-s1"></div>');
     const title_name=$('<h4>Maia</h4>') ;
     const msj  = $('<p>Aún no has registrado tu asistencia.<br>Por favor cuéntanos  por qué.</p>') ;
     const message = $('<textarea id="message" class="materialize-textarea"></textarea>');
-    cont_modal.append(title_name,msj,message);
+    cont_modal.append(title_name , msj , message);
   	const button = $('<a class="btn col s12 montserrat">Enviar</a>');
     cont_modal.append(button);
     body_modal.append(cont_modal);
-    // <div class="modal-footer">
-    //   <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-    // </div>
 
 		button.on('click', (e) => {
-			e.preventDefault();
-			state.page = 4;
+      e.preventDefault();
+      console.log("mensaje enviado");
+			state.page = 3;
 			update();
 		});
+
     return body_modal;
 };
 

@@ -16,12 +16,14 @@ const render = (root) =>{
     section.append(Home( _ => render(root)));
   } else if (state.page == 5) {
     section.append(Falta( _ => render(root)));
+  } else if (state.page == 6) {
+    section.append(justificacion( _ => render(root)));
   }
 
   root.append(section);
 };
 
-const update = function (){s
+const update = function (){
   render(root);
 };
 

@@ -22,7 +22,6 @@ const Home = (update) => {
         if (param < 10) {
             param = '0' + param
         }
-
         return param;
     }
 
