@@ -2133,3 +2133,7 @@ a.waves-effect.waves-light.btn.col.s12.montserrat {
 .diary > li {
   font-size: 0.9em;
 }
+
+.transparent {
+  background: rgba(255, 255, 255, 0.5);
+}

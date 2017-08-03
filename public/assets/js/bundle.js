@@ -151,6 +151,19 @@ const Tardanza = (update) => {
 }
 'use strict';
 
+const Verify = (update) => {
+	
+	const container = $('<div class="container transparent"></div>');
+	const row = $('<div class="row"></div>');
+	const col = $('<div class="col s12 bg-white"></div>');
+
+
+	container.append(row);
+
+	return container
+}
+'use strict';
+
 const getJSON = (url, cb) => {
 
   const xhr = new XMLHttpRequest();
