@@ -1,5 +1,6 @@
 const asistOk = (update) => {
   console.log(state.time);
+
   const container_OK =$('<section class="container center-align"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;
   const cont_title =$('<div class="title_asis"></div>') ;
@@ -28,7 +29,7 @@ const asistOk = (update) => {
   btn_home.on('click', (e) =>{
     event.preventDefault();
 
-     state.page = 3;
+     state.page = 4;
      update();
   });
   container_OK.append(cont_asisOK);

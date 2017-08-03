@@ -2,7 +2,7 @@ const reloj = (update) => {
 
   const cont_reloj =$('<section class="container cont_timer"></section>');
   const cont_title =$('<div class="welcome"></div>') ;
-  const title =$('<p>Bienvenida <strong>'+state.user[0].name+'</strong></p>');
+  const title =$('<p>Bienvenida <strong>'+ state.user[0].name +'</strong></p>');
   cont_title.append(title);
   cont_reloj.append(cont_title);
   const cont_timer =$('<div class="cont_clock"></div>');
@@ -21,11 +21,9 @@ const reloj = (update) => {
   div_register.append(enlace);
   cont_timer.append(div_register);
 
-  console.log(new Date());
-
-  var punt1 = "1135";
-  var punt2 = "1140";
-  var punt3 = "1145";
+  var punt1 = "0426";
+  var punt2 = "0428";
+  var punt3 = "0440";
   function harold(standIn) {
       if (standIn < 10) {
         standIn = '0' + standIn
@@ -46,9 +44,12 @@ const reloj = (update) => {
         document.querySelectorAll('.day')[0].innerHTML = harold(dia) + "/" + harold(mes) + "/" + year;
         document.querySelectorAll('.clock')[0].innerHTML = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
   };
-  setInterval(clock, 1000);
+  var interval = setInterval(clock, 1000);
 
   btn_present.on('click', (e) =>{
+
+    clearInterval(interval);
+
     event.preventDefault();
     var actual = new Date();
     var hours = actual.getHours();
@@ -57,14 +58,27 @@ const reloj = (update) => {
     var check = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
     console.log(harold(hours) + ":" + harold(minutes) + ":" + harold(seconds));
     console.log(punt1.slice(0, 2));
+    state.time = check;
     if( hours >= punt1.slice(0, 2) && hours <= punt2.slice(0, 2) && minutes >= punt1.slice(2, 4) && minutes <= punt2.slice(2, 4)){
-        console.log("puntual");
-    } else if (hours >= punt2.slice(0, 2) && hours <= punt3.slice(0, 2) && minutes >= punt2.slice(2, 4) && minutes <= punt3.slice(2, 4))
-     { console.log("tarde");}
+        state.cat ="P";
 
-     state.time = check;
-     state.page = 2;
-     update();
+        state.page = 2;
+        update();
+    } else if (hours >= punt2.slice(0, 2) && hours <= punt3.slice(0, 2) && minutes >= punt2.slice(2, 4) && minutes <= punt3.slice(2, 4))
+     { console.log("tarde");
+       state.cat ="T";
+       state.page = 3;
+       update();
+     }
+
+  });
+
+  enlace.on('click', (e) =>{
+    event.preventDefault();
+    clearInterval(interval);
+      state.cat ="A";
+      state.page = 5;
+      update();
   });
 
   return cont_reloj;

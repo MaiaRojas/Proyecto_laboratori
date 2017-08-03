@@ -1,5 +1,5 @@
 "use strict";
-const render = (root)=>{
+const render = (root) =>{
    root.empty();
    const section = $('<div></div>');
    section.append(header( _ => render(root)));
@@ -10,12 +10,18 @@ const render = (root)=>{
     section.append(reloj( _ => render(root)));
   } else if (state.page == 2) {
     section.append(asistOk( _ => render(root)));
+  } else if (state.page == 3) {
+    section.append(Tardanza( _ => render(root)));
+  } else if (state.page == 4) {
+    section.append(Home( _ => render(root)));
+  } else if (state.page == 5) {
+    section.append(Falta( _ => render(root)));
   }
 
-   root.append(section);
+  root.append(section);
 };
 
-const update = function (){
+const update = function (){s
   render(root);
 };
 
@@ -26,7 +32,7 @@ const state = {
   password: null,
   page: null,
   time:null,
-
+  cat:null,
 };
 
 $( _ => {

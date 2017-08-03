@@ -1,9 +1,5 @@
 @charset "utf-8";
 
-//Global
-
-@import "base/variables.scss";
-
 //Config variables
 @import "base/colors.scss";
 
@@ -16,15 +12,13 @@
 //Misc CSS that apply to all containers / components
 @import "base/common.scss";
 
-//Grid system
-@import "base/grid.scss";
-
 //Padding Margin utils
 @import "base/padding-margins.scss";
 
 //Custom CSS related to a single page
 @import "containers/dashboard.scss";
 // @import "containers/profile.scss";
+
 body{
   background-color: $gray-lighter;
 }
@@ -87,4 +81,75 @@ header {
 div.cont_btn{
   margin: 10%;
 
+}
+
+.container {
+  width: 80% !important;
+}
+
+#message {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.materialize-textarea {
+	min-height: 12vh !important;
+	max-height: 12vh !important;
+}
+
+input:not([type]):focus:not([readonly]),
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=url]:not(.browser-default):focus:not([readonly]),
+input[type=time]:not(.browser-default):focus:not([readonly]),
+input[type=date]:not(.browser-default):focus:not([readonly]),
+input[type=datetime]:not(.browser-default):focus:not([readonly]),
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
+input[type=tel]:not(.browser-default):focus:not([readonly]),
+input[type=number]:not(.browser-default):focus:not([readonly]),
+input[type=search]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]){
+	border-bottom: 1px solid $laboratoria !important;
+}
+
+[type="radio"]:checked+label:after,
+[type="radio"].with-gap:checked+label:after{
+	background-color: $laboratoria;
+}
+
+[type="radio"]:checked+label:after,
+[type="radio"].with-gap:checked+label:before,
+[type="radio"].with-gap:checked+label:after {
+	border: 2px solid $laboratoria;
+}
+
+.btn,
+.btn:focus,
+.btn:hover {
+	line-height: 2.0 !important;
+	background-color: $laboratoria;
+	color: $black;
+	font-weight: bolder !important;
+}
+
+.spacing {
+	letter-spacing: 0.9px;
+}
+
+.add-message {
+	font-size: 1em !important;
+}
+
+a.waves-effect.waves-light.btn.col.s12.montserrat {
+	margin-top: 1em;
+}
+
+.date-home {
+	font-size: 1.1em;
+}
+
+.title {
+	padding-bottom: 2px;
+	font-size: 2em;
 }
