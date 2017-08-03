@@ -2125,3 +2125,11 @@ a.waves-effect.waves-light.btn.col.s12.montserrat {
   padding-bottom: 2px;
   font-size: 2em;
 }
+
+.diary {
+  margin-top: 1em;
+}
+
+.diary > li {
+  font-size: 0.9em;
+}
