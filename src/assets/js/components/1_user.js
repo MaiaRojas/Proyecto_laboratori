@@ -1,32 +1,28 @@
 
 const welcome = (update) => {
     const cont_welcome =$('<section class="container center-align cont_welcome"></section>');
-    const title =$('<h5 class="center">Bienvenido al capitán <br>Ingresa a tu cuenta </h5>');
-    const form =$('<form  class="row" id="new_user"></form>');
-    cont_welcome.append(title, form);
+    const title =$('<h5 class="center">Bienvenida al capitán <br>Ingresa a tu cuenta </h5>');
+    const form =$('<div  class="row" id="new_user"></div>');
     const forminput =$('<div class="col s10 push-s1"></div>');
-    form.append(forminput);
     const var_user =$('<div class="left-align"></div>');
     const label_user =$('<label class="" for="user_code">Usuario</label>');
     const input_user =$('<input class="in_lab" autofocus="autofocus" placeholder="Código Laboratoria" type="text"  id="user_code">');
-    forminput.append(var_user);
-    var_user.append(label_user);
-    var_user.append(input_user);
     const var_pas = $('<div class="left-align"></div>');
     const label_pas = $('<label class="" for="user_password">Contraseña</label>');
     const input_pas = $('<input class="in_lab" autofocus="autofocus" placeholder="Contraseña" type="password"  id="user_password">');
-    forminput.append(var_pas);
-    var_pas.append(label_pas);
-    var_pas.append(input_pas);
-
-    const div_lost =$ ('<div></div>');
+    const div_lost =$ ('<div class="lost"></div>');
     const lost_pas=$('<a href="#" class="active">Olvidé mi contraseña</a>');
+    const div_btn =$('<div></div>');
+    const btn_enviar = $('<button id="btnEnviar" class="btn primary disabled col s12 montserrat" href="#modal1">Ingresar</button>');
+    
+    var_user.append(label_user, input_user);
+    var_pas.append(label_pas, input_pas);
+    forminput.append(var_user, var_pas);
     div_lost.append(lost_pas);
-    forminput.append(div_lost);
-    const div_btn =$('<div class="form-actions"></div>');
-    const btn_enviar = $('<button id="btnEnviar" class="btn primary disabled" href="#modal1">Ingresar</button>');
-    forminput.append(div_btn);
     div_btn.append(btn_enviar);
+    forminput.append(div_lost, div_btn);
+    form.append(forminput);
+    cont_welcome.append(title, form);
 
     var filtrados=null;
     input_user.on('keyup',(e) => {
@@ -50,14 +46,15 @@ const welcome = (update) => {
     });
 
     btn_enviar.on('click',(e) =>{
-      e.preventDefault();
+      // e.preventDefault();
 
-        var punt_r1 ="1210";
+        var punt_r1 ="1440";
         var actual = new Date();
         var hours = actual.getHours();
+        console.log(hours)
         var minutes = actual.getMinutes();
         state.user = filtrados;
-        if( hours <= punt_r1.slice(0, 2) && minutes < punt_r1.slice(2, 4) ){
+        if( hours <= punt_r1.slice(0, 2) && minutes <= punt_r1.slice(2, 4)){
 
           console.log("Ingresa normal");
 

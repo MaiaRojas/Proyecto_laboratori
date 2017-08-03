@@ -61,32 +61,28 @@ const header = (update) => {
 
 const welcome = (update) => {
     const cont_welcome =$('<section class="container center-align cont_welcome"></section>');
-    const title =$('<h5 class="center">Bienvenido al capitán <br>Ingresa a tu cuenta </h5>');
-    const form =$('<form  class="row" id="new_user"></form>');
-    cont_welcome.append(title, form);
+    const title =$('<h5 class="center">Bienvenida al capitán <br>Ingresa a tu cuenta </h5>');
+    const form =$('<div  class="row" id="new_user"></div>');
     const forminput =$('<div class="col s10 push-s1"></div>');
-    form.append(forminput);
     const var_user =$('<div class="left-align"></div>');
     const label_user =$('<label class="" for="user_code">Usuario</label>');
     const input_user =$('<input class="in_lab" autofocus="autofocus" placeholder="Código Laboratoria" type="text"  id="user_code">');
-    forminput.append(var_user);
-    var_user.append(label_user);
-    var_user.append(input_user);
     const var_pas = $('<div class="left-align"></div>');
     const label_pas = $('<label class="" for="user_password">Contraseña</label>');
     const input_pas = $('<input class="in_lab" autofocus="autofocus" placeholder="Contraseña" type="password"  id="user_password">');
-    forminput.append(var_pas);
-    var_pas.append(label_pas);
-    var_pas.append(input_pas);
-
-    const div_lost =$ ('<div></div>');
+    const div_lost =$ ('<div class="lost"></div>');
     const lost_pas=$('<a href="#" class="active">Olvidé mi contraseña</a>');
+    const div_btn =$('<div></div>');
+    const btn_enviar = $('<button id="btnEnviar" class="btn primary disabled col s12 montserrat" href="#modal1">Ingresar</button>');
+    
+    var_user.append(label_user, input_user);
+    var_pas.append(label_pas, input_pas);
+    forminput.append(var_user, var_pas);
     div_lost.append(lost_pas);
-    forminput.append(div_lost);
-    const div_btn =$('<div class="form-actions"></div>');
-    const btn_enviar = $('<button id="btnEnviar" class="btn primary disabled" href="#modal1">Ingresar</button>');
-    forminput.append(div_btn);
     div_btn.append(btn_enviar);
+    forminput.append(div_lost, div_btn);
+    form.append(forminput);
+    cont_welcome.append(title, form);
 
     var filtrados=null;
     input_user.on('keyup',(e) => {
@@ -110,14 +106,15 @@ const welcome = (update) => {
     });
 
     btn_enviar.on('click',(e) =>{
-      e.preventDefault();
+      // e.preventDefault();
 
-        var punt_r1 ="1210";
+        var punt_r1 ="1440";
         var actual = new Date();
         var hours = actual.getHours();
+        console.log(hours)
         var minutes = actual.getMinutes();
         state.user = filtrados;
-        if( hours <= punt_r1.slice(0, 2) && minutes < punt_r1.slice(2, 4) ){
+        if( hours <= punt_r1.slice(0, 2) && minutes <= punt_r1.slice(2, 4)){
 
           console.log("Ingresa normal");
 
@@ -140,28 +137,24 @@ const reloj = (update) => {
   const cont_reloj =$('<section class="container cont_timer"></section>');
   const cont_title =$('<div class="welcome"></div>') ;
   const title =$('<p>Buen día <strong>'+ state.user[0].name +'</strong></p>');
-  cont_title.append(title);
-  cont_reloj.append(cont_title);
 
   const cont_timer =$('<div class="cont_clock"></div>');
   const cont_day =$('<div class="day"></div>');
 
   const cont_clock =$('<h1 class="clock"></h1>');
-  const btn_present =$('<button type="button"  class="verde" id="btn_present" name="button" class="verde">Presente</button>');
-
-  cont_timer.append(cont_day);
-  cont_timer.append(cont_clock);
-  cont_timer.append(btn_present);
-  cont_reloj.append(cont_timer);
-
+  const btn_present =$('<a class="btn verde">Presente</a>');
+ 
   const div_register =$ ('<div class="enlace"></div>');
   const enlace =$('<a href="#" class="active">Registrar ausencia</a>');
-  div_register.append(enlace);
-  cont_timer.append(div_register);
 
-  var punt1 = "1200";
-  var punt2 = "1220";
-  var punt3 = "1230";
+  div_register.append(enlace);
+  cont_timer.append(cont_day, cont_clock,btn_present, div_register);
+  cont_title.append(title);
+  cont_reloj.append(cont_title, cont_timer);
+
+  var punt1 = "1320";
+  var punt2 = "1430";
+  var punt3 = "1450";
 
   function harold(standIn) {
      if (standIn < 10) {
@@ -194,14 +187,14 @@ const reloj = (update) => {
    var minutes = actual.getMinutes();
    var seconds = actual.getSeconds();
    var check = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
-   console.log(harold(hours) + ":" + harold(minutes) + ":" + harold(seconds));
+   // console.log(harold(hours) + ":" + harold(minutes) + ":" + harold(seconds));
    console.log(punt1.slice(0, 2));
    state.time = check;
-   if( hours >= punt1.slice(0, 2) && hours <= punt2.slice(0, 2) && minutes >= punt1.slice(2, 4) && minutes <= punt2.slice(2, 4)){
+   if( (hours >= punt1.slice(0, 2) && hours <= punt2.slice(0, 2)) && (minutes >= punt1.slice(2, 4) && minutes <= punt2.slice(2, 4))){
        state.cat ="P";
        state.page = 2;
        update();
-   } else if (hours >= punt2.slice(0, 2) && hours <= punt3.slice(0, 2) && minutes >= punt2.slice(2, 4) && minutes <= punt3.slice(2, 4))
+   } else if ((hours >= punt2.slice(0, 2) && hours <= punt3.slice(0, 2)) && (minutes >= punt2.slice(2, 4) && minutes <= punt3.slice(2, 4)))
     { console.log("tarde");
       state.cat ="T";
       state.page = 3;

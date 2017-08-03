@@ -31,12 +31,15 @@ body{
   }
   label{
     color: $black-darker;
+    font-size: 1.2rem !important;
+    font-weight: bolder;
+    text-transform: uppercase;
   }
   .in_lab{
     background-color: #F7F7F7 !important;
     border: 1px solid #9e9e9e !important;
     font-family: $default-font-family;
-    font-size: 1.2rem !important;
+    font-size: 1.1rem !important;
     &::placeholder{
       font-family: $default-font-family;
     }
@@ -57,9 +60,7 @@ body{
     }
   }
 }
-.verde{
-  background-color: $green;
-}
+
 header {
    background-color: white;
 }
@@ -68,7 +69,7 @@ header {
 }
 .cont_asist{
   div.radio-check{
-    height: 120px;
+    height: 125px;
     border-radius: 50%;
     background-color: #E1E1E1;
     display: flex;
@@ -140,6 +141,13 @@ textarea.materialize-textarea:focus:not([readonly]){
 	font-weight: bolder !important;
 }
 
+.btn.verde,
+.btn.verde:focus,
+.btn.verde:hover {
+	background-color: $green;
+	color: $black;
+}
+
 .spacing {
 	letter-spacing: 0.9px;
 }
@@ -179,4 +187,12 @@ a.waves-effect.waves-light.btn.col.s12.montserrat {
 .logo-center {
 	display: flex;
 	justify-content: center;
+}
+
+#new_user {
+	margin-top: 1em;
+}
+
+.lost {
+	margin: 1em 0 2em;
 }

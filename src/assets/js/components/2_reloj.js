@@ -3,28 +3,24 @@ const reloj = (update) => {
   const cont_reloj =$('<section class="container cont_timer"></section>');
   const cont_title =$('<div class="welcome"></div>') ;
   const title =$('<p>Buen día <strong>'+ state.user[0].name +'</strong></p>');
-  cont_title.append(title);
-  cont_reloj.append(cont_title);
 
   const cont_timer =$('<div class="cont_clock"></div>');
   const cont_day =$('<div class="day"></div>');
 
   const cont_clock =$('<h1 class="clock"></h1>');
-  const btn_present =$('<button type="button"  class="verde" id="btn_present" name="button" class="verde">Presente</button>');
-
-  cont_timer.append(cont_day);
-  cont_timer.append(cont_clock);
-  cont_timer.append(btn_present);
-  cont_reloj.append(cont_timer);
-
+  const btn_present =$('<a class="btn verde">Presente</a>');
+ 
   const div_register =$ ('<div class="enlace"></div>');
   const enlace =$('<a href="#" class="active">Registrar ausencia</a>');
-  div_register.append(enlace);
-  cont_timer.append(div_register);
 
-  var punt1 = "1200";
-  var punt2 = "1220";
-  var punt3 = "1230";
+  div_register.append(enlace);
+  cont_timer.append(cont_day, cont_clock,btn_present, div_register);
+  cont_title.append(title);
+  cont_reloj.append(cont_title, cont_timer);
+
+  var punt1 = "1320";
+  var punt2 = "1430";
+  var punt3 = "1450";
 
   function harold(standIn) {
      if (standIn < 10) {
@@ -57,14 +53,14 @@ const reloj = (update) => {
    var minutes = actual.getMinutes();
    var seconds = actual.getSeconds();
    var check = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
-   console.log(harold(hours) + ":" + harold(minutes) + ":" + harold(seconds));
+   // console.log(harold(hours) + ":" + harold(minutes) + ":" + harold(seconds));
    console.log(punt1.slice(0, 2));
    state.time = check;
-   if( hours >= punt1.slice(0, 2) && hours <= punt2.slice(0, 2) && minutes >= punt1.slice(2, 4) && minutes <= punt2.slice(2, 4)){
+   if( (hours >= punt1.slice(0, 2) && hours <= punt2.slice(0, 2)) && (minutes >= punt1.slice(2, 4) && minutes <= punt2.slice(2, 4))){
        state.cat ="P";
        state.page = 2;
        update();
-   } else if (hours >= punt2.slice(0, 2) && hours <= punt3.slice(0, 2) && minutes >= punt2.slice(2, 4) && minutes <= punt3.slice(2, 4))
+   } else if ((hours >= punt2.slice(0, 2) && hours <= punt3.slice(0, 2)) && (minutes >= punt2.slice(2, 4) && minutes <= punt3.slice(2, 4)))
     { console.log("tarde");
       state.cat ="T";
       state.page = 3;
