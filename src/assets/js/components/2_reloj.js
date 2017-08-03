@@ -26,9 +26,9 @@ const reloj = (update) => {
   div_register.append(enlace);
   cont_timer.append(div_register);
 
-  var punt1 = "1747";
-  var punt2 = "1749";
-  var punt3 = "1751";
+  var punt1 = "1836";
+  var punt2 = "1840";
+  var punt3 = "1844";
 
   function harold(standIn) {
      if (standIn < 10) {
