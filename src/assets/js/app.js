@@ -2,24 +2,39 @@
 const render = (root)=>{
    root.empty();
 
-   const section = $('<section class="components"> Holi Boli</section>');
+   const section = $('<section class="components"></section>');
+
+   const update = function (){
+    render(root);
+  };
+
    root.append(section);
 };
 
 const state = {
+  data: null,
    user: null,
    email: null,
    password: null,
    screen: null
 };
 
-const update = function (){
- render(root);
-};
-
 $( _ => {
 
-  const root = $('#root');
-  render(root);
+  getJSON('/user.json', (err, json) => {
 
-})
+      if (err) { return alert(err.message);}
+
+      state.data = json;
+      console.log(state.data)
+
+      const root = $('#root');
+      render(root);
+
+    });
+
+/*    $.getJSON('/user.json', function(data) {
+      console.log(data);
+    })*/
+
+});
