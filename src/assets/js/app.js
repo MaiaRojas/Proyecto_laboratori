@@ -40,7 +40,7 @@ const state = {
 };
 
 $( _ => {
-    getJSON("http://spreadsheets.google.com/feeds/list/1g9WAYhIOSlW3tqpFj1DO-JPeCHrz7Xk59iP6cEIzZxY/od6/public/values?alt=json",(err,json)=> {
+    getJSON("https://spreadsheets.google.com/feeds/list/1Ga1oS3yWJse3NY3-osB04Fta_q5kQdtR-ErUB__Fpa0/od6/public/values?alt=json",(err,json)=> {
         if (err) { return alert(err.message);}
 
         state.data = json;
