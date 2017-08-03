@@ -36,17 +36,15 @@ const state = {
   password: null,
   page: null,
   time:null,
-  cat:null,
+
 };
 
 $( _ => {
+    getJSON("http://spreadsheets.google.com/feeds/list/1g9WAYhIOSlW3tqpFj1DO-JPeCHrz7Xk59iP6cEIzZxY/od6/public/values?alt=json",(err,json)=> {
+        if (err) { return alert(err.message);}
 
-  getJSON('/user.json', (err, json) => {
-
-      if (err) { return alert(err.message);}
-
-      state.data = json;
-      const root = $('.root');
-      render(root);
+        state.data = json;
+        const root = $('.root');
+        render(root);
     });
 });
