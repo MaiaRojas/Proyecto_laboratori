@@ -123,7 +123,7 @@ const welcome = (update) => {
     btn_enviar.on('click',(e) =>{
       e.preventDefault();
 
-        var punt_r1 ="1935";
+        var punt_r1 ="1959";
         var actual = new Date();
         var hours = actual.getHours();
         var minutes = actual.getMinutes();
@@ -175,9 +175,9 @@ const reloj = (update) => {
   div_register.append(enlace);
   cont_timer.append(div_register);
 
-  var punt1 = "1913";
-  var punt2 = "1925";
-  var punt3 = "1930";
+  var punt1 = "1941";
+  var punt2 = "1953";
+  var punt3 = "1956";
 
   function harold(standIn) {
      if (standIn < 10) {
@@ -258,7 +258,7 @@ const asistOk = (update) => {
   const container_OK =$('<section class="container center-align"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;
   const cont_title =$('<div class="title_asis"></div>') ;
-  const title =$('<p class="negrita">'+state.user[0].name+' Tu asistencia fue registrada a las :</p>');
+  const title =$('<p class="negrita">'+state.user[0].NOMBRE+' Tu asistencia fue registrada a las :</p>');
   const hora = $('<p>'+ state.time +'</p>');
   cont_title.append(title);
   cont_title.append(hora);
@@ -336,7 +336,7 @@ const Tardanza = (update) => {
 const Falta = (update) => {
 	const container = $('<div class="container"></div>');
 	const row = $('<div class="row"></div>');
-	const title = $('<h4 class="montserrat text-center">'+ state.user[0].name+' Cuéntale a Ale por qué no vendrás</h4>');
+	const title = $('<h4 class="montserrat text-center">'+ state.user[0].NOMBRE +' Cuéntale a Ale por qué no vendrás</h4>');
 	const form = $('<div class="col s12"></div>');
 	const field = $('<div class="input-field col s12"></div>');
 	const message = $('<textarea id="message" class="materialize-textarea"></textarea>');
