@@ -123,7 +123,7 @@ const welcome = (update) => {
     btn_enviar.on('click',(e) =>{
       e.preventDefault();
 
-        var punt_r1 ="1755";
+        var punt_r1 ="1935";
         var actual = new Date();
         var hours = actual.getHours();
         var minutes = actual.getMinutes();
@@ -175,9 +175,9 @@ const reloj = (update) => {
   div_register.append(enlace);
   cont_timer.append(div_register);
 
-  var punt1 = "1747";
-  var punt2 = "1749";
-  var punt3 = "1751";
+  var punt1 = "1913";
+  var punt2 = "1925";
+  var punt3 = "1930";
 
   function harold(standIn) {
      if (standIn < 10) {
