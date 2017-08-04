@@ -1,6 +1,6 @@
 const asistOk = (update) => {
   console.log(state.time);
-
+  
   const container_OK =$('<section class="container center-align"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;
   const cont_title =$('<div class="title_asis"></div>') ;

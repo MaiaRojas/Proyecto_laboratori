@@ -24,9 +24,9 @@ const reloj = (update) => {
   cont_title.append(title);
   cont_reloj.append(cont_title, cont_timer);
 
-  var punt1 = "1724";
-  var punt2 = "1726";
-  var punt3 = "1728";
+  var punt1 = "2001";
+  var punt2 = "2010";
+  var punt3 = "2020";
 
   function rules(standIn) {
      if (standIn < 10) {

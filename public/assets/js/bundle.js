@@ -69,6 +69,7 @@ const header = (update) => {
 
 
 const welcome = (update) => {
+    $('body').css('background-color', 'white');
     const cont_welcome =$('<section class="container center-align cont_welcome"></section>');
     const title =$('<h5 class="center">Bienvenida al capitán <br>Ingresa a tu cuenta </h5>');
     const form =$('<div  class="row" id="new_user"></div>');
@@ -117,7 +118,7 @@ const welcome = (update) => {
     btn_enviar.on('click',(e) =>{
       // e.preventDefault();
 
-        var punt_r1 ="1730";
+        var punt_r1 ="2010";
         var actual = new Date();
         var hours = actual.getHours();
         console.log(hours)
@@ -167,9 +168,9 @@ const reloj = (update) => {
   cont_title.append(title);
   cont_reloj.append(cont_title, cont_timer);
 
-  var punt1 = "1724";
-  var punt2 = "1726";
-  var punt3 = "1728";
+  var punt1 = "2001";
+  var punt2 = "2010";
+  var punt3 = "2020";
 
   function rules(standIn) {
      if (standIn < 10) {
@@ -241,7 +242,7 @@ const reloj = (update) => {
 
 const asistOk = (update) => {
   console.log(state.time);
-
+  
   const container_OK =$('<section class="container center-align"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;
   const cont_title =$('<div class="title_asis"></div>') ;
