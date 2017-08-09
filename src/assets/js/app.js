@@ -32,11 +32,6 @@ const update = function (){
 const state = {
   data: null,
   user: null,
-  email: null,
-  password: null,
-  page: null,
-  time:null,
-  cat:null,
 };
 
 const postE = {
@@ -49,7 +44,7 @@ const postE = {
 };
 
 $( _ => {
-    getJSON("https://sheetsu.com/apis/v1.0/15e4cdf9e644",(err,json)=> {
+    getJSON("https://sheetsu.com/apis/v1.0/8392c0c102f9",(err,json)=> {
         if (err) { return alert(err.message);}
         console.log(json);
         state.data = json;

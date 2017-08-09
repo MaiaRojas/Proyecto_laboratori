@@ -32,11 +32,6 @@ const update = function (){
 const state = {
   data: null,
   user: null,
-  email: null,
-  password: null,
-  page: null,
-  time:null,
-  cat:null,
 };
 
 const postE = {
@@ -49,7 +44,7 @@ const postE = {
 };
 
 $( _ => {
-    getJSON("https://sheetsu.com/apis/v1.0/15e4cdf9e644",(err,json)=> {
+    getJSON("https://sheetsu.com/apis/v1.0/8392c0c102f9",(err,json)=> {
         if (err) { return alert(err.message);}
         console.log(json);
         state.data = json;
@@ -91,59 +86,55 @@ const welcome = (update) => {
     var_pas.append(input_pas);
 
     const div_lost =$ ('<div></div>');
+    const error =$('<p></p>');
     const lost_pas=$('<a href="#" class="active">Olvide mi contraseña</a>');
-    div_lost.append(lost_pas);
+    div_lost.append( error,lost_pas);
     forminput.append(div_lost);
     const div_btn =$('<div class="form-actions"></div>');
     const btn_enviar = $('<button id="btnEnviar" class="btn primary disabled" href="#modal1">Ingresar</button>');
     forminput.append(div_btn);
     div_btn.append(btn_enviar);
 
-    var filtrados=null;
+    var filtrados=[];
     input_user.on('keyup',(e) => {
       if(input_user.val() !=""){
-        filtrados = filterByEmail(state.data ,input_user.val());
         btn_enviar.removeClass("disabled");
         Verificar(input_pas.val());
       } else {
-        console.log("Aun no se ha ingresado el usuario");
         btn_enviar.addClass("disabled");
       }
     });
-
+    //
     input_pas.on('keyup',(e) => {
-      if(input_pas.val() == "1234"){
+      if(input_pas.val() != "" ){
         btn_enviar.removeClass("disabled");
       } else {
-        console.log("La contraseña no coincide");
         btn_enviar.addClass("disabled");
       }
     });
-
+    var sup_user = "Alejandra";
+    var sup_pas = "1234";
     btn_enviar.on('click',(e) =>{
       e.preventDefault();
+      filtrados = filterByEmail(state.data ,input_user.val());
 
-        var punt_r1 ="1959";
-        var actual = new Date();
-        var hours = actual.getHours();
-        var minutes = actual.getMinutes();
-        state.user = filtrados;
+      state.user = filtrados[filtrados.length-1];
 
-        if( hours <= punt_r1.slice(0, 2) && minutes < punt_r1.slice(2, 4) ){
-
-          console.log("Ingresa normal");
-
-          state.page=1;
-          update();
-
-        } else{
-          console.log("Ingresa fuera de hora");
-          state.page = 6;
-          update();
-        };
-   });
-
-
+      if ( input_user.val() == sup_user && input_pas.val() == sup_pas){
+        console.log("Pantalla Alejandra");
+      } else{
+          if (filtrados.length!=0  ){
+              var password = state.user.Codigo;
+              if (input_pas.val() == password) {
+                 ValidHora(update);
+              } else {
+                error.text("Contraseña Incorreta");
+              }
+          } else {
+              error.text("Usuario no existe");
+          }
+      }
+});
   return cont_welcome;
 }
 
@@ -151,11 +142,7 @@ const reloj = (update) => {
 
   const cont_reloj =$('<section class="container cont_timer"></section>');
   const cont_title =$('<div class="welcome"></div>') ;
-  const title =$('<p>Bienvenida <strong>'+ state.user[0].NOMBRE +'</strong></p>');
-  postE.name =state.user[0].NOMBRE ;
-  postE.email =state.user[0].EMAIL;
-  postE.squad =state.user[0].SQUAD;
-  postE.type  =state.user[0].TIPO;
+  const title =$('<p>Bienvenida <strong>'+ state.user.Coder +'</strong></p>');
   cont_title.append(title);
   cont_reloj.append(cont_title);
 
@@ -175,16 +162,7 @@ const reloj = (update) => {
   div_register.append(enlace);
   cont_timer.append(div_register);
 
-  var punt1 = "1941";
-  var punt2 = "1953";
-  var punt3 = "1956";
 
-  function harold(standIn) {
-     if (standIn < 10) {
-       standIn = '0' + standIn
-     }
-     return standIn;
- }
 
  function clock() {
    var time = new Date(),
@@ -194,7 +172,7 @@ const reloj = (update) => {
      dia     = time.getDate(),
      mes     = time.getMonth()+1,
      year    = time.getFullYear();
-    //  var fecha =harold(dia) + "/" + harold(mes) + "/" + year;
+
       document.querySelectorAll('.day')[0].innerHTML = harold(dia) + "/" + harold(mes) + "/" + year;
       document.querySelectorAll('.clock')[0].innerHTML = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
  };
@@ -202,49 +180,16 @@ const reloj = (update) => {
  var interval = setInterval(clock, 1000);
 
  btn_present.on('click', (e) =>{
+     clearInterval(interval);
     e.preventDefault();
-   clearInterval(interval);
 
-   var actual = new Date();
-   var hours = actual.getHours();
-   var minutes = actual.getMinutes();
-   var seconds = actual.getSeconds();
-   var dia     = actual.getDate();
-   var mes     = actual.getMonth()+1;
-   var year    = actual.getFullYear();
-
-   var check = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
-   var fecha = harold(dia) + "/" + harold(mes) + "/" + year;
-   console.log(harold(hours) + ":" + harold(minutes) + ":" + harold(seconds));
-   console.log(punt1.slice(0, 2));
-   state.time = check;
-   postE.fecha  =check +" "+fecha ;
-
-
-   if( hours >= punt1.slice(0, 2) && hours <= punt2.slice(0, 2) && minutes >= punt1.slice(2, 4) && minutes <= punt2.slice(2, 4)){
-       state.cat ="P";
-       postE.state  =state.cat ;
-       state.page = 2;
-
-       PostregisterHora(update ,postE.name,postE.email,postE.squad,postE.type,postE.fecha,postE.state);
-
-       update();
-   } else if (hours >= punt2.slice(0, 2) && hours <= punt3.slice(0, 2) && minutes >= punt2.slice(2, 4) && minutes <= punt3.slice(2, 4))
-    { console.log("tarde");
-      state.cat ="T";
-      postE.state  =state.cat ;
-      state.page = 3;
-
-      PostregisterHora(update ,postE.name,postE.email,postE.squad,postE.type,postE.fecha,postE.state);
-      update();
-    }
-
+    ValidPuntualidad(update);
  });
 
   enlace.on('click', (e) =>{
     e.preventDefault();
     clearInterval(interval);
-      state.cat ="A";
+      state.cat ="Ausente";
       state.page = 5;
       update();
   });
@@ -258,7 +203,7 @@ const asistOk = (update) => {
   const container_OK =$('<section class="container center-align"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;
   const cont_title =$('<div class="title_asis"></div>') ;
-  const title =$('<p class="negrita">'+state.user[0].NOMBRE+' Tu asistencia fue registrada a las :</p>');
+  const title =$('<p class="negrita">'+state.user.Coder+' Tu asistencia fue registrada a las :</p>');
   const hora = $('<p>'+ state.time +'</p>');
   cont_title.append(title);
   cont_title.append(hora);
@@ -296,14 +241,14 @@ const Tardanza = (update) => {
 
 	const container = $('<div class="container"></div>');
 	const row = $('<div class="row"></div>');
-	const title = $('<h4 class="montserrat text-center">'+ state.user[0].NOMBRE +', ¿Cuál es el motivo de tu tardanza?</h4>');
+	const title = $('<h4 class="montserrat text-center">'+ state.user.Coder +', ¿Cuál es el motivo de tu tardanza?</h4>');
 	const form = $('<div class="col s12"></div>');
 	const p1 = $('<p></p>');
 	const p2 = $('<p></p>');
 	const p3 = $('<p></p>');
-	const input1 = $('<input type="radio" id="tardanza-1" class="with-gap" name="tardanza-justificacion">');
-	const input2 = $('<input type="radio" id="tardanza-2" class="with-gap" name="tardanza-justificacion">');
-	const input3 = $('<input type="radio" id="tardanza-3" class="with-gap" name="tardanza-justificacion">');
+	const input1 = $('<input type="radio" id="tardanza-1" data-value="Tráfico" class="with-gap" name="tardanza-justificacion">');
+	const input2 = $('<input type="radio" id="tardanza-2"  data-value="Me quede dormida"class="with-gap" name="tardanza-justificacion">');
+	const input3 = $('<input type="radio" id="tardanza-3" data-value="Otros" class="with-gap" name="tardanza-justificacion">');
 	const label1 = $('<label for="tardanza-1">Tráfico</label>');
 	const label2 = $('<label for="tardanza-2">Me quedé dormida</label>');
 	const label3 = $('<label for="tardanza-3">Ninguna de las anteriores</label>');
@@ -323,9 +268,11 @@ const Tardanza = (update) => {
 		add.css('display', 'none');
 		field.append(message);
 	});
-
+	
 	button.on('click', (e) => {
 		state.page = 7;
+		state.user.Motivo= message.val();
+		Postregister();
 		update();
 	});
 	return container
@@ -336,7 +283,7 @@ const Tardanza = (update) => {
 const Falta = (update) => {
 	const container = $('<div class="container"></div>');
 	const row = $('<div class="row"></div>');
-	const title = $('<h4 class="montserrat text-center">'+ state.user[0].NOMBRE +' Cuéntale a Ale por qué no vendrás</h4>');
+	const title = $('<h4 class="montserrat text-center">'+ state.user[0].Coder +' Cuéntale a Ale por qué no vendrás</h4>');
 	const form = $('<div class="col s12"></div>');
 	const field = $('<div class="input-field col s12"></div>');
 	const message = $('<textarea id="message" class="materialize-textarea"></textarea>');
@@ -361,7 +308,7 @@ const Home = (update) => {
     const col1 = $('<div class="col s12"></div>');
     const col2 = $('<div class="col s12 bg-white"></div>');
     const col3 = $('<div class="col s12"></div>');
-    const welcome = $('<p>Buen día '+ state.user[0].NOMBRE  +'</p>');
+    const welcome = $('<p>Buen día '+ state.user.Coder  +'</p>');
 		const salir = $('<a href="#" class="active">Salir</a>');
     const title = $('<p class="title text-center">Agenda</p>');
     let date = $('<div class="date-home text-center"></div>');
@@ -409,7 +356,7 @@ const justificacion = (update) => {
     const body_modal=$('<div class="container cont_just"></div>');
     const cont_modal=$('<div class="row"></div>');
     const cont_div =$('<div class="col s10 push-s1"></div>');
-    const title_name=$('<h4>Maia</h4>') ;
+    const title_name=$('<h4>'+ state.user.Coder+'</h4>') ;
     const msj  = $('<p>Aún no has registrado tu asistencia.<br>Por favor cuéntanos  por qué.</p>') ;
     const message = $('<textarea id="message" class="materialize-textarea"></textarea>');
     cont_modal.append(title_name , msj , message);
@@ -420,7 +367,10 @@ const justificacion = (update) => {
 		button.on('click', (e) => {
       e.preventDefault();
       console.log("mensaje enviado");
+      state.user.Motivo =message.val();
+      state.user.Estado="Ausente";
 			state.page = 7;
+      Postregister();
 			update();
 		});
 
@@ -431,7 +381,7 @@ const mensaje = (update) => {
   const container_msm =$('<section class="container center-align"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;
   const cont_title =$('<div class="title_asis"></div>') ;
-  const title =$('<p class="negrita">'+ state.user[0].NOMBRE +' Tu mensaje ha sido enviado correctamente</p>');
+  const title =$('<p class="negrita">'+ state.user.Coder +' Tu mensaje ha sido enviado correctamente</p>');
   cont_title.append(title);
   cont_asisOK.append(cont_title);
   const cont_check =$('<div class="cont_asist col s6 push-s3"></div>');
@@ -498,9 +448,8 @@ const AlePantalla = (update) => {
 'use strict';
 
 const filterByEmail= (stations,query) => {
-  console.log(stations);
   const select =stations.filter (function(index) {
-    return (index.EMAIL.toLowerCase().indexOf(query.toLowerCase())!=-1);
+    return (index.Email.toLowerCase()==query.toLowerCase());
   })
   console.log(select);
   return select;
@@ -529,24 +478,93 @@ const getJSON = (url, cb) => {
 };
 
 'use strict';
-const PostregisterHora =(update ,postEname,postEemail,postEsquad,postEtype,postEfecha ,postEstate)=>{
-  var name = postEname;
-  var email = postEemail;
-  var squad = postEsquad;
-  var type = postEtype;
-  var fecha = postEfecha;
-  var state = postEstate;
+const Postregister =(update)=>{
 
-  $.post("https://sheetsu.com/apis/v1.0/15e4cdf9e644", {"NOMBRE":name,"EMAIL":email,"SQUAD":squad,"TIPO":type,"FECHA":fecha,"ESTADO":state}, function(result){
+  $.post("https://sheetsu.com/apis/v1.0/8392c0c102f9", {"Coder":state.user.Coder,"Email":state.user.Email,"Codigo":state.user.Codigo,"Squad":state.user.Squad,"Tipo":state.user.Tipo,"Dia":state.user.Dia,"Hora":state.user.Hora,"Estado":state.user.Estado,"Motivo":state.user.Motivo,"Sede":state.user.Sede}, function(result){
       console.log("Enviando Data");
   });
 };
 
 const Verificar = (valor ) => {
-  if(valor =="1234"){
+  if(valor != ""){
     $('#btnEnviar').removeClass("disabled");
   } else {
-    console.log("La contraseña no coincide");
     $('#btnEnviar').addClass("disabled");
   }
 };
+
+const ValidHora =(update)=>{
+  var punt_r1 ="0800";
+  var punt_r2 ="1200";
+  var actual = new Date();
+
+  var hours   = actual.getHours();
+  var minutes = actual.getMinutes();
+  var seconds = actual.getSeconds();
+  var dia     = actual.getDate();
+  var mes     = actual.getMonth()+1;
+  var year    = actual.getFullYear();
+  var check = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
+  var fecha = harold(dia) + "/" + harold(mes) + "/" + year;
+
+  if(parseInt(punt_r1.slice(0, 2))<= hours  && hours <= parseInt(punt_r2.slice(0, 2)) ){
+      if (hours == parseInt(punt_r2.slice(0, 2)) && minutes > parseInt(punt_r2.slice(2, 4))){
+        console.log("Ingresa fuera de hora");
+        state.user.Dia= fecha;
+        state.user.Hora =check;
+        state.user.Motivo="";
+        state.page = 6;
+        update();
+      }else{
+        console.log("Ingresa normal");
+        state.page = 1;
+        update();
+      }
+  } else{
+    console.log("Ingresa fuera de hora");
+    state.user.Dia= fecha;
+    state.user.Hora =check;
+    state.page = 6;
+    update();
+  }
+}
+function harold(standIn) {
+   if (standIn < 10) {
+     standIn = '0' + standIn
+   }
+   return standIn;
+}
+const ValidPuntualidad =(update)=>{
+  var punt1 = "0800";
+  var punt2 = "1109";
+  var actual = new Date();
+  var hours   = actual.getHours();
+  var minutes = actual.getMinutes();
+  var seconds = actual.getSeconds();
+  var dia     = actual.getDate();
+  var mes     = actual.getMonth()+1;
+  var year    = actual.getFullYear();
+
+  var check = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
+  var fecha = harold(dia) + "/" + harold(mes) + "/" + year;
+  state.time =check ;
+  if(parseInt(punt1.slice(0, 2))<= hours  && hours <= parseInt(punt2.slice(0, 2)) ){
+      if (hours == parseInt(punt2.slice(0, 2)) && minutes > parseInt(punt2.slice(2, 4))){
+          state.user.Estado="Tarde";
+          state.user.Hora =check;
+          state.page = 3;
+          update();
+      }else{
+        state.user.Estado="Puntual";
+        state.user.Hora =check;
+        state.page = 2;
+        Postregister();
+        update();
+      }
+  } else{
+      state.user.Estado="Tarde";
+      state.user.Hora =check;
+      state.page = 3;
+      update();
+  }
+}

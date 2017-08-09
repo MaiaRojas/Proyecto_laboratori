@@ -1,13 +1,7 @@
 'use strict';
-const PostregisterHora =(update ,postEname,postEemail,postEsquad,postEtype,postEfecha ,postEstate)=>{
-  var name = postEname;
-  var email = postEemail;
-  var squad = postEsquad;
-  var type = postEtype;
-  var fecha = postEfecha;
-  var state = postEstate;
+const Postregister =(update)=>{
 
-  $.post("https://sheetsu.com/apis/v1.0/15e4cdf9e644", {"NOMBRE":name,"EMAIL":email,"SQUAD":squad,"TIPO":type,"FECHA":fecha,"ESTADO":state}, function(result){
+  $.post("https://sheetsu.com/apis/v1.0/8392c0c102f9", {"Coder":state.user.Coder,"Email":state.user.Email,"Codigo":state.user.Codigo,"Squad":state.user.Squad,"Tipo":state.user.Tipo,"Dia":state.user.Dia,"Hora":state.user.Hora,"Estado":state.user.Estado,"Motivo":state.user.Motivo,"Sede":state.user.Sede}, function(result){
       console.log("Enviando Data");
   });
 };

@@ -2,11 +2,7 @@ const reloj = (update) => {
 
   const cont_reloj =$('<section class="container cont_timer"></section>');
   const cont_title =$('<div class="welcome"></div>') ;
-  const title =$('<p>Bienvenida <strong>'+ state.user[0].NOMBRE +'</strong></p>');
-  postE.name =state.user[0].NOMBRE ;
-  postE.email =state.user[0].EMAIL;
-  postE.squad =state.user[0].SQUAD;
-  postE.type  =state.user[0].TIPO;
+  const title =$('<p>Bienvenida <strong>'+ state.user.Coder +'</strong></p>');
   cont_title.append(title);
   cont_reloj.append(cont_title);
 
@@ -26,16 +22,7 @@ const reloj = (update) => {
   div_register.append(enlace);
   cont_timer.append(div_register);
 
-  var punt1 = "1941";
-  var punt2 = "1953";
-  var punt3 = "1956";
 
-  function harold(standIn) {
-     if (standIn < 10) {
-       standIn = '0' + standIn
-     }
-     return standIn;
- }
 
  function clock() {
    var time = new Date(),
@@ -45,7 +32,7 @@ const reloj = (update) => {
      dia     = time.getDate(),
      mes     = time.getMonth()+1,
      year    = time.getFullYear();
-    //  var fecha =harold(dia) + "/" + harold(mes) + "/" + year;
+
       document.querySelectorAll('.day')[0].innerHTML = harold(dia) + "/" + harold(mes) + "/" + year;
       document.querySelectorAll('.clock')[0].innerHTML = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
  };
@@ -53,49 +40,16 @@ const reloj = (update) => {
  var interval = setInterval(clock, 1000);
 
  btn_present.on('click', (e) =>{
+     clearInterval(interval);
     e.preventDefault();
-   clearInterval(interval);
 
-   var actual = new Date();
-   var hours = actual.getHours();
-   var minutes = actual.getMinutes();
-   var seconds = actual.getSeconds();
-   var dia     = actual.getDate();
-   var mes     = actual.getMonth()+1;
-   var year    = actual.getFullYear();
-
-   var check = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
-   var fecha = harold(dia) + "/" + harold(mes) + "/" + year;
-   console.log(harold(hours) + ":" + harold(minutes) + ":" + harold(seconds));
-   console.log(punt1.slice(0, 2));
-   state.time = check;
-   postE.fecha  =check +" "+fecha ;
-
-
-   if( hours >= punt1.slice(0, 2) && hours <= punt2.slice(0, 2) && minutes >= punt1.slice(2, 4) && minutes <= punt2.slice(2, 4)){
-       state.cat ="P";
-       postE.state  =state.cat ;
-       state.page = 2;
-
-       PostregisterHora(update ,postE.name,postE.email,postE.squad,postE.type,postE.fecha,postE.state);
-
-       update();
-   } else if (hours >= punt2.slice(0, 2) && hours <= punt3.slice(0, 2) && minutes >= punt2.slice(2, 4) && minutes <= punt3.slice(2, 4))
-    { console.log("tarde");
-      state.cat ="T";
-      postE.state  =state.cat ;
-      state.page = 3;
-
-      PostregisterHora(update ,postE.name,postE.email,postE.squad,postE.type,postE.fecha,postE.state);
-      update();
-    }
-
+    ValidPuntualidad(update);
  });
 
   enlace.on('click', (e) =>{
     e.preventDefault();
     clearInterval(interval);
-      state.cat ="A";
+      state.cat ="Ausente";
       state.page = 5;
       update();
   });

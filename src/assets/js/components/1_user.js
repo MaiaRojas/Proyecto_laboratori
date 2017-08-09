@@ -23,58 +23,54 @@ const welcome = (update) => {
     var_pas.append(input_pas);
 
     const div_lost =$ ('<div></div>');
+    const error =$('<p></p>');
     const lost_pas=$('<a href="#" class="active">Olvide mi contraseña</a>');
-    div_lost.append(lost_pas);
+    div_lost.append( error,lost_pas);
     forminput.append(div_lost);
     const div_btn =$('<div class="form-actions"></div>');
     const btn_enviar = $('<button id="btnEnviar" class="btn primary disabled" href="#modal1">Ingresar</button>');
     forminput.append(div_btn);
     div_btn.append(btn_enviar);
 
-    var filtrados=null;
+    var filtrados=[];
     input_user.on('keyup',(e) => {
       if(input_user.val() !=""){
-        filtrados = filterByEmail(state.data ,input_user.val());
         btn_enviar.removeClass("disabled");
         Verificar(input_pas.val());
       } else {
-        console.log("Aun no se ha ingresado el usuario");
         btn_enviar.addClass("disabled");
       }
     });
-
+    //
     input_pas.on('keyup',(e) => {
-      if(input_pas.val() == "1234"){
+      if(input_pas.val() != "" ){
         btn_enviar.removeClass("disabled");
       } else {
-        console.log("La contraseña no coincide");
         btn_enviar.addClass("disabled");
       }
     });
-
+    var sup_user = "Alejandra";
+    var sup_pas = "1234";
     btn_enviar.on('click',(e) =>{
       e.preventDefault();
+      filtrados = filterByEmail(state.data ,input_user.val());
 
-        var punt_r1 ="1959";
-        var actual = new Date();
-        var hours = actual.getHours();
-        var minutes = actual.getMinutes();
-        state.user = filtrados;
+      state.user = filtrados[filtrados.length-1];
 
-        if( hours <= punt_r1.slice(0, 2) && minutes < punt_r1.slice(2, 4) ){
-
-          console.log("Ingresa normal");
-
-          state.page=1;
-          update();
-
-        } else{
-          console.log("Ingresa fuera de hora");
-          state.page = 6;
-          update();
-        };
-   });
-
-
+      if ( input_user.val() == sup_user && input_pas.val() == sup_pas){
+        console.log("Pantalla Alejandra");
+      } else{
+          if (filtrados.length!=0  ){
+              var password = state.user.Codigo;
+              if (input_pas.val() == password) {
+                 ValidHora(update);
+              } else {
+                error.text("Contraseña Incorreta");
+              }
+          } else {
+              error.text("Usuario no existe");
+          }
+      }
+});
   return cont_welcome;
 }

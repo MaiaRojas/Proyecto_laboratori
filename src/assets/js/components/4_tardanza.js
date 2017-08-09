@@ -4,14 +4,14 @@ const Tardanza = (update) => {
 
 	const container = $('<div class="container"></div>');
 	const row = $('<div class="row"></div>');
-	const title = $('<h4 class="montserrat text-center">'+ state.user[0].NOMBRE +', ¿Cuál es el motivo de tu tardanza?</h4>');
+	const title = $('<h4 class="montserrat text-center">'+ state.user.Coder +', ¿Cuál es el motivo de tu tardanza?</h4>');
 	const form = $('<div class="col s12"></div>');
 	const p1 = $('<p></p>');
 	const p2 = $('<p></p>');
 	const p3 = $('<p></p>');
-	const input1 = $('<input type="radio" id="tardanza-1" class="with-gap" name="tardanza-justificacion">');
-	const input2 = $('<input type="radio" id="tardanza-2" class="with-gap" name="tardanza-justificacion">');
-	const input3 = $('<input type="radio" id="tardanza-3" class="with-gap" name="tardanza-justificacion">');
+	const input1 = $('<input type="radio" id="tardanza-1" data-value="Tráfico" class="with-gap" name="tardanza-justificacion">');
+	const input2 = $('<input type="radio" id="tardanza-2"  data-value="Me quede dormida"class="with-gap" name="tardanza-justificacion">');
+	const input3 = $('<input type="radio" id="tardanza-3" data-value="Otros" class="with-gap" name="tardanza-justificacion">');
 	const label1 = $('<label for="tardanza-1">Tráfico</label>');
 	const label2 = $('<label for="tardanza-2">Me quedé dormida</label>');
 	const label3 = $('<label for="tardanza-3">Ninguna de las anteriores</label>');
@@ -31,9 +31,11 @@ const Tardanza = (update) => {
 		add.css('display', 'none');
 		field.append(message);
 	});
-
+	
 	button.on('click', (e) => {
 		state.page = 7;
+		state.user.Motivo= message.val();
+		Postregister();
 		update();
 	});
 	return container
