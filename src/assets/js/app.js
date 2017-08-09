@@ -5,8 +5,8 @@ const render = (root) =>{
    section.append(header( _ => render(root)));
 
    if (state.page == null) {
-    section.append(welcome( _ => render(root)));
-   /* section.append(HomeTeacher( _ => render(root)));*/
+    // section.append(welcome( _ => render(root)));
+    section.append(HomeTeacher( _ => render(root)));
   } else if (state.page == 1) {
     section.append(reloj( _ => render(root)));
   } else if (state.page == 2) {
@@ -40,14 +40,22 @@ const state = {
   cat:null,
 };
 
+const postE = {
+  name: null,
+  email: null,
+  squad :null,
+  type:null,
+  fecha:null,
+  state: null,
+};
+
 $( _ => {
+    getJSON("https://sheetsu.com/apis/v1.0/15e4cdf9e644",(err,json)=> {
+        if (err) { return alert(err.message);}
+        console.log(json);
+        state.data = json;
 
-  getJSON('/user.json', (err, json) => {
-
-      if (err) { return alert(err.message);}
-
-      state.data = json;
-      const root = $('.root');
-      render(root);
+        const root = $('.root');
+        render(root);
     });
 });

@@ -21,10 +21,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.3"
+    "express": "^4.15.3",
+    "googleapis": "^20.1.0"
   },
   "devDependencies": {
     "browser-sync": "^2.18.12",
+    "googleapis": "^20.1.0",
     "gulp": "^3.9.1",
     "gulp-browserify": "^0.5.1",
     "gulp-concat": "^2.6.1",

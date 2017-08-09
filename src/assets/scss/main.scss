@@ -196,3 +196,22 @@ a.waves-effect.waves-light.btn.col.s12.montserrat {
 .lost {
 	margin: 1em 0 2em;
 }
+
+.squad-text,
+.squad-text > * {
+  font-size: 0.8em;
+}
+
+.student-image {
+  width: 20px;
+}
+
+.student-text {
+  font-size: 0.6em;
+}
+
+.students-container {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}

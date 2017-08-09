@@ -1,10 +1,10 @@
 const asistOk = (update) => {
   console.log(state.time);
-
+  
   const container_OK =$('<section class="container center-align"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;
   const cont_title =$('<div class="title_asis"></div>') ;
-  const title =$('<p class="negrita">'+state.user[0].name+' tu asistencia fue registrada a las :</p>');
+  const title =$('<p class="negrita">'+state.user[0].NOMBRE+' tu asistencia fue registrada a las :</p>');
   const hora = $('<p>'+ state.time +'</p>');
   cont_title.append(title);
   cont_title.append(hora);

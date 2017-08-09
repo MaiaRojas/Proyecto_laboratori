@@ -1,5 +1,6 @@
 
 const welcome = (update) => {
+    $('body').css('background-color', 'white');
     const cont_welcome =$('<section class="container center-align cont_welcome"></section>');
     const title =$('<h5 class="center">Bienvenida al capitán <br>Ingresa a tu cuenta </h5>');
     const form =$('<div  class="row" id="new_user"></div>');
@@ -48,7 +49,7 @@ const welcome = (update) => {
     btn_enviar.on('click',(e) =>{
       // e.preventDefault();
 
-        var punt_r1 ="1440";
+        var punt_r1 ="2010";
         var actual = new Date();
         var hours = actual.getHours();
         console.log(hours)
