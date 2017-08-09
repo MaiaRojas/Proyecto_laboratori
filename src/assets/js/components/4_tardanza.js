@@ -9,9 +9,9 @@ const Tardanza = (update) => {
 	const p1 = $('<p></p>');
 	const p2 = $('<p></p>');
 	const p3 = $('<p></p>');
-	const input1 = $('<input type="radio" id="tardanza-1" data-value="Tráfico" class="with-gap" name="tardanza-justificacion">');
-	const input2 = $('<input type="radio" id="tardanza-2"  data-value="Me quede dormida"class="with-gap" name="tardanza-justificacion">');
-	const input3 = $('<input type="radio" id="tardanza-3" data-value="Otros" class="with-gap" name="tardanza-justificacion">');
+	const input1 = $('<input type="radio" id="tardanza-1" value="Tráfico" class="with-gap" name="tardanza-justificacion" required checked>');
+	const input2 = $('<input type="radio" id="tardanza-2" value="Me quede dormida" class="with-gap" name="tardanza-justificacion">');
+	const input3 = $('<input type="radio" id="tardanza-3" value="Otros" class="with-gap" name="tardanza-justificacion">');
 	const label1 = $('<label for="tardanza-1">Tráfico</label>');
 	const label2 = $('<label for="tardanza-2">Me quedé dormida</label>');
 	const label3 = $('<label for="tardanza-3">Ninguna de las anteriores</label>');
@@ -31,10 +31,10 @@ const Tardanza = (update) => {
 		add.css('display', 'none');
 		field.append(message);
 	});
-	
+
 	button.on('click', (e) => {
 		state.page = 7;
-		state.user.Motivo= message.val();
+		state.user.Motivo=$('input[name=tardanza-justificacion]:checked').val() +':'+ message.val() ;
 		Postregister();
 		update();
 	});

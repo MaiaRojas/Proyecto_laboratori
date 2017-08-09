@@ -8,7 +8,7 @@ const Verificar = (valor ) => {
 
 const ValidHora =(update)=>{
   var punt_r1 ="0800";
-  var punt_r2 ="1200";
+  var punt_r2 ="1300";
   var actual = new Date();
 
   var hours   = actual.getHours();
@@ -49,7 +49,7 @@ function harold(standIn) {
 }
 const ValidPuntualidad =(update)=>{
   var punt1 = "0800";
-  var punt2 = "1109";
+  var punt2 = "1240";
   var actual = new Date();
   var hours   = actual.getHours();
   var minutes = actual.getMinutes();
@@ -68,6 +68,7 @@ const ValidPuntualidad =(update)=>{
           state.page = 3;
           update();
       }else{
+        VerificarUbi(update);
         state.user.Estado="Puntual";
         state.user.Hora =check;
         state.page = 2;
@@ -81,3 +82,36 @@ const ValidPuntualidad =(update)=>{
       update();
   }
 }
+const VerificarUbi =(update)=>{
+  initMap();
+}
+function initMap() {
+      //  var map = new google.maps.Map(document.getElementById('map'), {
+      //    center: {lat: -34.397, lng: 150.644},
+      //    zoom: 6
+      //  });
+      //  var infoWindow = new google.maps.InfoWindow({map: map});
+
+       // Try HTML5 geolocation.
+       var pos;
+       if (navigator.geolocation) {
+         navigator.geolocation.getCurrentPosition(function(position) {
+            pos = {
+             lat: position.coords.latitude,
+             lng: position.coords.longitude
+           };
+           console.log(pos);
+         });
+
+       } else {
+         // Browser doesn't support Geolocation
+         handleLocationError(false, infoWindow, alert("No soporta"));
+       }
+     }
+
+     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+       infoWindow.setPosition(pos);
+       infoWindow.setContent(browserHasGeolocation ?
+                             'Error: Fallo el servicio de geolocalización' :
+                             'Error: Tu navegador no soporta la geolocalización');
+     }

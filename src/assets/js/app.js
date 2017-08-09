@@ -20,6 +20,8 @@ const render = (root) =>{
     section.append(justificacion( _ => render(root)));
   } else if (state.page == 7) {
     section.append(mensaje( _ => render(root)));
+  } else if (state.page == 8) {
+    section.append(AlePantalla ( _ => render(root)));
   }
 
   root.append(section);

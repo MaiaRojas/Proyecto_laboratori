@@ -20,6 +20,8 @@ const render = (root) =>{
     section.append(justificacion( _ => render(root)));
   } else if (state.page == 7) {
     section.append(mensaje( _ => render(root)));
+  } else if (state.page == 8) {
+    section.append(AlePantalla ( _ => render(root)));
   }
 
   root.append(section);
@@ -121,7 +123,8 @@ const welcome = (update) => {
       state.user = filtrados[filtrados.length-1];
 
       if ( input_user.val() == sup_user && input_pas.val() == sup_pas){
-        console.log("Pantalla Alejandra");
+        state.page = 8;
+        update();
       } else{
           if (filtrados.length!=0  ){
               var password = state.user.Codigo;
@@ -246,9 +249,9 @@ const Tardanza = (update) => {
 	const p1 = $('<p></p>');
 	const p2 = $('<p></p>');
 	const p3 = $('<p></p>');
-	const input1 = $('<input type="radio" id="tardanza-1" data-value="Tráfico" class="with-gap" name="tardanza-justificacion">');
-	const input2 = $('<input type="radio" id="tardanza-2"  data-value="Me quede dormida"class="with-gap" name="tardanza-justificacion">');
-	const input3 = $('<input type="radio" id="tardanza-3" data-value="Otros" class="with-gap" name="tardanza-justificacion">');
+	const input1 = $('<input type="radio" id="tardanza-1" value="Tráfico" class="with-gap" name="tardanza-justificacion" required checked>');
+	const input2 = $('<input type="radio" id="tardanza-2" value="Me quede dormida" class="with-gap" name="tardanza-justificacion">');
+	const input3 = $('<input type="radio" id="tardanza-3" value="Otros" class="with-gap" name="tardanza-justificacion">');
 	const label1 = $('<label for="tardanza-1">Tráfico</label>');
 	const label2 = $('<label for="tardanza-2">Me quedé dormida</label>');
 	const label3 = $('<label for="tardanza-3">Ninguna de las anteriores</label>');
@@ -268,10 +271,10 @@ const Tardanza = (update) => {
 		add.css('display', 'none');
 		field.append(message);
 	});
-	
+
 	button.on('click', (e) => {
 		state.page = 7;
-		state.user.Motivo= message.val();
+		state.user.Motivo=$('input[name=tardanza-justificacion]:checked').val() +':'+ message.val() ;
 		Postregister();
 		update();
 	});
@@ -283,7 +286,7 @@ const Tardanza = (update) => {
 const Falta = (update) => {
 	const container = $('<div class="container"></div>');
 	const row = $('<div class="row"></div>');
-	const title = $('<h4 class="montserrat text-center">'+ state.user[0].Coder +' Cuéntale a Ale por qué no vendrás</h4>');
+	const title = $('<h4 class="montserrat text-center">'+ state.user.Coder +' Cuéntale a Ale por qué no vendrás</h4>');
 	const form = $('<div class="col s12"></div>');
 	const field = $('<div class="input-field col s12"></div>');
 	const message = $('<textarea id="message" class="materialize-textarea"></textarea>');
@@ -295,7 +298,9 @@ const Falta = (update) => {
 	container.append(row);
 
 	button.on('click', (e) => {
+		state.user.Motivo = message.val() ;
 		state.page = 4;
+		Postregister();
 		update();
 	});
 
@@ -408,39 +413,14 @@ const mensaje = (update) => {
 }
 
 const AlePantalla = (update) => {
-  console.log(state.time);
-
+  
   const container_OK =$('<section class="container center-align"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;
   const cont_title =$('<div class="title_asis"></div>') ;
-  const title =$('<p class="negrita">'+state.user[0].name+' Tu asistencia fue registrada a las :</p>');
-  const hora = $('<p>'+ state.time +'</p>');
+  const title =$('<p class="negrita"> Pantalla de Ale</p>');
+
   cont_title.append(title);
-  cont_title.append(hora);
   cont_asisOK.append(cont_title);
-  const cont_check =$('<div class="cont_asist col s6 push-s3"></div>');
-  const cont_radio =$('<div class="radio-check"></div>');
-  const cont_img =$('<i class="large material-icons">check</i>');
-
-  cont_asisOK.append(cont_check);
-  cont_radio.append(cont_img);
-  cont_check.append(cont_radio);
-
-  const div_enlaces =$('<div class="cont_btn col s10 push-s1"></div>');
-  const btn_home =$('<button type="button"  id="btn_present" name="button" class="primary">IR AL HOME</button>');
-  const div_register =$ ('<div class="enlace"></div>');
-  const enlace =$('<a href="#" class="active">Ver asistencias</a>');
-
-  div_enlaces.append(btn_home)
-  div_register.append(enlace);
-  div_enlaces.append(div_register);
-  cont_asisOK.append(div_enlaces);
-
-  btn_home.on('click', (e) =>{
-    e.preventDefault();
-     state.page = 4;
-     update();
-  });
   container_OK.append(cont_asisOK);
   return container_OK ;
 }
@@ -495,7 +475,7 @@ const Verificar = (valor ) => {
 
 const ValidHora =(update)=>{
   var punt_r1 ="0800";
-  var punt_r2 ="1200";
+  var punt_r2 ="1300";
   var actual = new Date();
 
   var hours   = actual.getHours();
@@ -536,7 +516,7 @@ function harold(standIn) {
 }
 const ValidPuntualidad =(update)=>{
   var punt1 = "0800";
-  var punt2 = "1109";
+  var punt2 = "1240";
   var actual = new Date();
   var hours   = actual.getHours();
   var minutes = actual.getMinutes();
@@ -555,6 +535,7 @@ const ValidPuntualidad =(update)=>{
           state.page = 3;
           update();
       }else{
+        VerificarUbi(update);
         state.user.Estado="Puntual";
         state.user.Hora =check;
         state.page = 2;
@@ -568,3 +549,36 @@ const ValidPuntualidad =(update)=>{
       update();
   }
 }
+const VerificarUbi =(update)=>{
+  initMap();
+}
+function initMap() {
+      //  var map = new google.maps.Map(document.getElementById('map'), {
+      //    center: {lat: -34.397, lng: 150.644},
+      //    zoom: 6
+      //  });
+      //  var infoWindow = new google.maps.InfoWindow({map: map});
+
+       // Try HTML5 geolocation.
+       var pos;
+       if (navigator.geolocation) {
+         navigator.geolocation.getCurrentPosition(function(position) {
+            pos = {
+             lat: position.coords.latitude,
+             lng: position.coords.longitude
+           };
+           console.log(pos);
+         });
+
+       } else {
+         // Browser doesn't support Geolocation
+         handleLocationError(false, infoWindow, alert("No soporta"));
+       }
+     }
+
+     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+       infoWindow.setPosition(pos);
+       infoWindow.setContent(browserHasGeolocation ?
+                             'Error: Fallo el servicio de geolocalización' :
+                             'Error: Tu navegador no soporta la geolocalización');
+     }

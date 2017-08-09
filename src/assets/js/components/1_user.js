@@ -58,7 +58,8 @@ const welcome = (update) => {
       state.user = filtrados[filtrados.length-1];
 
       if ( input_user.val() == sup_user && input_pas.val() == sup_pas){
-        console.log("Pantalla Alejandra");
+        state.page = 8;
+        update();
       } else{
           if (filtrados.length!=0  ){
               var password = state.user.Codigo;
