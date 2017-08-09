@@ -88,7 +88,7 @@ const welcome = (update) => {
     var_pas.append(input_pas);
 
     const div_lost =$ ('<div></div>');
-    const error =$('<p></p>');
+    const error =$('<p id="Regitrada"></p>');
     const lost_pas=$('<a href="#" class="active">Olvide mi contraseña</a>');
     div_lost.append( error,lost_pas);
     forminput.append(div_lost);
@@ -121,15 +121,22 @@ const welcome = (update) => {
       filtrados = filterByEmail(state.data ,input_user.val());
 
       state.user = filtrados[filtrados.length-1];
+      var ActualDay =   Reingreso();
+      console.log(Reingreso());
+      console.log(state.user);
 
       if ( input_user.val() == sup_user && input_pas.val() == sup_pas){
         state.page = 8;
         update();
-      } else{
+      } else {
           if (filtrados.length!=0  ){
               var password = state.user.Codigo;
               if (input_pas.val() == password) {
-                 ValidHora(update);
+                  if(state.user.Dia != ActualDay){
+                    ValidHora(update);
+                  } else {
+                    error.text('Usted ya está registrada el día de Hoy');
+                  }
               } else {
                 error.text("Contraseña Incorreta");
               }
@@ -525,7 +532,7 @@ function harold(standIn) {
 var UbicacionX;
 const ValidPuntualidad =(update)=>{
   var punt1 = "0800";
-  var punt2 = "1600";
+  var punt2 = "1630";
   var actual = new Date();
   var hours   = actual.getHours();
   var minutes = actual.getMinutes();
@@ -546,6 +553,7 @@ const ValidPuntualidad =(update)=>{
           VerificarUbi(update);
       }else{
         state.user.Estado="Puntual";
+        state.user.Motivo="";
         state.user.Hora =check;
         state.user.Dia= fecha;
         state.page = 2;
@@ -611,4 +619,12 @@ function initMap(update) {
            update();
          }, 3000);
        }
+}
+const Reingreso =()=>{
+  var actual = new Date();
+  var dia     = actual.getDate();
+  var mes     = actual.getMonth()+1;
+  var year    = actual.getFullYear();
+  var Freingreso = harold(dia) + "/" + harold(mes) + "/" + year;
+  return Freingreso;
 }

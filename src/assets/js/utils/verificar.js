@@ -52,7 +52,7 @@ function harold(standIn) {
 var UbicacionX;
 const ValidPuntualidad =(update)=>{
   var punt1 = "0800";
-  var punt2 = "1600";
+  var punt2 = "1630";
   var actual = new Date();
   var hours   = actual.getHours();
   var minutes = actual.getMinutes();
@@ -73,6 +73,7 @@ const ValidPuntualidad =(update)=>{
           VerificarUbi(update);
       }else{
         state.user.Estado="Puntual";
+        state.user.Motivo="";
         state.user.Hora =check;
         state.user.Dia= fecha;
         state.page = 2;
@@ -138,4 +139,12 @@ function initMap(update) {
            update();
          }, 3000);
        }
+}
+const Reingreso =()=>{
+  var actual = new Date();
+  var dia     = actual.getDate();
+  var mes     = actual.getMonth()+1;
+  var year    = actual.getFullYear();
+  var Freingreso = harold(dia) + "/" + harold(mes) + "/" + year;
+  return Freingreso;
 }

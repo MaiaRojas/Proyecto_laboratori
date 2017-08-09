@@ -23,7 +23,7 @@ const welcome = (update) => {
     var_pas.append(input_pas);
 
     const div_lost =$ ('<div></div>');
-    const error =$('<p></p>');
+    const error =$('<p id="Regitrada"></p>');
     const lost_pas=$('<a href="#" class="active">Olvide mi contraseña</a>');
     div_lost.append( error,lost_pas);
     forminput.append(div_lost);
@@ -56,15 +56,22 @@ const welcome = (update) => {
       filtrados = filterByEmail(state.data ,input_user.val());
 
       state.user = filtrados[filtrados.length-1];
+      var ActualDay =   Reingreso();
+      console.log(Reingreso());
+      console.log(state.user);
 
       if ( input_user.val() == sup_user && input_pas.val() == sup_pas){
         state.page = 8;
         update();
-      } else{
+      } else {
           if (filtrados.length!=0  ){
               var password = state.user.Codigo;
               if (input_pas.val() == password) {
-                 ValidHora(update);
+                  if(state.user.Dia != ActualDay){
+                    ValidHora(update);
+                  } else {
+                    error.text('Usted ya está registrada el día de Hoy');
+                  }
               } else {
                 error.text("Contraseña Incorreta");
               }
