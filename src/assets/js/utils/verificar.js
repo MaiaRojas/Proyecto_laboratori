@@ -5,10 +5,12 @@ const Verificar = (valor ) => {
     $('#btnEnviar').addClass("disabled");
   }
 };
-
+const VerificarUbi =(update)=>{
+  initMap(update);
+}
 const ValidHora =(update)=>{
   var punt_r1 ="0800";
-  var punt_r2 ="1300";
+  var punt_r2 ="1700";
   var actual = new Date();
 
   var hours   = actual.getHours();
@@ -20,8 +22,8 @@ const ValidHora =(update)=>{
   var check = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
   var fecha = harold(dia) + "/" + harold(mes) + "/" + year;
 
-  if(parseInt(punt_r1.slice(0, 2))<= hours  && hours <= parseInt(punt_r2.slice(0, 2)) ){
-      if (hours == parseInt(punt_r2.slice(0, 2)) && minutes > parseInt(punt_r2.slice(2, 4))){
+  if(parseInt(punt_r1.slice(0, 2))<= hours  && hours <= parseInt(punt_r2.slice(0,2)) ){
+      if (hours == parseInt(punt_r2.slice(0, 2)) && minutes > parseInt(punt_r2.slice(2,4))){
         console.log("Ingresa fuera de hora");
         state.user.Dia= fecha;
         state.user.Hora =check;
@@ -47,9 +49,10 @@ function harold(standIn) {
    }
    return standIn;
 }
+var UbicacionX;
 const ValidPuntualidad =(update)=>{
   var punt1 = "0800";
-  var punt2 = "1240";
+  var punt2 = "1600";
   var actual = new Date();
   var hours   = actual.getHours();
   var minutes = actual.getMinutes();
@@ -65,34 +68,27 @@ const ValidPuntualidad =(update)=>{
       if (hours == parseInt(punt2.slice(0, 2)) && minutes > parseInt(punt2.slice(2, 4))){
           state.user.Estado="Tarde";
           state.user.Hora =check;
+          state.user.Dia= fecha;
           state.page = 3;
-          update();
+          VerificarUbi(update);
       }else{
-        VerificarUbi(update);
         state.user.Estado="Puntual";
         state.user.Hora =check;
+        state.user.Dia= fecha;
         state.page = 2;
-        Postregister();
-        update();
+        VerificarUbi(update);
       }
   } else{
       state.user.Estado="Tarde";
       state.user.Hora =check;
+      state.user.Dia= fecha;
       state.page = 3;
-      update();
+      VerificarUbi(update);
   }
 }
-const VerificarUbi =(update)=>{
-  initMap();
-}
-function initMap() {
-      //  var map = new google.maps.Map(document.getElementById('map'), {
-      //    center: {lat: -34.397, lng: 150.644},
-      //    zoom: 6
-      //  });
-      //  var infoWindow = new google.maps.InfoWindow({map: map});
 
-       // Try HTML5 geolocation.
+
+function initMap(update) {
        var pos;
        if (navigator.geolocation) {
          navigator.geolocation.getCurrentPosition(function(position) {
@@ -100,18 +96,46 @@ function initMap() {
              lat: position.coords.latitude,
              lng: position.coords.longitude
            };
-           console.log(pos);
+
+          console.log(pos);
+          var posX = Math.sqrt(Math.pow(pos.lat,2)+ Math.pow(pos.lng,2));
+          //   var posLab={
+          //    lat: -12.126025,
+          //    lng: -77.020663
+          //  }
+
+           var posLab={
+            lat: -12.070698,//Ubicación de casa de Ana
+            lng: -77.055306
+          }
+
+           var labX = Math.sqrt(Math.pow(posLab.lat,2)+ Math.pow(posLab.lng,2));
+           var distancia= (Math.abs(labX-posX))*1000;
+           var RadioWork =0.002429195*1000 ;
+
+           if(distancia >= RadioWork ){
+            console.log("Aun no estas en laboratoria");
+            $('#msjError').text("Aún no estas en Laboratoria , vuelve a registrarte cuando llegues");
+            setTimeout(function(){
+              state.page = null;
+              update();
+            }, 3000);
+           } else {
+            console.log("Estas cerca de tu ubicacion");
+            if (state.user.Estado != "Tarde"){
+              Postregister();
+            }
+
+            update();
+           }
+
          });
 
        } else {
-         // Browser doesn't support Geolocation
-         handleLocationError(false, infoWindow, alert("No soporta"));
+         $('#msjError').text("Tu navegador no soporta la geolocalización");
+         setTimeout(function(){
+           state.page = null;
+           update();
+         }, 3000);
        }
-     }
-
-     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-       infoWindow.setPosition(pos);
-       infoWindow.setContent(browserHasGeolocation ?
-                             'Error: Fallo el servicio de geolocalización' :
-                             'Error: Tu navegador no soporta la geolocalización');
-     }
+}

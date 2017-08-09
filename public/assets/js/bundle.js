@@ -154,18 +154,17 @@ const reloj = (update) => {
 
   const cont_clock =$('<h1 class="clock"></h1>');
   const btn_present =$('<button type="button"  class="verde" id="btn_present" name="button" class="verde">Presente</button>');
-
+  const  msjError  =$('<p id="msjError"></p>');
   cont_timer.append(cont_day);
   cont_timer.append(cont_clock);
-  cont_timer.append(btn_present);
+  cont_timer.append(btn_present ,msjError );
   cont_reloj.append(cont_timer);
 
   const div_register =$ ('<div class="enlace"></div>');
   const enlace =$('<a href="#" class="active">Registrar ausencia</a>');
   div_register.append(enlace);
   cont_timer.append(div_register);
-
-
+  var Horas,Fechas;
 
  function clock() {
    var time = new Date(),
@@ -175,9 +174,11 @@ const reloj = (update) => {
      dia     = time.getDate(),
      mes     = time.getMonth()+1,
      year    = time.getFullYear();
+     Horas = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
+     Fechas = harold(dia) + "/" + harold(mes) + "/" + year;
+      $('.day').text(harold(dia) + "/" + harold(mes) + "/" + year);
+      $('.clock').text(harold(hours) + ":" + harold(minutes) + ":" + harold(seconds));
 
-      document.querySelectorAll('.day')[0].innerHTML = harold(dia) + "/" + harold(mes) + "/" + year;
-      document.querySelectorAll('.clock')[0].innerHTML = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
  };
 
  var interval = setInterval(clock, 1000);
@@ -185,16 +186,20 @@ const reloj = (update) => {
  btn_present.on('click', (e) =>{
      clearInterval(interval);
     e.preventDefault();
-
     ValidPuntualidad(update);
  });
 
   enlace.on('click', (e) =>{
     e.preventDefault();
-    clearInterval(interval);
-      state.cat ="Ausente";
+    console.log(Fechas);
+    if (Fechas != undefined && Horas!= undefined){
+      clearInterval(interval);
+      state.user.Estado ="Ausente";
+      state.user.Dia = Fechas;
+      state.user.Hora = Horas;
       state.page = 5;
       update();
+    }
   });
 
   return cont_reloj;
@@ -299,6 +304,7 @@ const Falta = (update) => {
 
 	button.on('click', (e) => {
 		state.user.Motivo = message.val() ;
+
 		state.page = 4;
 		Postregister();
 		update();
@@ -472,10 +478,12 @@ const Verificar = (valor ) => {
     $('#btnEnviar').addClass("disabled");
   }
 };
-
+const VerificarUbi =(update)=>{
+  initMap(update);
+}
 const ValidHora =(update)=>{
   var punt_r1 ="0800";
-  var punt_r2 ="1300";
+  var punt_r2 ="1700";
   var actual = new Date();
 
   var hours   = actual.getHours();
@@ -487,8 +495,8 @@ const ValidHora =(update)=>{
   var check = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
   var fecha = harold(dia) + "/" + harold(mes) + "/" + year;
 
-  if(parseInt(punt_r1.slice(0, 2))<= hours  && hours <= parseInt(punt_r2.slice(0, 2)) ){
-      if (hours == parseInt(punt_r2.slice(0, 2)) && minutes > parseInt(punt_r2.slice(2, 4))){
+  if(parseInt(punt_r1.slice(0, 2))<= hours  && hours <= parseInt(punt_r2.slice(0,2)) ){
+      if (hours == parseInt(punt_r2.slice(0, 2)) && minutes > parseInt(punt_r2.slice(2,4))){
         console.log("Ingresa fuera de hora");
         state.user.Dia= fecha;
         state.user.Hora =check;
@@ -514,9 +522,10 @@ function harold(standIn) {
    }
    return standIn;
 }
+var UbicacionX;
 const ValidPuntualidad =(update)=>{
   var punt1 = "0800";
-  var punt2 = "1240";
+  var punt2 = "1600";
   var actual = new Date();
   var hours   = actual.getHours();
   var minutes = actual.getMinutes();
@@ -532,34 +541,27 @@ const ValidPuntualidad =(update)=>{
       if (hours == parseInt(punt2.slice(0, 2)) && minutes > parseInt(punt2.slice(2, 4))){
           state.user.Estado="Tarde";
           state.user.Hora =check;
+          state.user.Dia= fecha;
           state.page = 3;
-          update();
+          VerificarUbi(update);
       }else{
-        VerificarUbi(update);
         state.user.Estado="Puntual";
         state.user.Hora =check;
+        state.user.Dia= fecha;
         state.page = 2;
-        Postregister();
-        update();
+        VerificarUbi(update);
       }
   } else{
       state.user.Estado="Tarde";
       state.user.Hora =check;
+      state.user.Dia= fecha;
       state.page = 3;
-      update();
+      VerificarUbi(update);
   }
 }
-const VerificarUbi =(update)=>{
-  initMap();
-}
-function initMap() {
-      //  var map = new google.maps.Map(document.getElementById('map'), {
-      //    center: {lat: -34.397, lng: 150.644},
-      //    zoom: 6
-      //  });
-      //  var infoWindow = new google.maps.InfoWindow({map: map});
 
-       // Try HTML5 geolocation.
+
+function initMap(update) {
        var pos;
        if (navigator.geolocation) {
          navigator.geolocation.getCurrentPosition(function(position) {
@@ -567,18 +569,46 @@ function initMap() {
              lat: position.coords.latitude,
              lng: position.coords.longitude
            };
-           console.log(pos);
+
+          console.log(pos);
+          var posX = Math.sqrt(Math.pow(pos.lat,2)+ Math.pow(pos.lng,2));
+          //   var posLab={
+          //    lat: -12.126025,
+          //    lng: -77.020663
+          //  }
+
+           var posLab={
+            lat: -12.070698,//Ubicación de casa de Ana
+            lng: -77.055306
+          }
+
+           var labX = Math.sqrt(Math.pow(posLab.lat,2)+ Math.pow(posLab.lng,2));
+           var distancia= (Math.abs(labX-posX))*1000;
+           var RadioWork =0.002429195*1000 ;
+
+           if(distancia >= RadioWork ){
+            console.log("Aun no estas en laboratoria");
+            $('#msjError').text("Aún no estas en Laboratoria , vuelve a registrarte cuando llegues");
+            setTimeout(function(){
+              state.page = null;
+              update();
+            }, 3000);
+           } else {
+            console.log("Estas cerca de tu ubicacion");
+            if (state.user.Estado != "Tarde"){
+              Postregister();
+            }
+
+            update();
+           }
+
          });
 
        } else {
-         // Browser doesn't support Geolocation
-         handleLocationError(false, infoWindow, alert("No soporta"));
+         $('#msjError').text("Tu navegador no soporta la geolocalización");
+         setTimeout(function(){
+           state.page = null;
+           update();
+         }, 3000);
        }
-     }
-
-     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-       infoWindow.setPosition(pos);
-       infoWindow.setContent(browserHasGeolocation ?
-                             'Error: Fallo el servicio de geolocalización' :
-                             'Error: Tu navegador no soporta la geolocalización');
-     }
+}
