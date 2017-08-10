@@ -1,12 +1,12 @@
-var gulp = require('gulp');
-var concat = require('gulp-concat');
-var sass = require('gulp-sass');
-var browserify = require('gulp-browserify');
-var rename = require('gulp-rename');
+var gulp        = require('gulp');
+var concat      = require('gulp-concat');
+var sass        = require('gulp-sass');
+var browserify  = require('gulp-browserify');
+var rename      = require('gulp-rename');
 var browserSync = require('browser-sync').create();
 // var uglify = require('gulp-uglify');
 // var toEs6 = require('gulp-6to5');
-var nodemon = require('gulp-nodemon');
+var nodemon     = require('gulp-nodemon');
 
 var config = {
     source:'./src/',
