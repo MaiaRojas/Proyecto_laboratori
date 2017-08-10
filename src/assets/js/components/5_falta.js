@@ -16,7 +16,6 @@ const Falta = (update) => {
 
 	button.on('click', (e) => {
 		state.user.Motivo = message.val() ;
-
 		state.page = 4;
 		Postregister();
 		update();

@@ -311,7 +311,6 @@ const Falta = (update) => {
 
 	button.on('click', (e) => {
 		state.user.Motivo = message.val() ;
-
 		state.page = 4;
 		Postregister();
 		update();
@@ -490,7 +489,7 @@ const VerificarUbi =(update)=>{
 }
 const ValidHora =(update)=>{
   var punt_r1 ="0800";
-  var punt_r2 ="1700";
+  var punt_r2 ="1800";
   var actual = new Date();
 
   var hours   = actual.getHours();
@@ -518,6 +517,7 @@ const ValidHora =(update)=>{
   } else{
     console.log("Ingresa fuera de hora");
     state.user.Dia= fecha;
+    console.log(check);
     state.user.Hora =check;
     state.page = 6;
     update();
@@ -532,7 +532,7 @@ function harold(standIn) {
 var UbicacionX;
 const ValidPuntualidad =(update)=>{
   var punt1 = "0800";
-  var punt2 = "1630";
+  var punt2 = "1730";
   var actual = new Date();
   var hours   = actual.getHours();
   var minutes = actual.getMinutes();
