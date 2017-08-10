@@ -36,14 +36,6 @@ const state = {
   user: null,
 };
 
-const postE = {
-  name: null,
-  email: null,
-  squad :null,
-  type:null,
-  fecha:null,
-  state: null,
-};
 
 $( _ => {
     getJSON("https://sheetsu.com/apis/v1.0/8392c0c102f9",(err,json)=> {
