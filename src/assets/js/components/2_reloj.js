@@ -1,3 +1,4 @@
+'use strict';
 const reloj = (update) => {
 
   const cont_reloj =$('<section class="container cont_timer"></section>');

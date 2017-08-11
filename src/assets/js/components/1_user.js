@@ -1,4 +1,4 @@
-
+'use strict';
 const welcome = (update) => {
     const cont_welcome =$('<section class="container center-align cont_welcome"></section>');
     const title =$('<h4 class="center" >Bienvenido a la App de Asistencia <br>Ingresa a tu cuenta </h4>');

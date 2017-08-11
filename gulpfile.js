@@ -4,8 +4,8 @@ var sass        = require('gulp-sass');
 var browserify  = require('gulp-browserify');
 var rename      = require('gulp-rename');
 var browserSync = require('browser-sync').create();
-// var uglify = require('gulp-uglify');
-// var toEs6 = require('gulp-6to5');
+var uglify = require('gulp-uglify');
+var toEs6 = require('gulp-6to5');
 var nodemon     = require('gulp-nodemon');
 
 var config = {
@@ -52,18 +52,19 @@ gulp.task('img', () => {
 gulp.task('sass', () => {
     gulp.src(sources.rootSass)
     .pipe(sass({
-        outputStyle:"expanded"
+        outputStyle:"compressed"
     }).on("error",sass.logError))
     .pipe(gulp.dest(config.dist + paths.assets + "css"));
 });
 
 gulp.task('js', () => {
      gulp.src(sources.rootJS)
-        // .pipe(toEs6())
+        .pipe(toEs6())
         .pipe(concat('bundle.js'))
-        // .pipe(uglify())
+        .pipe(uglify())
         .pipe(gulp.dest(config.dist + paths.assets +"js"));
 });
+
 
 gulp.task('fonts', () => {
     gulp.src(sources.fonts).

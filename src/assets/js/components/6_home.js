@@ -1,3 +1,4 @@
+'use strict';
 const Home = (update) => {
     const container = $('<div class="container"></div>');
     const row = $('<div class="row"></div>');
@@ -17,7 +18,6 @@ const Home = (update) => {
         const li = $('<li><span class="schedule-home">'+schedule[i]+'</span>'+ " | " + event[i] +'</li>');
         ul.append(li);
     }
-
     function rules(param) {
         if (param < 10) {
             param = '0' + param

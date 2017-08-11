@@ -1,3 +1,4 @@
+'use strict';
 const Verificar = (valor ) => {
   if(valor != ""){
     $('#btnEnviar').removeClass("disabled");

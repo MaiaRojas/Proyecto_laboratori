@@ -1,3 +1,4 @@
+'use strict';
 const asistOk = (update) => {
   console.log(state.time);
 

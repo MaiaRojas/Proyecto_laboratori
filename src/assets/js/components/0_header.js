@@ -1,3 +1,4 @@
+'use strict';
 const header = (update) => {
 
   const cont_header =$('<header><div class="container"><div class="row">'+

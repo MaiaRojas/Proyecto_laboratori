@@ -1,3 +1,4 @@
+'use strict';
 const mensaje = (update) => {
   const container_msm =$('<section class="container center-align cont_msj"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;

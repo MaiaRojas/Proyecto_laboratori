@@ -1,4 +1,4 @@
-
+'use strict';
 const AlePantalla = (update) => {
   let Tausentes = 0, Tpuntuales = 0 ,Ttarde = 0;
   const container_OK =$('<section class="container center-align"></section>');
@@ -19,7 +19,6 @@ const AlePantalla = (update) => {
   container_OK.append(cont_asisOK,cont_title,divTotales,detalle_squads);
 
   const coderToday = [], squads = [];
-
 
   $.get("https://sheetsu.com/apis/v1.0/2049baff4052",(data)=> {
     console.log(data);

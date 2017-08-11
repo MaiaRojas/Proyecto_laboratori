@@ -1,3 +1,4 @@
+'use strict';
 const justificacion = (update) => {
 
     const body_modal=$('<div class="container cont_just"></div>');
