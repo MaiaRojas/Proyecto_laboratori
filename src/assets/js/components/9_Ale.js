@@ -1,17 +1,27 @@
 
 const AlePantalla = (update) => {
-
-
-
+  let Tausentes = 0, Tpuntuales = 0 ,Ttarde = 0;
   const container_OK =$('<section class="container center-align"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;
   const cont_title =$(`<div class="title_asis left-align"><p>Buen día Alejandra</p><p> Revisa la Asistencia de Hoy : ${harold(state.dia.getDate()) + "/" + harold((state.dia.getMonth() +1)) + "/" + harold(state.dia.getFullYear())}</p> </div>`) ;
+  const divTotales =$('<div class="flex_center"><h4>Registro Total</h4></div>');
+  const totalPuntual=$('<div class="sizedetail"><p class="Puntual">Puntual</p><p></p></div>');
+  const TPuntual=$('<p></p>');
+  const totalTarde=$('<div class="sizedetail"><p class="Tarde">Tarde</p><p></p></div>');
+  const TTarde=$('<p></p>');
+  const totalAusente=$('<div class="sizedetail"><p class="Ausente">Ausente</p><p></p></div>');
+  const TAusente=$('<p></p>');
+  divTotales.append(totalPuntual,totalTarde,totalAusente);
+  totalPuntual.append(TPuntual);
+  totalTarde.append(TTarde);
+  totalAusente.append(TAusente);
   const detalle_squads = $(`<div id="coders"></div>`)
-  container_OK.append(cont_asisOK,cont_title,detalle_squads);
+  container_OK.append(cont_asisOK,cont_title,divTotales,detalle_squads);
 
   const coderToday = [], squads = [];
 
-  $.get("https://sheetsu.com/apis/v1.0/c04c4ad11916",(data)=> {
+
+  $.get("https://sheetsu.com/apis/v1.0/2049baff4052",(data)=> {
     console.log(data);
     state.asistencia = data;
 
@@ -41,11 +51,14 @@ const AlePantalla = (update) => {
         coderToday.forEach(function(coder){
             if(e == coder.Squad){
                 switch (coder.Estado) {
-                  case 'Ausente' : ausentes++ ;
+                  case 'Ausente' : ausentes++;
+                                   Tausentes++;
                     break;
                   case 'Puntual' : puntuales++;
+                                   Tpuntuales++;
                     break;
                   case 'Tarde' : tarde++;
+                                  Ttarde++;
                    break;
                 }
 
@@ -61,6 +74,7 @@ const AlePantalla = (update) => {
           bodyCase.append(`<div class="sizedetail"><p class="Ausente">Ausente </p><p>${ausentes}</p></div>`);
           bodyCase.append(`<div class="sizedetail"><p class="Puntual">Puntual </p><p> ${puntuales}</p></div>`);
           bodyCase.append(`<div class="sizedetail"><p class="Tarde">Tarde </p><p> ${tarde}</p></div>`);
+
           ausentes = 0;
           puntuales = 0;
           tarde = 0;
@@ -69,6 +83,11 @@ const AlePantalla = (update) => {
            $('.collapsible').collapsible();
           });
       });
+      console.log(Tpuntuales);
+      console.log(Tausentes);
+      TPuntual.text(Tpuntuales);
+      TAusente.text(Tausentes);
+      TTarde.text(Ttarde);
   })
 
  return container_OK ;
@@ -81,7 +100,7 @@ const AlePantalla = (update) => {
 
 const detalle = (coder, container)=> {
    const divImg =$('<div class="detail_coder"></div>');
-   const imgCoder =$(`<img src="assets/img/${coder.Codigo}.jpg"  class="img-responsive" alt="foto">`)
+   const imgCoder =$(`<img src="assets/img/${coder.Tipo}.svg"  class="img-responsive" alt="foto">`)
    const spanCoder = $(`<p>${coder.Coder}</p>`);
    const spanEstado = $(`<span class="${coder.Estado}">${coder.Estado}</span>`);
    container.append(divImg);

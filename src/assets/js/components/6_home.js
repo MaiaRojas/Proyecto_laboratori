@@ -8,8 +8,8 @@ const Home = (update) => {
 		const salir = $('<a href="#" class="active">Salir</a>');
     const title = $('<p class="title text-center">Agenda</p>');
     let date = $('<div class="date-home text-center"></div>');
-    const event = ["Hackathon", "Company Pitch - Rimac", "Hackathon, Coffee time", "Company Pitch - Everis", "Hackathon", "Hackathon, Coffee time", "Company Pitch - BBVA", "Hackathon, Coffee time", " Expo"];
-    const schedule = ["00:01", "10:10", "10:20", "13:00", "13:10", "15:00", "16:40", "16:50", "18:00"];
+    const event = ["Registrarte", "Trabajo", "Coffee time", "Almuerzo", "Coffee time", "Salida"];
+    const schedule = ["00:01", "09:30", "10:20", "13:00", "15:10",  "18:00"];
 
     let ul = $('<ul class="diary"></ul>');
 
