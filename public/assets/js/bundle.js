@@ -442,7 +442,7 @@ const AlePantalla = (update) => {
     });
 
     $.each(coderToday,(i,e)=>{
-      console.log(e);
+
       if($.inArray(e.Squad,squads)===-1){
         squads.push(e.Squad);
       }
@@ -451,7 +451,7 @@ const AlePantalla = (update) => {
     let ausentes = 0, puntuales = 0, tarde = 0;
 
     $.each(squads,(i,e)=>{
-      const divSquad = $(`<ul class="collapsible" data-collapsible="expandable" id =${e}></ul>`);
+      const  divSquad = $(`<ul class="collapsible" data-collapsible="expandable" id =${e}></ul>`);
       const li =$('<li></li>');
       const divHeader =$('<div class="collapsible-header"></div>');
       const divBody =$('<div class="collapsible-body"></div>');
@@ -468,7 +468,7 @@ const AlePantalla = (update) => {
                   case 'Tarde' : tarde++;
                    break;
                 }
-                console.log(coder);
+
                 detalle(coder, divBody);
               }
 
@@ -486,9 +486,18 @@ const AlePantalla = (update) => {
           tarde = 0;
       });
   })
+
+  console.log(squads);
+
+
  return container_OK ;
 }
-
+// var a=0;
+// function Actualiza(){
+//   console.log(a++);
+//   AlePantalla();
+// }
+ // setInterval(Actualiza, 1000);
 const detalle = (coder, container)=> {
    const divImg =$('<div class="detail_coder"></div>');
    const imgCoder =$(`<img src="assets/img/${coder.Codigo}.jpg"  class="img-responsive" alt="foto">`)
@@ -497,13 +506,6 @@ const detalle = (coder, container)=> {
    container.append(divImg);
    divImg.append(imgCoder,spanCoder,spanEstado);
 }
-$( _ => {
-    $('.collapsible').collapsible({
-      accordion: false, // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-      onOpen: function(el) { alert('Open'); }, // Callback for Collapsible open
-      onClose: function(el) { alert('Closed'); } // Callback for Collapsible close
-    });
-  });
 
 'use strict';
 

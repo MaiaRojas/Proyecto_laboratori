@@ -2064,7 +2064,7 @@ article .color-container {
 }
 
 body {
-  background-color: #F7F7F7;
+  background-color: white;
 }
 
 .root {
@@ -2339,4 +2339,8 @@ div.detail_coder p {
 
 .Ausente {
   background-color: #E1E1E1;
+}
+
+.show {
+  display: block;
 }
