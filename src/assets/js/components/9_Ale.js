@@ -77,7 +77,7 @@ const AlePantalla = (update) => {
     update();
   }
 
-  setInterval(Actualiza,3000);
+  setInterval(Actualiza,30000);
 
  return container_OK ;
 }

@@ -10,7 +10,7 @@ const VerificarUbi =(update)=>{
 }
 const ValidHora =(update)=>{
   var punt_r1 ="0000";
-  var punt_r2 ="0900";
+  var punt_r2 ="1200";
   var actual = new Date();
 
   var hours   = actual.getHours();
@@ -53,8 +53,8 @@ function harold(standIn) {
 var UbicacionX,checkP,fechaP;
 
 const ValidPuntualidad =(update)=>{
-  var punt1 = "0000";
-  var punt2 = "0130";
+  var punt1 = "1150";
+  var punt2 = "1200";
   var actual = new Date();
   var hours   = actual.getHours();
   var minutes = actual.getMinutes();
@@ -96,15 +96,11 @@ function initMap(update) {
 
           console.log(pos);
           var posX = Math.sqrt(Math.pow(pos.lat,2)+ Math.pow(pos.lng,2));
-          //   var posLab={
-          //    lat: -12.126025,
-          //    lng: -77.020663
-          //  }
+            var posLab={
+             lat: -12.126025,
+             lng: -77.020663
+           }
 
-           var posLab={
-            lat: -12.050668,//Ubicación de casa de Ana
-            lng: -77.045994
-          }
 
            var labX = Math.sqrt(Math.pow(posLab.lat,2)+ Math.pow(posLab.lng,2));
            var distancia= (Math.abs(labX-posX))*1000;
