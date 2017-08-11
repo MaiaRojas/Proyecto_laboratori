@@ -9,7 +9,9 @@ const AlePantalla = (update) => {
 
   const coderToday = [], squads = [];
 
+  function (){
 
+  }
   $.get("https://sheetsu.com/apis/v1.0/8392c0c102f9",(data)=> {
     console.log(data);
     state.asistencia = data;
@@ -63,20 +65,28 @@ const AlePantalla = (update) => {
           ausentes = 0;
           puntuales = 0;
           tarde = 0;
+          $(document).ready(function(){
+            console.log("hola");
+           $('.collapsible').collapsible();
+          });
       });
   })
 
-  console.log(squads);
+  function Actualiza(){
+    state.page=8;
+    update();
+  }
 
+  setInterval(Actualiza,3000);
 
  return container_OK ;
 }
-// var a=0;
-// function Actualiza(){
-//   console.log(a++);
-//   AlePantalla();
-// }
- // setInterval(Actualiza, 1000);
+
+
+
+
+
+
 const detalle = (coder, container)=> {
    const divImg =$('<div class="detail_coder"></div>');
    const imgCoder =$(`<img src="assets/img/${coder.Codigo}.jpg"  class="img-responsive" alt="foto">`)
