@@ -1,8 +1,8 @@
 const mensaje = (update) => {
-  const container_msm =$('<section class="container center-align"></section>');
+  const container_msm =$('<section class="container center-align cont_msj"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;
   const cont_title =$('<div class="title_asis"></div>') ;
-  const title =$('<p class="negrita">'+ state.user.Coder +' Tu mensaje ha sido enviado correctamente</p>');
+  const title =$('<p class="negrita">'+ state.user.Coder +'</p><p> Tu mensaje ha sido enviado correctamente</p>');
   cont_title.append(title);
   cont_asisOK.append(cont_title);
   const cont_check =$('<div class="cont_asist col s6 push-s3"></div>');

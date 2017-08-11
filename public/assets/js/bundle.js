@@ -1,7 +1,7 @@
 "use strict";
 const render = (root) =>{
    root.empty();
-   const section = $('<div></div>');
+   const section = $('<div class="cont_App"></div>');
    section.append(header( _ => render(root)));
 
    if (state.page == null) {
@@ -52,41 +52,41 @@ $( _ => {
 const header = (update) => {
 
   const cont_header =$('<header><div class="container"><div class="row">'+
-                       '<img src="assets/img/logo.svg" alt="logo" class="col s10 push-s1  "></div></div></header>');
+                       '<div class="col s12 center-align"><img src="assets/img/logo.svg" width=220px alt="logo"></div></div></div></header>');
   return cont_header ;
 }
 
 
 const welcome = (update) => {
     const cont_welcome =$('<section class="container center-align cont_welcome"></section>');
-    const title =$('<h5 class="center">Bienvenido al capitán <br>Ingresa a tu cuenta </h5>');
+    const title =$('<h4 class="center" >Bienvenido a la App de Asistencia <br>Ingresa a tu cuenta </h4>');
     cont_welcome.append(title);
     const cont_form = $('<div class="container"></div>');
     cont_welcome.append(cont_form);
-    const form =$('<form  class="row" id="new_user"></form>');
+    const form =$('<div  class="row login" id="new_user"></div>');
     cont_form.append(form);
     const forminput =$('<div class="col s10 push-s1"></div>');
     form.append(forminput);
     const var_user =$('<div class="left-align"></div>');
-    const label_user =$('<label class="" for="user_code">Usuario</label>');
+    const label_user =$('<label class="text_label" for="user_code">Usuario</label>');
     const input_user =$('<input class="in_lab" autofocus="autofocus" placeholder="Código Laboratoria" type="text"  id="user_code">');
     forminput.append(var_user);
     var_user.append(label_user);
     var_user.append(input_user);
     const var_pas = $('<div class="left-align"></div>');
-    const label_pas = $('<label class="" for="user_password">Contraseña</label>');
+    const label_pas = $('<label class="text_label" for="user_password">Contraseña</label>');
     const input_pas = $('<input class="in_lab" autofocus="autofocus" placeholder="Contraseña" type="password"  id="user_password">');
     forminput.append(var_pas);
     var_pas.append(label_pas);
     var_pas.append(input_pas);
 
     const div_lost =$ ('<div></div>');
-    const error =$('<p id="Regitrada"></p>');
+    const error =$('<p id="msjErrorR"></p>');
     const lost_pas=$('<a href="#" class="active">Olvide mi contraseña</a>');
     div_lost.append( error,lost_pas);
     forminput.append(div_lost);
     const div_btn =$('<div class="form-actions"></div>');
-    const btn_enviar = $('<button id="btnEnviar" class="btn primary disabled" href="#modal1">Ingresar</button>');
+    const btn_enviar = $('<button id="btnEnviar" class="btn primary disabled btn-amarillo-lab">Ingresar</button>');
     forminput.append(div_btn);
     div_btn.append(btn_enviar);
 
@@ -195,7 +195,7 @@ const reloj = (update) => {
     if (Fechas != undefined && Horas!= undefined){
       clearInterval(interval);
       state.user.Estado ="Ausente";
-      state.user.Dia = Fechas;
+      // state.user.Dia = Fechas;
       state.user.Hora = Horas;
       state.page = 5;
       update();
@@ -211,7 +211,7 @@ const asistOk = (update) => {
   const container_OK =$('<section class="container center-align"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;
   const cont_title =$('<div class="title_asis"></div>') ;
-  const title =$('<p class="negrita">'+state.user.Coder+' Tu asistencia fue registrada a las :</p>');
+  const title =$('<p class="negrita">'+state.user.Coder+'</p><p> Tu asistencia fue registrada a las :</p>');
   const hora = $('<p>'+ state.time +'</p>');
   cont_title.append(title);
   cont_title.append(hora);
@@ -248,9 +248,9 @@ const asistOk = (update) => {
 const Tardanza = (update) => {
 
 	const container = $('<div class="container"></div>');
-	const row = $('<div class="row"></div>');
-	const title = $('<h4 class="montserrat text-center">'+ state.user.Coder +', ¿Cuál es el motivo de tu tardanza?</h4>');
-	const form = $('<div class="col s12"></div>');
+	const row = $('<div class="row "></div>');
+	const title = $('<h4 class="center-align">'+ state.user.Coder +'</h4><p>, ¿Cuál es el motivo de tu tardanza?</p>');
+	const form = $('<div class="col s12 left-align"></div>');
 	const p1 = $('<p></p>');
 	const p2 = $('<p></p>');
 	const p3 = $('<p></p>');
@@ -290,8 +290,8 @@ const Tardanza = (update) => {
 
 const Falta = (update) => {
 	const container = $('<div class="container"></div>');
-	const row = $('<div class="row"></div>');
-	const title = $('<h4 class="montserrat text-center">'+ state.user.Coder +' Cuéntale a Ale por qué no vendrás</h4>');
+	const row = $('<div class="row center-align"></div>');
+	const title = $('<h5 class="negrita">'+ state.user.Coder +' </h5><p>Cuéntale a Ale por qué no vendrás</p>');
 	const form = $('<div class="col s12"></div>');
 	const field = $('<div class="input-field col s12"></div>');
 	const message = $('<textarea id="message" class="materialize-textarea"></textarea>');
@@ -303,6 +303,7 @@ const Falta = (update) => {
 	container.append(row);
 
 	button.on('click', (e) => {
+		state.user.Dia = PedirHora();
 		state.user.Motivo = message.val() ;
 		state.page = 4;
 		Postregister();
@@ -365,13 +366,14 @@ const justificacion = (update) => {
 
     const body_modal=$('<div class="container cont_just"></div>');
     const cont_modal=$('<div class="row"></div>');
-    const cont_div =$('<div class="col s10 push-s1"></div>');
+    const cont_div =$('<div class="col s12 center-align"></div>');
     const title_name=$('<h4>'+ state.user.Coder+'</h4>') ;
     const msj  = $('<p>Aún no has registrado tu asistencia.<br>Por favor cuéntanos  por qué.</p>') ;
     const message = $('<textarea id="message" class="materialize-textarea"></textarea>');
-    cont_modal.append(title_name , msj , message);
-  	const button = $('<a class="btn col s12 montserrat">Enviar</a>');
-    cont_modal.append(button);
+	  const button = $('<a class="btn col s12 montserrat">Enviar</a>');
+    cont_div.append(title_name , msj , message,button);
+    cont_modal.append(cont_div);
+
     body_modal.append(cont_modal);
 
 		button.on('click', (e) => {
@@ -388,10 +390,10 @@ const justificacion = (update) => {
 };
 
 const mensaje = (update) => {
-  const container_msm =$('<section class="container center-align"></section>');
+  const container_msm =$('<section class="container center-align cont_msj"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;
   const cont_title =$('<div class="title_asis"></div>') ;
-  const title =$('<p class="negrita">'+ state.user.Coder +' Tu mensaje ha sido enviado correctamente</p>');
+  const title =$('<p class="negrita">'+ state.user.Coder +'</p><p> Tu mensaje ha sido enviado correctamente</p>');
   cont_title.append(title);
   cont_asisOK.append(cont_title);
   const cont_check =$('<div class="cont_asist col s6 push-s3"></div>');
@@ -536,7 +538,7 @@ const VerificarUbi =(update)=>{
 }
 const ValidHora =(update)=>{
   var punt_r1 ="0800";
-  var punt_r2 ="1800";
+  var punt_r2 ="2300";
   var actual = new Date();
 
   var hours   = actual.getHours();
@@ -576,10 +578,11 @@ function harold(standIn) {
    }
    return standIn;
 }
-var UbicacionX;
+var UbicacionX,checkP,fechaP;
+
 const ValidPuntualidad =(update)=>{
   var punt1 = "0800";
-  var punt2 = "1730";
+  var punt2 = "2200";
   var actual = new Date();
   var hours   = actual.getHours();
   var minutes = actual.getMinutes();
@@ -588,28 +591,22 @@ const ValidPuntualidad =(update)=>{
   var mes     = actual.getMonth()+1;
   var year    = actual.getFullYear();
 
-  var check = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
-  var fecha = harold(dia) + "/" + harold(mes) + "/" + year;
-  state.time =check ;
+  checkP = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
+  fechaP = harold(dia) + "/" + harold(mes) + "/" + year;
+  state.time =checkP ;
   if(parseInt(punt1.slice(0, 2))<= hours  && hours <= parseInt(punt2.slice(0, 2)) ){
       if (hours == parseInt(punt2.slice(0, 2)) && minutes > parseInt(punt2.slice(2, 4))){
           state.user.Estado="Tarde";
-          state.user.Hora =check;
-          state.user.Dia= fecha;
           state.page = 3;
           VerificarUbi(update);
       }else{
         state.user.Estado="Puntual";
         state.user.Motivo="";
-        state.user.Hora =check;
-        state.user.Dia= fecha;
         state.page = 2;
         VerificarUbi(update);
       }
   } else{
       state.user.Estado="Tarde";
-      state.user.Hora =check;
-      state.user.Dia= fecha;
       state.page = 3;
       VerificarUbi(update);
   }
@@ -633,8 +630,8 @@ function initMap(update) {
           //  }
 
            var posLab={
-            lat: -12.070698,//Ubicación de casa de Ana
-            lng: -77.055306
+            lat: -12.050668,//Ubicación de casa de Ana
+            lng: -77.045994
           }
 
            var labX = Math.sqrt(Math.pow(posLab.lat,2)+ Math.pow(posLab.lng,2));
@@ -647,10 +644,12 @@ function initMap(update) {
             setTimeout(function(){
               state.page = null;
               update();
-            }, 3000);
+            }, 50000);
            } else {
             console.log("Estas cerca de tu ubicacion");
             if (state.user.Estado != "Tarde"){
+              state.user.Hora =checkP;
+              state.user.Dia= fechaP;
               Postregister();
             }
 
@@ -674,4 +673,13 @@ const Reingreso =()=>{
   var year    = actual.getFullYear();
   var Freingreso = harold(dia) + "/" + harold(mes) + "/" + year;
   return Freingreso;
+}
+const PedirHora =()=>{
+  var time = new Date(),
+    dia     = time.getDate(),
+    mes     = time.getMonth()+1,
+    year    = time.getFullYear();
+
+  var  Fechas = harold(dia) + "/" + harold(mes) + "/" + year;
+    return Fechas;
 }

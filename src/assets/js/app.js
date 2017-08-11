@@ -1,7 +1,7 @@
 "use strict";
 const render = (root) =>{
    root.empty();
-   const section = $('<div></div>');
+   const section = $('<div class="cont_App"></div>');
    section.append(header( _ => render(root)));
 
    if (state.page == null) {

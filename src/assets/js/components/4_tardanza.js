@@ -3,9 +3,9 @@
 const Tardanza = (update) => {
 
 	const container = $('<div class="container"></div>');
-	const row = $('<div class="row"></div>');
-	const title = $('<h4 class="montserrat text-center">'+ state.user.Coder +', ¿Cuál es el motivo de tu tardanza?</h4>');
-	const form = $('<div class="col s12"></div>');
+	const row = $('<div class="row "></div>');
+	const title = $('<h4 class="center-align">'+ state.user.Coder +'</h4><p>, ¿Cuál es el motivo de tu tardanza?</p>');
+	const form = $('<div class="col s12 left-align"></div>');
 	const p1 = $('<p></p>');
 	const p2 = $('<p></p>');
 	const p3 = $('<p></p>');

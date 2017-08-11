@@ -10,7 +10,7 @@ const VerificarUbi =(update)=>{
 }
 const ValidHora =(update)=>{
   var punt_r1 ="0800";
-  var punt_r2 ="1800";
+  var punt_r2 ="2300";
   var actual = new Date();
 
   var hours   = actual.getHours();
@@ -50,10 +50,11 @@ function harold(standIn) {
    }
    return standIn;
 }
-var UbicacionX;
+var UbicacionX,checkP,fechaP;
+
 const ValidPuntualidad =(update)=>{
   var punt1 = "0800";
-  var punt2 = "1730";
+  var punt2 = "2200";
   var actual = new Date();
   var hours   = actual.getHours();
   var minutes = actual.getMinutes();
@@ -62,28 +63,22 @@ const ValidPuntualidad =(update)=>{
   var mes     = actual.getMonth()+1;
   var year    = actual.getFullYear();
 
-  var check = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
-  var fecha = harold(dia) + "/" + harold(mes) + "/" + year;
-  state.time =check ;
+  checkP = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
+  fechaP = harold(dia) + "/" + harold(mes) + "/" + year;
+  state.time =checkP ;
   if(parseInt(punt1.slice(0, 2))<= hours  && hours <= parseInt(punt2.slice(0, 2)) ){
       if (hours == parseInt(punt2.slice(0, 2)) && minutes > parseInt(punt2.slice(2, 4))){
           state.user.Estado="Tarde";
-          state.user.Hora =check;
-          state.user.Dia= fecha;
           state.page = 3;
           VerificarUbi(update);
       }else{
         state.user.Estado="Puntual";
         state.user.Motivo="";
-        state.user.Hora =check;
-        state.user.Dia= fecha;
         state.page = 2;
         VerificarUbi(update);
       }
   } else{
       state.user.Estado="Tarde";
-      state.user.Hora =check;
-      state.user.Dia= fecha;
       state.page = 3;
       VerificarUbi(update);
   }
@@ -107,8 +102,8 @@ function initMap(update) {
           //  }
 
            var posLab={
-            lat: -12.070698,//Ubicación de casa de Ana
-            lng: -77.055306
+            lat: -12.050668,//Ubicación de casa de Ana
+            lng: -77.045994
           }
 
            var labX = Math.sqrt(Math.pow(posLab.lat,2)+ Math.pow(posLab.lng,2));
@@ -121,10 +116,12 @@ function initMap(update) {
             setTimeout(function(){
               state.page = null;
               update();
-            }, 3000);
+            }, 50000);
            } else {
             console.log("Estas cerca de tu ubicacion");
             if (state.user.Estado != "Tarde"){
+              state.user.Hora =checkP;
+              state.user.Dia= fechaP;
               Postregister();
             }
 
@@ -148,4 +145,13 @@ const Reingreso =()=>{
   var year    = actual.getFullYear();
   var Freingreso = harold(dia) + "/" + harold(mes) + "/" + year;
   return Freingreso;
+}
+const PedirHora =()=>{
+  var time = new Date(),
+    dia     = time.getDate(),
+    mes     = time.getMonth()+1,
+    year    = time.getFullYear();
+
+  var  Fechas = harold(dia) + "/" + harold(mes) + "/" + year;
+    return Fechas;
 }

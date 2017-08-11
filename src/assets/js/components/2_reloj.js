@@ -52,7 +52,7 @@ const reloj = (update) => {
     if (Fechas != undefined && Horas!= undefined){
       clearInterval(interval);
       state.user.Estado ="Ausente";
-      state.user.Dia = Fechas;
+      // state.user.Dia = Fechas;
       state.user.Hora = Horas;
       state.page = 5;
       update();
