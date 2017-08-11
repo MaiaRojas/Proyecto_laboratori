@@ -39,7 +39,7 @@ const state = {
 
 
 $( _ => {
-    getJSON("https://sheetsu.com/apis/v1.0/8392c0c102f9",(err,json)=> {
+    getJSON("https://sheetsu.com/apis/v1.0/47e10e5a141a",(err,json)=> {
         if (err) { return alert(err.message);}
         console.log(json);
         state.data = json;
@@ -430,10 +430,7 @@ const AlePantalla = (update) => {
 
   const coderToday = [], squads = [];
 
-  function (){
-
-  }
-  $.get("https://sheetsu.com/apis/v1.0/8392c0c102f9",(data)=> {
+  $.get("https://sheetsu.com/apis/v1.0/47e10e5a141a",(data)=> {
     console.log(data);
     state.asistencia = data;
 
@@ -569,7 +566,7 @@ const VerificarUbi =(update)=>{
 }
 const ValidHora =(update)=>{
   var punt_r1 ="0000";
-  var punt_r2 ="1200";
+  var punt_r2 ="1300";
   var actual = new Date();
 
   var hours   = actual.getHours();
@@ -613,7 +610,7 @@ var UbicacionX,checkP,fechaP;
 
 const ValidPuntualidad =(update)=>{
   var punt1 = "1150";
-  var punt2 = "1200";
+  var punt2 = "1210";
   var actual = new Date();
   var hours   = actual.getHours();
   var minutes = actual.getMinutes();

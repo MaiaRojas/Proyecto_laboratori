@@ -10,7 +10,7 @@ const VerificarUbi =(update)=>{
 }
 const ValidHora =(update)=>{
   var punt_r1 ="0000";
-  var punt_r2 ="1200";
+  var punt_r2 ="1300";
   var actual = new Date();
 
   var hours   = actual.getHours();
@@ -54,7 +54,7 @@ var UbicacionX,checkP,fechaP;
 
 const ValidPuntualidad =(update)=>{
   var punt1 = "1150";
-  var punt2 = "1200";
+  var punt2 = "1210";
   var actual = new Date();
   var hours   = actual.getHours();
   var minutes = actual.getMinutes();
