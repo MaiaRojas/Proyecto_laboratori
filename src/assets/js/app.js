@@ -34,6 +34,7 @@ const update = function (){
 const state = {
   data: null,
   user: null,
+  dia: new Date()
 };
 
 
