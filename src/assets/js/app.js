@@ -2,7 +2,7 @@
 const render = (root) =>{
    root.empty();
    const section = $('<div></div>');
-   section.append(header( _ => render(root)));
+  //  section.append(header( _ => render(root)));
 
    if (state.page == null) {
     section.append(welcome( _ => render(root)));
@@ -34,6 +34,7 @@ const update = function (){
 const state = {
   data: null,
   user: null,
+  dia :new Date()
 };
 
 
