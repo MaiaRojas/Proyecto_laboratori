@@ -39,7 +39,7 @@ const state = {
 
 
 $( _ => {
-    getJSON("https://sheetsu.com/apis/v1.0/47e10e5a141a",(err,json)=> {
+    getJSON("https://sheetsu.com/apis/v1.0/c04c4ad11916",(err,json)=> {
         if (err) { return alert(err.message);}
         console.log(json);
         state.data = json;
@@ -422,6 +422,8 @@ const mensaje = (update) => {
 
 const AlePantalla = (update) => {
 
+
+
   const container_OK =$('<section class="container center-align"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;
   const cont_title =$(`<div class="title_asis left-align"><p>Buen día Alejandra</p><p> Revisa la Asistencia de Hoy : ${harold(state.dia.getDate()) + "/" + harold((state.dia.getMonth() +1)) + "/" + harold(state.dia.getFullYear())}</p> </div>`) ;
@@ -430,7 +432,7 @@ const AlePantalla = (update) => {
 
   const coderToday = [], squads = [];
 
-  $.get("https://sheetsu.com/apis/v1.0/47e10e5a141a",(data)=> {
+  $.get("https://sheetsu.com/apis/v1.0/c04c4ad11916",(data)=> {
     console.log(data);
     state.asistencia = data;
 
@@ -490,13 +492,6 @@ const AlePantalla = (update) => {
       });
   })
 
-  function Actualiza(){
-    state.page=8;
-    update();
-  }
-
-  setInterval(Actualiza,30000);
-
  return container_OK ;
 }
 
@@ -549,7 +544,7 @@ const getJSON = (url, cb) => {
 'use strict';
 const Postregister =(update)=>{
 
-  $.post("https://sheetsu.com/apis/v1.0/47e10e5a141a", {"Coder":state.user.Coder,"Email":state.user.Email,"Codigo":state.user.Codigo,"Squad":state.user.Squad,"Tipo":state.user.Tipo,"Dia":state.user.Dia,"Hora":state.user.Hora,"Estado":state.user.Estado,"Motivo":state.user.Motivo,"Sede":state.user.Sede}, function(result){
+  $.post("https://sheetsu.com/apis/v1.0/c04c4ad11916", {"Coder":state.user.Coder,"Email":state.user.Email,"Codigo":state.user.Codigo,"Squad":state.user.Squad,"Tipo":state.user.Tipo,"Dia":state.user.Dia,"Hora":state.user.Hora,"Estado":state.user.Estado,"Motivo":state.user.Motivo,"Sede":state.user.Sede}, function(result){
       console.log("Enviando Data");
   });
 };
@@ -566,7 +561,7 @@ const VerificarUbi =(update)=>{
 }
 const ValidHora =(update)=>{
   var punt_r1 ="0000";
-  var punt_r2 ="1300";
+  var punt_r2 ="1400";
   var actual = new Date();
 
   var hours   = actual.getHours();
@@ -610,7 +605,7 @@ var UbicacionX,checkP,fechaP;
 
 const ValidPuntualidad =(update)=>{
   var punt1 = "1150";
-  var punt2 = "1210";
+  var punt2 = "1250";
   var actual = new Date();
   var hours   = actual.getHours();
   var minutes = actual.getMinutes();

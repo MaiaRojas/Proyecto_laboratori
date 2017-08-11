@@ -1,6 +1,8 @@
 
 const AlePantalla = (update) => {
 
+
+
   const container_OK =$('<section class="container center-align"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;
   const cont_title =$(`<div class="title_asis left-align"><p>Buen día Alejandra</p><p> Revisa la Asistencia de Hoy : ${harold(state.dia.getDate()) + "/" + harold((state.dia.getMonth() +1)) + "/" + harold(state.dia.getFullYear())}</p> </div>`) ;
@@ -9,7 +11,7 @@ const AlePantalla = (update) => {
 
   const coderToday = [], squads = [];
 
-  $.get("https://sheetsu.com/apis/v1.0/47e10e5a141a",(data)=> {
+  $.get("https://sheetsu.com/apis/v1.0/c04c4ad11916",(data)=> {
     console.log(data);
     state.asistencia = data;
 
@@ -68,13 +70,6 @@ const AlePantalla = (update) => {
           });
       });
   })
-
-  function Actualiza(){
-    state.page=8;
-    update();
-  }
-
-  setInterval(Actualiza,30000);
 
  return container_OK ;
 }
