@@ -9,8 +9,8 @@ const VerificarUbi =(update)=>{
   initMap(update);
 }
 const ValidHora =(update)=>{
-  var punt_r1 ="0800";
-  var punt_r2 ="2300";
+  var punt_r1 ="0000";
+  var punt_r2 ="0900";
   var actual = new Date();
 
   var hours   = actual.getHours();
@@ -53,8 +53,8 @@ function harold(standIn) {
 var UbicacionX,checkP,fechaP;
 
 const ValidPuntualidad =(update)=>{
-  var punt1 = "0800";
-  var punt2 = "2200";
+  var punt1 = "0000";
+  var punt2 = "0130";
   var actual = new Date();
   var hours   = actual.getHours();
   var minutes = actual.getMinutes();
@@ -124,7 +124,8 @@ function initMap(update) {
               state.user.Dia= fechaP;
               Postregister();
             }
-
+            state.user.Hora =checkP;
+            state.user.Dia= fechaP;
             update();
            }
 

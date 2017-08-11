@@ -2294,3 +2294,49 @@ a.waves-effect.waves-light.btn.col.s12.montserrat {
 .enlace {
   margin-top: 10%;
 }
+
+.flex_center {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title_squad {
+  width: 100%;
+}
+
+.collapsible {
+  box-shadow: none !important;
+  padding-bottom: 0 !important;
+  border: 1px solid #CB9513;
+}
+
+div.detail_coder {
+  width: 90px;
+  margin: 2px;
+  display: inline-block;
+}
+
+div.detail_coder p {
+  font-size: 10px;
+}
+
+.collapsible-body {
+  padding: 1rem;
+}
+
+.img-responsive {
+  width: 100% !important;
+  height: auto !important;
+}
+
+.Puntual {
+  background-color: #95DB49;
+}
+
+.Tarde {
+  background-color: #F8C341;
+}
+
+.Ausente {
+  background-color: #E1E1E1;
+}

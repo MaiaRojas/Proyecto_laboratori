@@ -419,13 +419,15 @@ const mensaje = (update) => {
   return container_msm ;
 }
 
+
 const AlePantalla = (update) => {
 
   const container_OK =$('<section class="container center-align"></section>');
   const cont_asisOK =$('<div class="row"></div>') ;
-  const cont_title =$(`<div class="title_asis"> Revisa la Asistencia de Hoy : ${harold(state.dia.getDate()) + "/" + harold((state.dia.getMonth() +1)) + "/" + harold(state.dia.getFullYear())} </div>`) ;
+  const cont_title =$(`<div class="title_asis left-align"><p>Buen día Alejandra</p><p> Revisa la Asistencia de Hoy : ${harold(state.dia.getDate()) + "/" + harold((state.dia.getMonth() +1)) + "/" + harold(state.dia.getFullYear())}</p> </div>`) ;
   const detalle_squads = $(`<div id="coders"></div>`)
   container_OK.append(cont_asisOK,cont_title,detalle_squads);
+
   const coderToday = [], squads = [];
 
 
@@ -449,8 +451,13 @@ const AlePantalla = (update) => {
     let ausentes = 0, puntuales = 0, tarde = 0;
 
     $.each(squads,(i,e)=>{
-      const divSquad = $(`<div id =${e}></div>`);
-      const title = $(`<h4>${e}</h4>`);
+      const divSquad = $(`<ul class="collapsible" data-collapsible="expandable" id =${e}></ul>`);
+      const li =$('<li></li>');
+      const divHeader =$('<div class="collapsible-header"></div>');
+      const divBody =$('<div class="collapsible-body"></div>');
+      const title = $(`<div class="title_squad"><h4 class="left-align">${e}</h4></div>`);
+      const bodyCase =$('<div class="flex_center"></div>');
+      title.append(bodyCase);
         coderToday.forEach(function(coder){
             if(e == coder.Squad){
                 switch (coder.Estado) {
@@ -462,16 +469,18 @@ const AlePantalla = (update) => {
                    break;
                 }
                 console.log(coder);
-                detalle(coder, divSquad);
+                detalle(coder, divBody);
               }
 
           });
 
           detalle_squads.append(divSquad);
-          divSquad.prepend(title);
-          title.append(`<span>  Ausente - ${ausentes}</span>`)
-          title.append(`<span>  Puntual - ${puntuales}</span>`)
-          title.append(`<span>  Tarde - ${tarde}</span>`)
+          divSquad.prepend(li);
+          li.append(divHeader ,divBody);
+          divHeader.append(title)
+          bodyCase.append(`<div class="sizedetail"><p class="Ausente">Ausente </p><p>${ausentes}</p></div>`);
+          bodyCase.append(`<div class="sizedetail"><p class="Puntual">Puntual </p><p> ${puntuales}</p></div>`);
+          bodyCase.append(`<div class="sizedetail"><p class="Tarde">Tarde </p><p> ${tarde}</p></div>`);
           ausentes = 0;
           puntuales = 0;
           tarde = 0;
@@ -481,10 +490,20 @@ const AlePantalla = (update) => {
 }
 
 const detalle = (coder, container)=> {
-   const spanCoder = $(`<h5>${coder.Coder}</h5>`);
-   const spanEstado = $(`<span>${coder.Estado}</span>`)
-  container.append(spanCoder,spanEstado);
+   const divImg =$('<div class="detail_coder"></div>');
+   const imgCoder =$(`<img src="assets/img/${coder.Codigo}.jpg"  class="img-responsive" alt="foto">`)
+   const spanCoder = $(`<p>${coder.Coder}</p>`);
+   const spanEstado = $(`<span class="${coder.Estado}">${coder.Estado}</span>`);
+   container.append(divImg);
+   divImg.append(imgCoder,spanCoder,spanEstado);
 }
+$( _ => {
+    $('.collapsible').collapsible({
+      accordion: false, // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+      onOpen: function(el) { alert('Open'); }, // Callback for Collapsible open
+      onClose: function(el) { alert('Closed'); } // Callback for Collapsible close
+    });
+  });
 
 'use strict';
 
@@ -537,8 +556,8 @@ const VerificarUbi =(update)=>{
   initMap(update);
 }
 const ValidHora =(update)=>{
-  var punt_r1 ="0800";
-  var punt_r2 ="2300";
+  var punt_r1 ="0000";
+  var punt_r2 ="0900";
   var actual = new Date();
 
   var hours   = actual.getHours();
@@ -581,8 +600,8 @@ function harold(standIn) {
 var UbicacionX,checkP,fechaP;
 
 const ValidPuntualidad =(update)=>{
-  var punt1 = "0800";
-  var punt2 = "2200";
+  var punt1 = "0000";
+  var punt2 = "0130";
   var actual = new Date();
   var hours   = actual.getHours();
   var minutes = actual.getMinutes();
@@ -652,7 +671,8 @@ function initMap(update) {
               state.user.Dia= fechaP;
               Postregister();
             }
-
+            state.user.Hora =checkP;
+            state.user.Dia= fechaP;
             update();
            }
 
