@@ -55,7 +55,7 @@ var UbicacionX,checkP,fechaP;
 
 const ValidPuntualidad =(update)=>{
   var punt1 = "0000";
-  var punt2 = "1030";
+  var punt2 = "0930";
   var actual = new Date();
   var hours   = actual.getHours();
   var minutes = actual.getMinutes();
