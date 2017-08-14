@@ -55,7 +55,7 @@ var UbicacionX,checkP,fechaP;
 
 const ValidPuntualidad =(update)=>{
   var punt1 = "0000";
-  var punt2 = "0930";
+  var punt2 = "1030";
   var actual = new Date();
   var hours   = actual.getHours();
   var minutes = actual.getMinutes();
@@ -97,10 +97,14 @@ function initMap(update) {
 
           console.log(pos);
           var posX = Math.sqrt(Math.pow(pos.lat,2)+ Math.pow(pos.lng,2));
-            var posLab={
-             lat: -12.126025,
-             lng: -77.020663
-           }
+          //   var posLab={
+          //    lat: -12.126025,
+          //    lng: -77.020663
+          //  }
+           var posLab={
+            lat: -12.0507126,
+            lng: -77.045422
+          }
 
            var labX = Math.sqrt(Math.pow(posLab.lat,2)+ Math.pow(posLab.lng,2));
            var distancia= (Math.abs(labX-posX))*1000;

@@ -42,8 +42,9 @@ const reloj = (update) => {
  var interval = setInterval(clock, 1000);
 
  btn_present.on('click', (e) =>{
-     clearInterval(interval);
     e.preventDefault();
+
+    clearInterval(interval);
     ValidPuntualidad(update);
  });
 
