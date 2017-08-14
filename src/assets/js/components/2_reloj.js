@@ -3,7 +3,7 @@ const reloj = (update) => {
 
   const cont_reloj =$('<section class="container cont_timer"></section>');
   const cont_title =$('<div class="welcome"></div>') ;
-  const title =$('<p>Bienvenida <strong>'+ state.user.Coder +'</strong></p>');
+  const title =$('<p>Bienvenida(o) <strong>'+ state.user.Coder +'</strong></p>');
   cont_title.append(title);
   cont_reloj.append(cont_title);
 
