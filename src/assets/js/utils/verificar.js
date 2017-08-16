@@ -86,106 +86,62 @@ const ValidPuntualidad =(update)=>{
 }
 
 
-// function initMap(update) {
-//        var pos;
-//        if (navigator.geolocation) {
-//          navigator.geolocation.getCurrentPosition(function(position) {
-//             pos = {
-//              lat: position.coords.latitude,
-//              lng: position.coords.longitude
-//            };
-//
-//           console.log(pos);
-//           var posX = Math.sqrt(Math.pow(pos.lat,2)+ Math.pow(pos.lng,2));
-//             var posLab={
-//              lat: -12.126025,
-//              lng: -77.020663
-//            }
-//           //  var posLab={
-//           //   lat: -12.0507126,
-//           //   lng: -77.045422
-//           // }
-//
-//
-//            var labX = Math.sqrt(Math.pow(posLab.lat,2)+ Math.pow(posLab.lng,2));
-//            var distancia= (Math.abs(labX-posX))*1000;
-//            var RadioWork =0.002429195*1000 ;
-//
-//            if(distancia >= RadioWork ){
-//             console.log("Aun no estas en laboratoria");
-//             $('#msjError').text("Aún no estas en Laboratoria , vuelve a registrarte cuando llegues");
-//             setTimeout(function(){
-//               state.page = null;
-//               update();
-//             }, 3000);
-//            } else {
-//             console.log("Estas cerca de tu ubicacion");
-//             if (state.user.Estado != "Tarde"){
-//               state.user.Hora =checkP;
-//               state.user.Dia= fechaP;
-//               Postregister();
-//             }
-//             state.user.Hora =checkP;
-//             state.user.Dia= fechaP;
-//             update();
-//            }
-//
-//          });
-//
-//        } else {
-//          $('#msjError').text("Tu navegador no soporta la geolocalización");
-//          setTimeout(function(){
-//            state.page = null;
-//            update();
-//          }, 3000);
-//        }
-// }
 function initMap(update) {
-      var pos;
-      if ("geolocation" in navigator) {
-        navigator.geolocation.watchPosition(function(position) {
-           pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-         var posX = Math.sqrt(Math.pow(pos.lat,2)+ Math.pow(pos.lng,2));
-         var posLab={ lat: -12.126025,
-                        lng: -77.020663
-                      }
+       var pos;
+       if (navigator.geolocation) {
+         navigator.geolocation.getCurrentPosition(function(position) {
+            pos = {
+             lat: position.coords.latitude,
+             lng: position.coords.longitude
+           };
 
-          var labX = Math.sqrt(Math.pow(posLab.lat,2)+ Math.pow(posLab.lng,2));
-          var distancia= (Math.abs(labX-posX))*1000;
-          var RadioWork =0.002429195*1000 ;
+          console.log(pos);
+          var posX = Math.sqrt(Math.pow(pos.lat,2)+ Math.pow(pos.lng,2));
+            var posLab={
+             lat: -12.126025,
+             lng: -77.020663
+           }
+          //  var posLab={
+          //   lat: -12.0507126,
+          //   lng: -77.045422
+          // }
 
-          if(distancia >= RadioWork ){
-           console.log("Aun no estas en laboratoria");
-           $('#msjError').text("Aún no estas en Laboratoria , vuelve a registrarte cuando llegues");
-           setTimeout(function(){
-             state.page = null;
-             update();
-           }, 3000);
+
+           var labX = Math.sqrt(Math.pow(posLab.lat,2)+ Math.pow(posLab.lng,2));
+           var distancia= (Math.abs(labX-posX))*1000;
+           var RadioWork =0.002429195*1000 ;
+
+           if(distancia >= RadioWork ){
+            console.log("Aun no estas en laboratoria");
+            $('#msjError').text("Aún no estas en Laboratoria , vuelve a registrarte cuando llegues");
+            setTimeout(function(){
+              state.page = null;
+              update();
+            }, 3000);
            } else {
-             console.log("Estas cerca de tu ubicacion");
-             if (state.user.Estado != "Tarde"){
-               state.user.Hora =checkP;
-               state.user.Dia= fechaP;
-               Postregister();
-             }
-           state.user.Hora =checkP;
-           state.user.Dia= fechaP;
+            console.log("Estas cerca de tu ubicacion");
+            if (state.user.Estado != "Tarde"){
+              state.user.Hora =checkP;
+              state.user.Dia= fechaP;
+              Postregister();
+            }
+            state.user.Hora =checkP;
+            state.user.Dia= fechaP;
+            update();
+           }
+
+         });
+
+       } else {
+         $('#msjError').text("Tu navegador no soporta la geolocalización");
+         setTimeout(function(){
+           state.page = null;
            update();
-          }
-
-        });
-
-      } else {
-        $('#msjError').text("Tu navegador no soporta la geolocalización");
-        setTimeout(function(){
-          state.page = null;
-          update();
-        }, 3000);
-      }
+         }, 3000);
+       }
 }
+
+
 const Reingreso =()=>{
   var actual = new Date();
   var dia     = actual.getDate();
