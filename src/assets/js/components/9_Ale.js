@@ -20,7 +20,7 @@ const AlePantalla = (update) => {
 
   const coderToday = [], squads = [];
 
-  $.get("https://sheetsu.com/apis/v1.0/1acf2e7e65e6",(data)=> {
+  $.get("https://sheetsu.com/apis/v1.0/50c5e101da79",(data)=> {
     console.log(data);
     state.asistencia = data;
 

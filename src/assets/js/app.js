@@ -39,7 +39,7 @@ const state = {
 
 
 $( _ => {
-    getJSON("https://sheetsu.com/apis/v1.0/1acf2e7e65e6",(err,json)=> {
+    getJSON("https://sheetsu.com/apis/v1.0/50c5e101da79",(err,json)=> {
         if (err) { return alert(err.message);}
         console.log(json);
         state.data = json;
